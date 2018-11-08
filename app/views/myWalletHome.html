@@ -1,0 +1,65 @@
+<div class="container" style="padding-top: 50px;">
+
+  <div id="login">
+      <h1 style="text-align: center">Login Your Wallet</h1>
+    
+      <form style="padding-top: 20px;" ng-submit="submitLoginWallet()" >
+
+        <div class="row">
+
+          <div class="col-md-2" ></div>
+          <div class="col-md-4" style="border-right: #999 solid 1px;" >
+            <h4>Keystore / JSON File</h4>
+            <input class="form-control" type="file" id="lgksd" file="keystore_file" ng-model="keystore" style="width: 240px !important; height: 50px; background: #ddd; border: none; padding: 10px 20px; cursor: pointer;" />
+            <h4>Password</h4>
+            <input class="form-control" type="password" style="width: 240px !important;" ng-model="password" placeholder="password" >
+          </div>
+
+          <div class="col-md-1" ></div>
+          <div class="col-md-4">
+            <h4><span style="color: #aaa;">or</span> Private Key</h4>
+            <textarea class="form-control" rows="2" style="display: inline-block; width: 300px; " placeholder="Private Key" ng-model="prikey" ></textarea>
+          </div>
+
+        </div>
+
+
+        <br/><br/>
+        <button type="submit" class="btn btn-primary" style=" display: block; width: 40%; margin-left: 30%; padding-left: 30px; padding-right: 30px;">Login</button>
+    
+      </form>
+      
+  </div>
+
+  <div id="home" style="display: none;">
+      <h3 style="text-align: left">Welcome! <span style="margin-left: 20px; color: #999; font-size: 20px;">Your Wallet:</span></h3>
+      <div style="border: 1px solid #ddd; border-radius: 6px; padding: 10px 20px;">
+        <span class="addr" style="color:darkcyan"></span>
+        <span style="margin-left: 20px;">balance:</span>
+        <b class="bls" style="color: chocolate"></b>
+        <span style="margin-left: 5px;">UUU</span>
+
+        <button class="btn btn-danger btn-xs" style="float: right;" title="logout my wallet" ng-click="logoutWallet()">Exit ➤</button>
+      </div>
+
+      <hr/>
+
+      <div class="transfer">
+        <form style="padding-top: 20px;" ng-submit="doSendCoin()" >
+          <h4>Send UUU</h4>
+          <h6>To Address</h6>
+          <input type="text" class="form-control tsadr" style="padding: 5px 10px; border-radius: 4px;" placeholder="address" ng-model="address" required />
+          <h6>Amount to Send</h6>
+          <input type="text" class="form-control tsamt" style="padding: 5px 10px; border-radius: 4px;" placeholder="amount" ng-model="amount" required />
+          <div style="padding-top: 20px;">
+            <button type="submit" class="btn btn-info" style="" title="" >Do Send</button>
+          </div>
+        </form>
+      </div>
+    
+
+  </div>
+
+
+
+</div>

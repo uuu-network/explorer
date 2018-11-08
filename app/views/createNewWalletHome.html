@@ -1,0 +1,55 @@
+<div class="container" style="padding-top: 50px;">
+
+  <div id="create" style="">
+
+      <h1 style="text-align: center">Create New UNetwork Wallet</h1>
+
+      <form style="text-align: center; padding-top: 20px;" ng-submit="submitCreateWallet()" >
+        <br/>
+        <div class="form-group">
+          <label for="passwd">Enter a password <small style="color: #999">(at least 8 characters)</small></label>
+          <div style="text-align: center;">
+            <input style="display: inline-block; vertical-align: middle;" type="password" class="form-control" id="passwd" required ng-model="passwd" placeholder="Do NOT forget to save this!">
+            <div ng-click="showPass()" style="cursor: pointer; display: inline-block; vertical-align: middle; width: 60px; height: 32px; padding: 6px 20px; background: #ddd">
+              <span style="display: block; width: 20px; height: 20px; background: url(styles/images/icon-eye-closed.svg)">
+              </span>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary btn-lg">Submit to Create</button>
+      </form>
+    
+      <p style="text-align: center; padding-top: 80px;">
+        This password encrypts your private key. This does not act as a seed to generate your keys. <br/>
+        <b>You will need this password + your private key to unlock your wallet.</b>
+      </p>
+  
+  </div>
+
+
+  <div id="save"  style="display: none; text-align: center">
+
+      <h1 style="text-align: center">Create Successfully !  <span style="color: #999; margin-left: 20px; font-size: 20px;">you must:</span><br/><br/></h1>
+      <h2 style="text-align: center">1. Remember your 
+        <span style="color:tomato">Password</span>.
+      </h2>
+      <h2 style="text-align: center">2. Save your <span style="color:tomato">Keystore</span> File. <br/><br/></h2>
+      <a href="#" target="_blank" class="download"><button type="submit" class="btn btn-primary btn-lg">Download Keystore File (UTC / JSON)</button></a>
+      <p style="text-align: center; color: #999;"><br/><br/>**Do not lose it!** It cannot be recovered if you lose it.<br/>
+          **Do not share it!** Your funds will be stolen if you use this file on a malicious/phishing site.<br/>
+          **Make a backup!** Secure it like the millions of dollars it may one day be worth.<br/><br/></p>
+      <hr/>
+      <h2 style="text-align: center">3. Save Your <span style="color:tomato">Private Key</span>.<br/></h2>
+      <textarea class="form-control" rows="3" style="display: inline-block; width: 600px; " readonly>asdfasdfasdgasdfga</textarea><br/>
+      <p class="bg-danger" style="display: inline-block; padding: 4px; margin-top: 20px; width: 400px;">
+        Do not lose them!  Do not share them! Make a backup!
+      </p>
+      <hr/>
+      <a href="/#/mywallet" style="margin-right: 20px; text-decoration: none">
+        <button class="btn btn-link btn-lg walogbtn" style="padding-left: 30px; padding-right: 30px;" title="go to login my wallet">Continue, Go to login my wallet ➤</button>
+      </a>
+  </div>
+
+
+</div>
