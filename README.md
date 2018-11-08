@@ -1,4 +1,4 @@
-# UNetwork Explorer (Opensource)
+# UNetwork Explorer
 
 Nodejs UNetwork Explorer
 
