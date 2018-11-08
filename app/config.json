@@ -1,4 +1,4 @@
 {
-  "rpcUrl" : "http://127.0.0.1:8545",
+  "rpcUrl" : "http://127.0.0.1:9147",
   "ipcFile" : "/home/yangjie/.ethereum/unetwork.ipc"
 }
