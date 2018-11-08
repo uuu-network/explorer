@@ -1,12 +1,12 @@
-# UNetwork Explorer
+# U Network Explorer
 
-Nodejs UNetwork Explorer
+U Network Explorer (Nodejs Verision)
 
 Features: 
 
-1. Urls compatible with Etherscan
+1. Urls compatible with U Network Exploer
 2. Smart-Contract Code Detection
-3. API compatible with Etherscan (in progress)
+3. API compatible with U Network Exploer (in progress)
 
 
 ## License
