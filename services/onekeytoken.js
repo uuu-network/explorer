@@ -161,17 +161,12 @@ module.exports = ($scope) => {
       })
       .on('transactionHash', function(transactionHash){ 
         // console.log('transactionHash', transactionHash)
-        db.onekeytokenmines.update({
-          address: accobj.address,
-        }, {
-          transactionHash: transactionHash,
-        })
       })
       .on('receipt', function(receipt){
         // console.log('receipt', receipt.contractAddress) // contains the new contract address
-        db.onekeytokenmines.update({
+        db.onekeytokenmines.save({
           address: accobj.address,
-        }, {
+          symbol: query.symbol,
           // blockHash: receipt.blockHash,
           // blockNumber: receipt.blockNumber,
           contractAddress: receipt.contractAddress,
@@ -189,11 +184,6 @@ module.exports = ($scope) => {
       });
       
       // console.log(result)
-
-      db.onekeytokenmines.save({
-        address: accobj.address,
-        symbol: query.symbol,
-      })
 
       cb(null, {
         status: 'ok'
