@@ -313,13 +313,13 @@ angular.module('unetworkExplorer')
         return alert('symbol, name and total is required')
       }
       if( !/[A-Z]{1,12}/.test(symbol) ){
-        return alert('symbol format is only upper case, max length is 12')
+        return alert('symbol is only upper case, length must be less than 12')
       }
       if( name.length > 64 ){
-        return alert('name length max is 64')
+        return alert('name length must be less than 64')
       }
-      if( !/^-?\d+$/.test(total) ){
-        return alert('total max is 1000000000000 and min is 1, only integer')
+      if( !/^-?\d+$/.test(total) || parseInt(total)>1000000000000 ){
+        return alert('total supply must be between 1 and 1000000000000, only integer')
       }
       // post
       var param = {
