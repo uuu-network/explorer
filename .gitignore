@@ -123,3 +123,6 @@ app/divshot.json
 
 *.keystore
 package-lock.json
+
+
+diskdb/*
