@@ -34,7 +34,7 @@ angular.module('unetworkExplorer')
                     		$scope.from = result.from;
                     		$scope.gas = result.gas;
 				                $scope.gasUsed = resultReceipt.gasUsed;
-                    		$scope.gasPrice = result.gasPrice.c[0] + " WEI";
+                    		$scope.gasPrice = result.gasPrice.c[0] + ""; // Wei
                     		$scope.hash = result.hash;
                     		$scope.input = result.input; // that's a string
                     		$scope.nonce = result.nonce;
