@@ -18,6 +18,7 @@ angular.module('unetworkExplorer')
 
     var login = $('#login')
     var home = $('#home')
+    var transferConfirmationModal = $('#transferConfirmationModal')
 
 
     function turnToHome(acc){
@@ -25,6 +26,30 @@ angular.module('unetworkExplorer')
       home.find('.bls').text(acc.balance)
       login.hide();
       home.show();
+
+      $.get('/api', {
+        module: 'onekeytoken',
+        action: 'mines',
+      }, function(data, status){
+        $scope.$apply(function(){
+          var empty = $('ul.tksmine').next()
+          // console.log(data.result)
+          if(data && data.result && data.result.datas && data.result.datas.length>0){
+            $scope.minetks = data.result.datas;
+            empty.hide()
+          }else{
+            // $scope.minetks = []
+            empty.show()
+          }
+        })
+      })
+
+      updateShowWallets()
+
+
+      // $scope.minetks = [{},{},{}]
+      // $scope.wallettks = [{},{},{}]
+      
     }
 
     // check login
@@ -40,6 +65,115 @@ angular.module('unetworkExplorer')
         // alert('not login')
       }
     })
+
+
+    function updateShowWallets() {
+
+      $.get('/api', {
+        module: 'onekeytoken',
+        action: 'wallets',
+      }, function(data, status){
+        var empty = $('ul.tkswallet').next()
+        $scope.$apply(function(){
+          // console.log(data.result)
+          if(data && data.result && data.result.datas && data.result.datas.length>0){
+            $scope.wallettks = data.result.datas;
+            empty.hide()
+          }else{
+            // $scope.minetks = []
+            empty.show()
+          }
+        })
+      })
+    }
+
+
+    function showTokenTransferModal(tkobj)
+    {
+      // $scope.$apply(function(){
+      $scope.trstkdlg = tkobj
+      // })
+      var modal = $('#tokenTransferModal')
+      modal.modal()
+    }
+
+
+    $scope.clickTokenTransferBtn = function(tkobj) {
+      showTokenTransferModal(tkobj)
+    }
+
+    $scope.confirmTransferToken = function(tkobj) {
+      var addr = $scope.trstk_address
+      var amount = parseFloat($scope.trstk_amount)
+      // console.log(addr.length)
+      // console.log(tkobj)
+      // console.log(addr)
+      // console.log(amount)
+      if(addr.length !== 42 || addr.indexOf('0x') !== 0){
+        return alert('account address format is error')
+      }
+      if(!amount || amount <= 0 || amount > parseFloat(tkobj.balance)){
+        return alert('amount is error: not more than '+tkobj.balance+' or less than 0')
+      }
+
+      $.post('/papi', {
+        module: 'onekeytoken',
+        action: 'transfer',
+        contractAddress: tkobj.contractAddress,
+        to: addr,
+        amount: amount,
+      }, function(data, status){
+        var res = data.result
+        if( res && res.err ){
+          return alert('Query Error: ' + res.msg)
+        }
+        $scope.$apply(function(){
+          $scope.trstk_address = $scope.trstk_amount = ''
+          $('#tokenTransferModal').modal('hide')
+          $scope.trshashcfmt = res.trshash
+          transferConfirmationModal.modal()
+          setTimeout(()=>{
+            transferConfirmationModal.modal('hide')
+          }, 60000)
+          // alert('Transfer Successfully! Wait Confirmation.')
+        })
+      })
+
+
+    }
+
+
+  
+
+
+    $scope.queryTokenBalance = function() {
+      var addr = $scope.contractAddress
+      if( ! /0x[A-Za-z0-9]{20}/.test(addr) ){
+        return alert('token contract address format is error')
+      }
+
+      $.get('/api', {
+        module: 'onekeytoken',
+        action: 'getBalance',
+        contractAddress: addr,
+      }, function(data, status){
+        var res = data.result
+        if( res && res.err ){
+          return alert('Query Error: ' + res.msg)
+        }
+        res.addr = addr
+        $scope.$apply(function(){
+          $scope.qtbr = res
+          $scope.contractAddress = ''
+          updateShowWallets()
+        })
+        $('#queryBalanceModal').modal()
+        // setTimeout(updateShowWallets, 2000)
+        // alert('token address: '+addr+'\n\n'+'Your Balance is '+res.balance+' '+res.symbol)
+        // location.reload()
+      })
+
+    }
 
 
     $scope.doSendCoin = function() {
@@ -61,9 +195,16 @@ angular.module('unetworkExplorer')
             }
             return
           }
-          console.log(d)
-          alert('Send Successfully! Wait Confirmation.')
-          location.reload()
+          $scope.$apply(function(){
+            // console.log(d)
+            $scope.address = $scope.amount = ''
+            $scope.trshashcfmt = d.trshash
+            transferConfirmationModal.modal()
+            // alert('Send Successfully! Wait Confirmation.')
+            setTimeout(()=>{
+              location.reload()
+            }, 60000)
+          })
         }
 
 
@@ -157,9 +298,77 @@ angular.module('unetworkExplorer')
         // console.log(status)
       }
 
+    }
+
+
+
+
+    $scope.oneKeyGenerateToken = function() {
+
+      var modal = $('#generateMyTokenModal')
+      , symbol = modal.find('input.symbol').val()
+      , name = modal.find('input.name').val()
+      , total = modal.find('input.total').val()
+      if( !symbol || !name || !total ){
+        return alert('symbol, name and total is required')
+      }
+      if( !/[A-Z]{1,12}/.test(symbol) ){
+        return alert('symbol format is only upper case, max length is 12')
+      }
+      if( name.length > 64 ){
+        return alert('name length max is 64')
+      }
+      if( !/[0-9]{1,12}/.test(total) ){
+        return alert('total max is 1000000000000')
+      }
+      // post
+      var param = {
+        module: 'onekeytoken',
+        action: 'generate',
+        symbol: symbol,
+        name: name,
+        total: total,
+      }
+      // console.log(param)
+      $.post('/papi', param, function (data, status){
+        // console.log(data.result)
+        if(data.result.err){
+          return alert('Generate Error: ' + data.result.msg)
+        }
+        confirmGenerate()
+      })
+
+      function confirmGenerate(){
+        // alert('Generate Successfully')
+        modal.modal('hide')
+        var confirmationModal = $('#generateConfirmationModal')
+        confirmationModal.modal({backdrop: false})
+        var progressBar = confirmationModal.find('.progress-bar')
+        , miao = 39, sec = 1
+        , itvl = setInterval( ()=>{
+          var per = parseInt(sec/miao*100)+'%'
+          progressBar.width(per)
+          progressBar.text(per)
+          if(sec >= miao){
+            clearInterval(itvl)
+            confirmationModal.modal('hide')
+            return location.reload()
+          }
+          sec ++
+        }, 1000 )
+      }
 
 
     }
+
+
+
+
+
+
+
+
+
 
 
   })

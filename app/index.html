@@ -7,7 +7,7 @@
   <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>UNetwork Block Explorer</title>
+  <title>U Network Block Explorer && Wallet</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles/bootstrap.min.css">
@@ -20,7 +20,7 @@
 <nav class="navbar navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <span class="icon-bar"></span><a href="/#/" class="navbar-brand">UNetwork Chain</a>
+            <span class="icon-bar"></span><a href="/#/" class="navbar-brand">U Network</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -40,7 +40,6 @@
   <div ng-view></div>
 
 <!--Libs-->
-
   <script src="styles/angular1.4.5.min.js"></script>
   <script src="styles/angular-cookies1.4.5.min.js"></script>
   <script src="styles/ui-bootstrap.min.js"></script>
@@ -48,6 +47,7 @@
   <script src="styles/jquery.min.js"></script>
   <script src="styles/jquery.cookie.min.js"></script>
   <script src="styles/bootstrap.min.js"></script>
+
 <!--Core-->
   <script src="app.js"></script>
 
@@ -59,33 +59,33 @@
   <script src="scripts/controllers/myWalletHomeController.js"></script>
   <script src="scripts/controllers/createNewWalletController.js"></script>
 
-  <!--Services-->
-    <div id="connectwarning" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+<!--Services-->
+  <div id="connectwarning" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <center><div class="modal-header">
-                    <h4 class="modal-title">Allow Access to UNetwork and Refresh the Page</h4>
-                </div>
-                <div class="modal-body">
-                    <code><p id="modaltext"></p></code>
-                </div></center>
-            </div>
-        </div>
-    </div>
+          <!-- Modal content-->
+          <div class="modal-content">
+              <center><div class="modal-header">
+                  <h4 class="modal-title">Allow Access to UNetwork and Refresh the Page</h4>
+              </div>
+              <div class="modal-body">
+                  <code><p id="modaltext"></p></code>
+              </div></center>
+          </div>
+      </div>
+  </div>
 
 
-<div class="footer">
-    <footer>
-        <hr>
-        <p>
-            © U.network 2018
-        </p>
-    </footer>
-</div>
-<script>
-$("#modaltext").text( 'unetwork node start --ethparam "--rpc --rpccorsdomain '+ window.location.protocol + '//' + window.location.host + '"' );
-</script>
+  <div class="footer">
+      <footer>
+          <hr>
+          <p>
+              © U.network 2018
+          </p>
+      </footer>
+  </div>
+  <script>
+    $("#modaltext").text( 'unetwork node start --ethparam "--rpc --rpccorsdomain '+ window.location.protocol + '//' + window.location.host + '"' );
+  </script>
 </body>
 </html>

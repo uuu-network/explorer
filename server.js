@@ -60,7 +60,7 @@ var web3 = require('./web3.js');
   };
   */
 
-  moduleNames = ['account', 'wallet', 'transaction']
+  moduleNames = ['account', 'wallet', 'transaction', 'onekeytoken']
   modules = {}
   for (const i in moduleNames) {
     const li = moduleNames[i]

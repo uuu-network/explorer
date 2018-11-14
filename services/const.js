@@ -11,6 +11,28 @@ exports.walletPublicKeyCryptCookieName = 'wltpkcrpt'
 /////////// function ///////////
 
 
+exports.checkLoginForApi = (web3, req, cb) => {
+
+  var address = exports.checkLogin(req)
+  if(!address){
+    cb({err: 1, msg: 'you must login first'});
+    return 
+  }
+  var accobj = web3.eth.accounts.wallet[address]
+  if( ! accobj){
+    cb({err: 1, msg: 'you must login first'});
+    return
+  }
+
+  return accobj
+
+}
+
+
+
+
+
+
 // express cookie
 exports.checkLogin = (req) => {
   const ckstuff = req.cookies[exports.walletPublicKeyCryptCookieName]

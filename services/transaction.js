@@ -40,8 +40,8 @@ module.exports = ($scope) => {
         from: address,
         to: query.to,
         value: query.amount,
-        gas: 500000,
-        gasPrice: 0,
+        gas: 3000000,
+        gasPrice: 1,
         chainId: 5816,
       },
       function(err, result){
@@ -50,7 +50,10 @@ module.exports = ($scope) => {
             return cb({err: 2, msg: err})
           }
           // console.log("#" + result + "#")
-          cb(null, result)
+          // console.log(result)
+          cb(null, {
+            trshash: result
+          })
       })
     
     }
