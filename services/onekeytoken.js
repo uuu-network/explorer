@@ -24,7 +24,7 @@ module.exports = ($scope) => {
         rsContract.methods.transfer(query.to, web3.utils.toWei(query.amount, 'ether')).send({
           from: accobj.address,
           gas: 1500000,
-          gasPrice: 1,
+          gasPrice: 0,
           chainId: 5816,
         }, (err, value) => {
           // console.log(err)
@@ -147,7 +147,7 @@ module.exports = ($scope) => {
       .send({
         from: accobj.address,
         gas: 1500000,
-        gasPrice: 1,
+        gasPrice: 0,
         chainId: 5816,
       }, function(error, transactionHash){ 
         // console.log('error:')
@@ -245,7 +245,7 @@ function getTokenBalanceOf (web3, address, contractAddress) {
       var rsContract = new web3.eth.Contract(oneKeyTokenContractAbi, contractAddress)
       rsContract.methods.balanceOf(address).call({
         gas: 1500000,
-        gasPrice: 1,
+        gasPrice: 0,
         chainId: 5816,
       }, (err, value) => {
         // console.log(err)
