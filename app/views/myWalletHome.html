@@ -40,7 +40,7 @@
         <b class="bls" style="color: chocolate"></b>
         <span style="margin-left: 5px;">UUU</span>
 
-        <button class="btn btn-danger btn-xs" style="float: right;" title="logout my wallet" ng-click="logoutWallet()">Exit ➤</button>
+        <button class="btn btn-danger btn-xs" style="float: right;" title="logout my wallet" ng-click="logoutWallet()">Log Out ➤</button>
       </div>
 
       <div style="width: 100%; padding-top: 20px; border-bottom: 1px solid #ddd;"></div>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="" style="padding: 20px 20px; border-radius: 10px; background:lavender;">
-            <h3 style="margin-top: 0;">Generate Your Token for Free</h3>
+            <h3 style="margin-top: 0;">Generate My Token for Free</h3>
             <div>
               <br/><!--ng-click="oneKeyGenerateToken()"-->
               <button type="submit" class="btn btn-info" style="" title="" data-toggle="modal" data-target="#generateMyTokenModal">Generate My Token</button>
@@ -77,7 +77,7 @@
 
           <br/>
           <div>
-              <h5 style="color:olive; font-weight: bold;">Token(s) Issued by myself:</h5>
+              <h5 style="color:olive; font-weight: bold;">Token(s) Issued by Myself:</h5>
               <ul class="tksmine" style="list-style: none; padding-left: 0px;">
                 <li data-ng-repeat="i in minetks" style="position: relative; margin: 10px 20px; padding-bottom: 10px; border-bottom: solid 1px #ddd;">
                   <p style="margin: 0">
@@ -91,7 +91,7 @@
                     <span style="color: #999;">{{i.contractAddress}}</span>
                   </p>
                   <p style="margin-top: 5px;">
-                    <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="top: 10px; right: 20px;">Transfer {{i.symbol}}</button>
+                    <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="top: 10px; right: 20px;">Transfer</button>
                   </p>
                 </li>
               </ul>
@@ -112,7 +112,7 @@
                     <span style="color: #999;">{{i.contractAddress}}</span>
                   </p>
                   <p style="margin-top: 5px;">
-                    <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="top: 10px; right: 20px;">Transfer {{i.symbol}}</button>
+                    <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="top: 10px; right: 20px;">Transfer</button>
                   </p>
                 </li>
             </ul>
@@ -178,8 +178,8 @@
       </div>
       <div class="modal-body" style="padding: 20px 10px; padding-left: 50px;">
 
-          <label>To account address</label>
-          <input type="text" class="form-control" ng-model="trstk_address" required placeholder="address">
+          <label>To address</label>
+          <input type="text" class="form-control" ng-model="trstk_address" required placeholder="account address, NOT contract address">
 
           <label style="margin-top: 20px;">Amount</label>
           <div class="input-group" style="width: 100px;">
