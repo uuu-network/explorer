@@ -318,8 +318,8 @@ angular.module('unetworkExplorer')
       if( name.length > 64 ){
         return alert('name length max is 64')
       }
-      if( !/[0-9]{1,12}/.test(total) ){
-        return alert('total max is 1000000000000')
+      if( !/^-?\d+$/.test(total) ){
+        return alert('total max is 1000000000000 and min is 1, only integer')
       }
       // post
       var param = {
