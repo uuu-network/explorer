@@ -41,7 +41,7 @@ module.exports = ($scope) => {
         to: query.to,
         value: query.amount,
         gas: 3000000,
-        gasPrice: 1,
+        gasPrice: '0',
         chainId: 5816,
       },
       function(err, result){
