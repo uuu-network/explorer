@@ -15,6 +15,7 @@ angular.module('unetworkExplorer')
   })
   .controller('myWalletHomeCtrl', function ($rootScope, $scope, $http, $location) {
 
+    var web3 = $rootScope.web3
 
     var login = $('#login')
     var home = $('#home')
@@ -23,7 +24,13 @@ angular.module('unetworkExplorer')
 
     function turnToHome(acc){
       home.find('.addr').text(acc.address)
-      home.find('.bls').text(acc.balance)
+      var uuus = web3.fromWei(acc.balance, 'ether').split('.')
+      if(uuus.length===2){
+        uuus = uuus[0] + '<span style="color: #bbb;">.'+uuus[1]+'</span>'
+      }else{
+        uuus = uuus[0]
+      }
+      home.find('.bls').html( uuus )
       login.hide();
       home.show();
 
@@ -94,6 +101,12 @@ angular.module('unetworkExplorer')
       $scope.trstkdlg = tkobj
       // })
       var modal = $('#tokenTransferModal')
+      modal.modal()
+    }
+
+
+    $scope.openQueryTokenBalanceModal = function() {
+      var modal = $('#queryTokenBalanceModal')
       modal.modal()
     }
 

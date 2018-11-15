@@ -18,7 +18,7 @@
           <div class="col-md-1" ></div>
           <div class="col-md-4">
             <h4><span style="color: #aaa;">or</span> Private Key</h4>
-            <textarea class="form-control" rows="2" style="display: inline-block; width: 300px; " placeholder="Private Key" ng-model="prikey" value="" ></textarea>
+            <textarea class="form-control" rows="4" style="display: inline-block; width: 300px; " placeholder="Private Key" ng-model="prikey" value="" ></textarea>
           </div>
 
         </div>
@@ -31,113 +31,125 @@
       
   </div>
 
+  <style>
+  .wlcard {
+    display: block; background: #fff; border-radius: 5px;
+    padding: 15px 20px; box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    margin: 0;
+  }
+
+  </style>
+
+
+
   <div id="home" style="display: none;">
-      <h3 style="text-align: left">Welcome! <span style="margin-left: 20px; color: #999; font-size: 20px;">My Account Address:</span></h3>
-      
-      <div style="border: 1px solid #ddd; border-radius: 6px; padding: 10px 20px;">
-        <span class="addr" style="color:darkcyan"></span>
-        <span style="margin-left: 20px;">balance:</span>
-        <b class="bls" style="color: chocolate"></b>
-        <span style="margin-left: 5px;">UUU</span>
 
-        <button class="btn btn-danger btn-xs" style="float: right;" title="logout my wallet" ng-click="logoutWallet()">Log Out ➤</button>
-      </div>
+      <h3 style="text-align: left">My Wallet</h3>
+      <div class="wlcard">
 
-      <div style="width: 100%; padding-top: 20px; border-bottom: 1px solid #ddd;"></div>
-
-      <div class="row">
-
-        <div class="transfer col-md-4" style="padding-top: 30px;">
-          <form ng-submit="doSendCoin()" >
-            <h4 style="margin-top: 0;">Send UUU</h4>
-            <h6>To Address</h6>
-            <input type="text" class="form-control tsadr" style="padding: 5px 10px; border-radius: 4px; width: 260px !important;" placeholder="address" ng-model="address" required />
-            <h6>Amount to Send</h6>
-            <input type="text" class="form-control tsamt" style="padding: 5px 10px; border-radius: 4px; width: 260px !important;" placeholder="amount" ng-model="amount" required />
-            <div style="padding-top: 20px;">
-              <button type="submit" class="btn btn-primary" style="" title="" >Do Send</button>
-            </div>
-          </form>
+        <div style="padding: 15px 0;">
+          <span style="font-size: 16px;">Address:</span>
+          <span class="addr" style="display: inline-block; margin-left: 20px; padding: 5px 100px; background: #f6f6f6; font-weight: bold; color:darkcyan"></span>
+          <button class="btn btn-sm" style="float: right; background: #ccc;" title="logout my wallet" ng-click="logoutWallet()">Log Out ➤ </button>
         </div>
 
-        <div class="transfer col-md-8" style="padding-top: 30px; padding-left: 100px; border-left: 1px solid #ddd;">
+      </div>
 
-          <div class="">
 
-          </div>
-
-          <div class="" style="padding: 20px 20px; border-radius: 10px; background:lavender;">
-            <h3 style="margin-top: 0;">Generate My Token for Free</h3>
-            <div>
-              <br/><!--ng-click="oneKeyGenerateToken()"-->
-              <button type="submit" class="btn btn-primary" style="" title="" data-toggle="modal" data-target="#generateMyTokenModal">Generate My Token</button>
+      <div class="row" style="width: 100%; margin: 0; padding-top: 15px;">
+        <div class="col-md-4" style="padding: 0 7px 0 0;">
+          <div class="wlcard">
+            <h5 style="color: #999;">Total balance:</h5>
+            <h1 style="color: #000; font-size: 48px; word-break: break-all; text-align: center; margin-top: 40px;" class="bls">999.3</h1>
+            <div style="text-align: center; ">
+              <div style="display: inline-block; padding: 0 8px; border-radius: 0px; color: #999; font-weight: bold; background: #f6f6f6; ">UUU</div>
             </div>
-          </div>
+            
 
+            <div style="width: 100%; padding-top: 40px; border-bottom: 1px solid #ebebeb;"></div>
 
-          <br/>
-          <div>
-              <h5 style="color:olive; font-weight: bold;">Token(s) Issued by Myself:</h5>
-              <ul class="tksmine" style="list-style: none; padding-left: 0px;">
-                <li data-ng-repeat="i in minetks" style="position: relative; margin: 10px 20px; padding-bottom: 10px; border-bottom: solid 1px #ddd;">
-                  <p style="margin: 0">
-                    <span style="color: #999; margin-right: 10px;">token: </span>
-                    <b>{{i.symbol}}</b>
-                    <span style="color:rosybrown; margin-left: 20px; margin-right: 10px;">balance: </span>
-                    <b style="color: palevioletred">{{i.balance}}</b>
-                  </p>
-                  <p style="margin: 0">
-                    <span style="color: #999; margin-right: 10px;">token contract address:</span>
-                    <span style="color: #999;">{{i.contractAddress}}</span>
-                  </p>
-                  <p style="margin-top: 5px;">
-                    <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="top: 10px; right: 20px;">Transfer</button>
-                  </p>
-                </li>
-              </ul>
-              <p style="display: none; color: #bbb; text-align: center;">no tokens</p>
-          </div>
-          <div>
-            <h5 style="color:lightseagreen; font-weight: bold;">Wallet:</h5>
-            <ul class="tkswallet" style="list-style: none; padding-left: 0px;">
-                <li data-ng-repeat="i in wallettks" style="position: relative; margin: 10px 20px; padding-bottom: 10px; border-bottom: solid 1px #ddd;">
-                  <p style="margin: 0">
-                    <span style="color: #999; margin-right: 10px;">token: </span>
-                    <b>{{i.symbol}}</b>
-                    <span style="color:rosybrown; margin-left: 20px; margin-right: 10px;">balance: </span>
-                    <b style="color: palevioletred">{{i.balance}}</b>
-                  </p>
-                  <p style="margin: 0">
-                    <span style="color: #999; margin-right: 10px;">token contract address:</span>
-                    <span style="color: #999;">{{i.contractAddress}}</span>
-                  </p>
-                  <p style="margin-top: 5px;">
-                    <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="top: 10px; right: 20px;">Transfer</button>
-                  </p>
-                </li>
-            </ul>
-            <p style="display: none; color: #bbb; text-align: center;">no tokens</p>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <form ng-submit="queryTokenBalance()">
-                <p style="color: #666; font-weight: bold; margin-top: 30px; margin-bottom: 8px;">Add Custom Token</p>
-                <div class="input-group">
-                  <input type="text" class="form-control" ng-model="contractAddress" required placeholder="Find by Token Contract Address">
-                  <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default" type="button" >Save</button>
-                  </span>
+            <form ng-submit="doSendCoin()" style="padding-top: 30px;" >
+                <h5 style="color: #999;">Transfer:</h5>
+                <input type="text" class="form-control tsadr" style="padding: 5px 10px; border-radius: 4px; width: 300px !important;" placeholder="To account address" ng-model="address" required />
+                <div style="padding-top: 10px;  ">
+                  <input type="text" class="form-control tsamt" style="padding: 5px 10px; border-radius: 4px; width: 300px !important;" placeholder="Amount" ng-model="amount" required />
                 </div>
-                <p style="display: none; color: #bbb; margin-top: 0px; font-size: 12px; margin: 5px;">tips: Auto add to Wallet after query.</p>
+                <div style="padding-top: 20px; text-align: left;">
+                  <button type="submit" class="btn btn-primary" style="" title="" >Send</button>
+                </div>
               </form>
-            </div>
+
           </div>
-
-
         </div>
+        <div class="col-md-4" style="padding: 0 7px 0 7px;">
+            <div class="wlcard" style="position: relative;">
 
+              <div style="position: absolute; text-align: right; top: 15px; right: 20px;">
+                <button ng-click="openQueryTokenBalanceModal()" class="btn btn btn-sm" style="background: rgb(235, 243, 238); color: green; font-weight: bold;">+ Add Custom Token</button>
+              </div>
+
+                <div style="padding-top: 0px;">
+                    <h5 style="color: #999; font-weight: bold;">Custom Wallet:</h5>
+                    <ul class="tkswallet" style="list-style: none; padding-left: 0px;">
+                      <li data-ng-repeat="i in wallettks" style="position: relative; margin: 15px 0px; padding-top: 10px; border-top: solid 1px #ddd;">
+                        <p style="margin: 0">
+                          <span style="color: #999; margin-right: 10px;">token: </span>
+                          <b>{{i.symbol}}</b>
+                          <span style="color:rosybrown; margin-left: 20px; margin-right: 10px;">balance: </span>
+                          <b style="color: palevioletred">{{i.balance}}</b>
+                        </p>
+                        <p style="margin: 0">
+                          <span style="color: #999; margin-right: 10px;">contract address:</span><br>
+                          <span style="color: rgb(117, 146, 161); word-break: break-all; font-size: 13px;">{{i.contractAddress}}</span>
+                        </p>
+                        <p style="margin-top: 5px;">
+                          <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="padding-left: 15px; padding-right: 15px;">Transfer</button>
+                        </p>
+                      </li>
+                    </ul>
+                    <p style="display: none; color: #bbb; text-align: center;">no tokens</p>
+                </div>
+    
+
+  
+            </div>
+        </div>
+        <div class="col-md-4" style="padding: 0 0 0 7px;">
+            <div class="wlcard">
+
+              <div class="" style="padding: 20px 10px; border-radius: 10px; background:rgb(232, 232, 245);">
+                <h4 style="margin: 0 0 20px 0; text-align: center;">Generate My Token for Free</h4>
+                <div style="text-align: center;">
+                  <!--ng-click="oneKeyGenerateToken()"-->
+                  <button type="submit" class="btn btn-warning" style="" title="" data-toggle="modal" data-target="#generateMyTokenModal">Generate</button>
+                </div>
+              </div>
+
+              <div style="padding-top: 20px;">
+                  <h5 style="color: #999; font-weight: bold;">Token(s) Issued by Myself:</h5>
+                  <ul class="tksmine" style="list-style: none; padding-left: 0px;">
+                    <li data-ng-repeat="i in minetks" style="position: relative; margin: 15px 0px; padding-top: 10px; border-top: solid 1px #ddd;">
+                      <p style="margin: 0">
+                        <span style="color: #999; margin-right: 10px;">token: </span>
+                        <b>{{i.symbol}}</b>
+                        <span style="color:rosybrown; margin-left: 20px; margin-right: 10px;">balance: </span>
+                        <b style="color: palevioletred">{{i.balance}}</b>
+                      </p>
+                      <p style="margin: 0">
+                        <span style="color: #999; margin-right: 10px;">contract address:</span><br>
+                        <span style="color: rgb(117, 146, 161); word-break: break-all; font-size: 13px;">{{i.contractAddress}}</span>
+                      </p>
+                      <p style="margin-top: 5px;">
+                        <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="padding-left: 15px; padding-right: 15px;">Transfer</button>
+                      </p>
+                    </li>
+                  </ul>
+                  <p style="display: none; color: #bbb; text-align: center;">no tokens</p>
+              </div>
+  
+            </div>
+        </div>
       </div>
-
     
 
   </div>
@@ -146,7 +158,30 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="queryTokenBalanceModal" tabindex="4" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="padding: 0 20px 40px 20px" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-top: 20px;"><span aria-hidden="true">&times;</span></button>
+        <form ng-submit="queryTokenBalance()">
+          <p style="color: #666; font-weight: bold; margin-top: 30px; margin-bottom: 8px;">Add Custom Token</p>
+          <div>
+            <input type="text" class="form-control" ng-model="contractAddress" required placeholder="Find by Token Contract Address">
+            <p style="display: block; color: #bbb; margin-top: 0px; font-size: 12px; margin: 5px;">Auto add to Wallet after find.</p>
+          </div>
+          <div style="padding-top: 10px; text-align: left;">
+            <button type="submit" class="btn btn-primary" type="button" >+ Add</button>
+          </div>
+        </form>
 
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
 <div class="modal fade" id="transferConfirmationModal" tabindex="4" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="padding: 20px 40px" >
@@ -155,7 +190,7 @@
       <br>
       <div class="alert alert-success" role="alert">
         <strong>Transfer Successfully!</strong><br>
-        plase waitting confirmation...<br><br>
+        please waiting confirmation...<br><br>
         transaction hash: <br>
         <span style="color:saddlebrown; background:rgb(236, 224, 200);">{{trshashcfmt}}</span>
       </div>
@@ -248,15 +283,15 @@
         </div>
         <div class="modal-body" style="padding-left: 50px;">
           
-            <label class="control-label" for="">Symbol</label>
+            <label class="control-label" for="">Symbol<span style="font-weight:normal; color: #999; padding-left:20px;">only upper case, length must be less than 12</span></label>
             <input type="text" class="form-control symbol" required placeholder="example: UUU">
           
             <br/>
-            <label class="control-label" for="">Name</label>
+            <label class="control-label" for="">Name<span style="font-weight:normal; color: #999; padding-left:20px;">length must be less than 64</span></label>
             <input type="text" class="form-control name" required placeholder="example: U Network Token">
           
             <br/>
-            <label class="control-label" for="">Total Supply</label>
+            <label class="control-label" for="">Total Supply<span style="font-weight:normal; color: #999; padding-left:20px;">must be between 1 and 1000000000000, only integer</span></label>
             <input type="text" class="form-control total" required placeholder="example: 10000000000">
 
         </div>
