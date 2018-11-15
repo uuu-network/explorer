@@ -198,7 +198,7 @@ angular.module('unetworkExplorer')
     $scope.doSendCoin = function() {
       var address = $scope.address;
       var amount = $scope.amount;
-      
+
       $.post('/papi', {
         module: 'transaction',
         action: 'sendCoin',
@@ -320,6 +320,13 @@ angular.module('unetworkExplorer')
     }
 
 
+    var createTokenSymbolInput = $('#generateMyTokenModal').find('input.symbol')
+    createTokenSymbolInput.on('change', ()=>{
+      var v = createTokenSymbolInput.val()
+      if(v && /[A-Za-z]{1,12}/.test(v)){
+        createTokenSymbolInput.val(v.toUpperCase())
+      }
+    })
 
 
     $scope.oneKeyGenerateToken = function() {
