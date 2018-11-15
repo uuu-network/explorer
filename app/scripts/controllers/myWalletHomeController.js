@@ -151,12 +151,16 @@ angular.module('unetworkExplorer')
           // alert('Transfer Successfully! Wait Confirmation.')
         })
       })
-
-
     }
+    
 
-
-  
+    // Upload Keystore File
+    var keystorefileinput = $('#lgksd').get(0)
+    keystorefileinput.onchange = () => {
+      var v = keystorefileinput.files[0]
+      // console.log(v)
+      $('#lgksdshow').val(v.name)
+    }
 
 
     $scope.queryTokenBalance = function() {
@@ -164,6 +168,8 @@ angular.module('unetworkExplorer')
       if( ! /0x[A-Za-z0-9]{20}/.test(addr) ){
         return alert('token contract address format is error')
       }
+
+      $('#queryTokenBalanceModal').modal('hide')
 
       $.get('/api', {
         module: 'onekeytoken',

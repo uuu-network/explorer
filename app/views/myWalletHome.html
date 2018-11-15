@@ -10,9 +10,13 @@
           <div class="col-md-2" ></div>
           <div class="col-md-4" style="border-right: #999 solid 1px;" >
             <h4>Keystore / JSON File</h4>
-            <input class="form-control" type="file" id="lgksd" file="keystore_file" ng-model="keystore" style="width: 240px !important; height: 50px; background: #ddd; border: none; padding: 10px 20px; cursor: pointer;" />
+            <div>
+                <label for="lgksd" class="btn btn-success" style="padding-left: 30px; padding-right: 30px;">Upload</label>
+                <input class="form-control" type="file" id="lgksd" file="keystore_file" ng-model="keystore" style=" display: none; width: 240px !important; height: 50px; background: #ddd; border: none; padding: 10px 20px; cursor: pointer;" />
+                <input type="text" id="lgksdshow"  autocomplete="off" style="background: none; border: none; width: 200px !important; font-size: 14px;" value="" />
+            </div>
             <h4>Password</h4>
-            <input class="form-control" type="password" style="width: 240px !important;" ng-model="password" placeholder="password" >
+            <input class="form-control" type="password" autocomplete="off" style="width: 240px !important;" ng-model="password" placeholder="password" >
           </div>
 
           <div class="col-md-1" ></div>
@@ -49,8 +53,8 @@
 
         <div style="padding: 15px 0;">
           <span style="font-size: 16px;">Address:</span>
-          <span class="addr" style="display: inline-block; margin-left: 20px; padding: 5px 100px; background: #f6f6f6; font-weight: bold; color:darkcyan"></span>
-          <button class="btn btn-sm" style="float: right; background: #ccc;" title="logout my wallet" ng-click="logoutWallet()">Log Out ➤ </button>
+          <span class="addr" style="display: inline-block; margin-left: 20px; padding: 5px 100px; background: #f6f6f6; font-weight: bold; color:999"></span>
+          <button class="btn btn-sm" style="float: right; background: #ccc;" title="logout my wallet" ng-click="logoutWallet()">Logout ➤ </button>
         </div>
 
       </div>
@@ -85,7 +89,7 @@
             <div class="wlcard" style="position: relative;">
 
               <div style="position: absolute; text-align: right; top: 15px; right: 20px;">
-                <button ng-click="openQueryTokenBalanceModal()" class="btn btn btn-sm" style="background: rgb(235, 243, 238); color: green; font-weight: bold;">+ Add Custom Token</button>
+                <button ng-click="openQueryTokenBalanceModal()" class="btn btn btn-sm" style="background:#efefef; color:#337ab7; font-weight: bold;">+ Add Custom Token</button>
               </div>
 
                 <div style="padding-top: 0px;">
@@ -95,12 +99,12 @@
                         <p style="margin: 0">
                           <span style="color: #999; margin-right: 10px;">token: </span>
                           <b>{{i.symbol}}</b>
-                          <span style="color:rosybrown; margin-left: 20px; margin-right: 10px;">balance: </span>
+                          <span style=" margin-left: 20px; margin-right: 10px;">balance: </span>
                           <b style="color: palevioletred">{{i.balance}}</b>
                         </p>
                         <p style="margin: 0">
                           <span style="color: #999; margin-right: 10px;">contract address:</span><br>
-                          <span style="color: rgb(117, 146, 161); word-break: break-all; font-size: 13px;">{{i.contractAddress}}</span>
+                          <span style="color: #666; word-break: break-all; font-size: 13px;">{{i.contractAddress}}</span>
                         </p>
                         <p style="margin-top: 5px;">
                           <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="padding-left: 15px; padding-right: 15px;">Transfer</button>
@@ -117,11 +121,11 @@
         <div class="col-md-4" style="padding: 0 0 0 7px;">
             <div class="wlcard">
 
-              <div class="" style="padding: 20px 10px; border-radius: 10px; background:rgb(232, 232, 245);">
+              <div class="" style="padding: 20px 10px; border-radius: 10px; background: #efefef;">
                 <h4 style="margin: 0 0 20px 0; text-align: center;">Generate My Token for Free</h4>
                 <div style="text-align: center;">
                   <!--ng-click="oneKeyGenerateToken()"-->
-                  <button type="submit" class="btn btn-warning" style="" title="" data-toggle="modal" data-target="#generateMyTokenModal">Generate</button>
+                  <button type="submit" class="btn btn-primary" style="" title="" data-toggle="modal" data-target="#generateMyTokenModal">Generate</button>
                 </div>
               </div>
 
@@ -132,12 +136,12 @@
                       <p style="margin: 0">
                         <span style="color: #999; margin-right: 10px;">token: </span>
                         <b>{{i.symbol}}</b>
-                        <span style="color:rosybrown; margin-left: 20px; margin-right: 10px;">balance: </span>
+                        <span style="margin-left: 20px; margin-right: 10px;">balance: </span>
                         <b style="color: palevioletred">{{i.balance}}</b>
                       </p>
                       <p style="margin: 0">
                         <span style="color: #999; margin-right: 10px;">contract address:</span><br>
-                        <span style="color: rgb(117, 146, 161); word-break: break-all; font-size: 13px;">{{i.contractAddress}}</span>
+                        <span style="color: #666; word-break: break-all; font-size: 13px;">{{i.contractAddress}}</span>
                       </p>
                       <p style="margin-top: 5px;">
                         <button class="btn btn-success btn-xs" ng-click="clickTokenTransferBtn(i)" style="padding-left: 15px; padding-right: 15px;">Transfer</button>
@@ -167,7 +171,7 @@
           <p style="color: #666; font-weight: bold; margin-top: 30px; margin-bottom: 8px;">Add Custom Token</p>
           <div>
             <input type="text" class="form-control" ng-model="contractAddress" required placeholder="Find by Token Contract Address">
-            <p style="display: block; color: #bbb; margin-top: 0px; font-size: 12px; margin: 5px;">Auto add to Wallet after find.</p>
+            <p style="display: none; color: #bbb; margin-top: 0px; font-size: 12px; margin: 5px;">Auto add to Wallet after.</p>
           </div>
           <div style="padding-top: 10px; text-align: left;">
             <button type="submit" class="btn btn-primary" type="button" >+ Add</button>
@@ -189,8 +193,8 @@
       <br>
       <br>
       <div class="alert alert-success" role="alert">
-        <strong>Transfer Successfully!</strong><br>
-        please waiting confirmation...<br><br>
+        <strong>Transaction Sent</strong><br>
+        please wait for confirmations...<br><br>
         transaction hash: <br>
         <span style="color:saddlebrown; background:rgb(236, 224, 200);">{{trshashcfmt}}</span>
       </div>
@@ -246,7 +250,7 @@
                 <p class="navbar-text" style="margin: 0;" >
                   Your balance is: 
                   <b style="margin: 0 15px;">{{qtbr.balance}}</b>
-                  <span class="label label-success" style="vertical-align: middle; padding: 3px 5px;">{{qtbr.symbol}}</span>
+                  <span class="" style="vertical-align: middle; background: #e6e6e6; font-weight: bold; color: #000; padding: 3px 5px;">{{qtbr.symbol}}</span>
                 </p>
               </div>
             </div>
