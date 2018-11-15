@@ -152,7 +152,7 @@ angular.module('unetworkExplorer')
         })
       })
     }
-    
+
 
     // Upload Keystore File
     var keystorefileinput = $('#lgksd').get(0)
@@ -198,12 +198,12 @@ angular.module('unetworkExplorer')
     $scope.doSendCoin = function() {
       var address = $scope.address;
       var amount = $scope.amount;
-
+      
       $.post('/papi', {
         module: 'transaction',
         action: 'sendCoin',
         to: address,
-        amount: amount,
+        amount: web3.toWei(amount),
       }, function(data, status){
         if(data && data.result){
           var d = data.result

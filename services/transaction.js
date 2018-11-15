@@ -35,26 +35,32 @@ module.exports = ($scope) => {
       // web3.eth.net.getId().then(console.log);
       console.log(txraw)*/
 
-      // web3.eth.sendSignedTransaction(txraw.rawTransaction, 
-      web3.eth.sendTransaction({
-        from: address,
-        to: query.to,
-        value: query.amount,
-        gas: 3000000,
-        gasPrice: '0',
-        chainId: 5816,
-      },
-      function(err, result){
-          if(err) {
-            // console.log(err)
-            return cb({err: 2, msg: err})
-          }
-          // console.log("#" + result + "#")
-          // console.log(result)
-          cb(null, {
-            trshash: result
-          })
-      })
+      try {
+        // web3.eth.sendSignedTransaction(txraw.rawTransaction, 
+        web3.eth.sendTransaction({
+          from: address,
+          to: query.to,
+          value: query.amount,
+          gas: 3000000,
+          gasPrice: '0',
+          chainId: 5816,
+        },
+        function(err, result){
+            if(err) {
+              // console.log(err)
+              return cb({err: 2, msg: err.toString()})
+            }
+            // console.log("#" + result + "#")
+            // console.log(result)
+            cb(null, {
+              trshash: result
+            })
+        })
+        
+      } catch (error) {
+        return cb({err: 2, msg: error.toString()})
+      }
+
     
     }
 

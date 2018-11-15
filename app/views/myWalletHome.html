@@ -54,7 +54,7 @@
         <div style="padding: 15px 0;">
           <span style="font-size: 16px;">Address:</span>
           <span class="addr" style="display: inline-block; margin-left: 20px; padding: 5px 100px; background: #f6f6f6; font-weight: bold; color:999"></span>
-          <button class="btn btn-sm" style="float: right; background: #ccc;" title="logout my wallet" ng-click="logoutWallet()">Logout ➤ </button>
+          <button class="btn btn-sm" style="float: right; background: #f3f3f3; color:#337ab7; font-weight: bold;" title="logout my wallet" ng-click="logoutWallet()">Logout ➤ </button>
         </div>
 
       </div>
@@ -89,7 +89,7 @@
             <div class="wlcard" style="position: relative;">
 
               <div style="position: absolute; text-align: right; top: 15px; right: 20px;">
-                <button ng-click="openQueryTokenBalanceModal()" class="btn btn btn-sm" style="background:#efefef; color:#337ab7; font-weight: bold;">+ Add Custom Token</button>
+                <button ng-click="openQueryTokenBalanceModal()" class="btn btn btn-sm" style="background:#f3f3f3; color:#337ab7; font-weight: bold;">+ Add Custom Token</button>
               </div>
 
                 <div style="padding-top: 0px;">
@@ -99,7 +99,7 @@
                         <p style="margin: 0">
                           <span style="color: #999; margin-right: 10px;">token: </span>
                           <b>{{i.symbol}}</b>
-                          <span style=" margin-left: 20px; margin-right: 10px;">balance: </span>
+                          <span style="color: #999; margin-left: 20px; margin-right: 10px;">balance: </span>
                           <b style="color: palevioletred">{{i.balance}}</b>
                         </p>
                         <p style="margin: 0">
@@ -121,7 +121,7 @@
         <div class="col-md-4" style="padding: 0 0 0 7px;">
             <div class="wlcard">
 
-              <div class="" style="padding: 20px 10px; border-radius: 10px; background: #efefef;">
+              <div class="" style="padding: 20px 10px; border-radius: 10px; background: #f6f6f6;">
                 <h4 style="margin: 0 0 20px 0; text-align: center;">Generate My Token for Free</h4>
                 <div style="text-align: center;">
                   <!--ng-click="oneKeyGenerateToken()"-->
@@ -136,7 +136,7 @@
                       <p style="margin: 0">
                         <span style="color: #999; margin-right: 10px;">token: </span>
                         <b>{{i.symbol}}</b>
-                        <span style="margin-left: 20px; margin-right: 10px;">balance: </span>
+                        <span style="color: #999; margin-left: 20px; margin-right: 10px;">balance: </span>
                         <b style="color: palevioletred">{{i.balance}}</b>
                       </p>
                       <p style="margin: 0">
