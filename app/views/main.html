@@ -22,13 +22,15 @@
           <th>hash</th>
           <th>Txs</th>
           <th>Size</th>
+          <th>Guse</th>
           <th>Time</th>
         </tr>
         <tr data-ng-repeat="i in blocks">
           <td><a href="/#/block/{{i.number}}">{{i.number}}</a></td>
           <td>{{i.hash}}</td>
-          <td>{{i.transactions.length}}</td>
+          <td>{{i.transaction_count}}</td>
           <td>{{i.size}}</td>
+          <td>{{i.gasUsed}}</td>
           <td title="{{i.timestamp}}">{{i.timeshow}}</td>
         </tr>
       </tbody>

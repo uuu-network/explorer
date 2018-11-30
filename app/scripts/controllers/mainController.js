@@ -1,6 +1,8 @@
 angular.module('unetworkExplorer')
     .controller('mainCtrl', function ($rootScope, $scope, $location) {
 
+  
+  /*
 	var web3 = $rootScope.web3;
 	var maxBlocks = 50; // TODO: into setting file or user select
 	var blockNum = $scope.blockNum = parseInt(web3.eth.blockNumber, 10);
@@ -18,6 +20,17 @@ angular.module('unetworkExplorer')
     }
   }
   $scope.blocks = blocks
+  */
+
+  $.get('/api', {
+    module: 'block',
+    action: 'browse',
+  }, function(data, status){
+    $scope.$apply(function(){
+      $scope.blockNum = data.result.lastblocknumber;
+      $scope.blocks = data.result.datas;
+    })
+  })
 
 	
   $scope.navSearchProcessRequest = function() {
