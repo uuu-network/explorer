@@ -88,7 +88,13 @@ module.exports = ($scope) => {
     },
 
     loginByKeystore: function(query, cb, req, res){
+      if (!query.files) {
+        return cb({err: 2, msg: 'Keystore file upload fail'})
+      }
       var fileobj = query.files.keystore
+      if (!fileobj) {
+        return cb({err: 2, msg: 'Keystore file upload fail'})
+      }
       // read file
       fs.readFile(fileobj.path, function(err, con){
         if(err){
