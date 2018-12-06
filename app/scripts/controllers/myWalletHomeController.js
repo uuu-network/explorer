@@ -135,6 +135,7 @@ angular.module('unetworkExplorer')
         contractAddress: tkobj.contractAddress,
         to: addr,
         amount: amount,
+        usefreegas: openUseFreeGasStatus?1:0,
       }, function(data, status){
         var res = data.result
         if( res && res.err ){
@@ -204,6 +205,7 @@ angular.module('unetworkExplorer')
         action: 'sendCoin',
         to: address,
         amount: web3.toWei(amount),
+        usefreegas: openUseFreeGasStatus?1:0,
       }, function(data, status){
         if(data && data.result){
           var d = data.result
@@ -230,12 +232,36 @@ angular.module('unetworkExplorer')
       })
     }
 
+    var openUseFreeGasStatusCookieKey = 'oufgs'
+    var openUseFreeGasStatus =  $.cookie(openUseFreeGasStatusCookieKey) === '1'
+    // console.log(openUseFreeGasStatus)
+    var $openUseFreeGasBtn = $('#ufgbtn')
+    if(openUseFreeGasStatus){
+      $openUseFreeGasBtn.addClass('active')
+    }
+
+    function clearSwitchUseFreeGasBtnStatus(){
+      $openUseFreeGasBtn.removeClass('active')
+      $.cookie(openUseFreeGasStatusCookieKey, null);
+    }
+
+    $scope.switchUseFreeGas = function() {
+      var istouse = $openUseFreeGasBtn.hasClass('active')
+      if(istouse){
+        $.cookie(openUseFreeGasStatusCookieKey, '1', {expires: 0.007, path: '/'});
+      }else{
+        clearSwitchUseFreeGasBtnStatus()
+      }
+      openUseFreeGasStatus = istouse
+      // alert(istouse)
+    }
 
     $scope.logoutWallet = function() {
       $.get('/api', {
         module: 'wallet',
         action: 'logout',
       }, function(data, status){
+        clearSwitchUseFreeGasBtnStatus()
         location.href = '/'
       })
     }
@@ -309,6 +335,7 @@ angular.module('unetworkExplorer')
         if (data && data.result && data.result.address ) {
           // alert(data.result.address)
           // console.log(data.result)
+          clearSwitchUseFreeGasBtnStatus()
           turnToHome(data.result)
         }else{
           alert('Login Error :' + (data.result.msg||''))
@@ -354,6 +381,7 @@ angular.module('unetworkExplorer')
         symbol: symbol,
         name: name,
         total: total,
+        usefreegas: openUseFreeGasStatus?1:0,
       }
       // console.log(param)
       $.post('/papi', param, function (data, status){
@@ -389,6 +417,13 @@ angular.module('unetworkExplorer')
 
 
 
+
+
+    /*************  button onoff 插件  **************/
+
+    $('button.onoff').click(function(e){
+      $(this).toggleClass('active')
+    })
 
 
 
