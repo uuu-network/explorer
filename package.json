@@ -18,7 +18,8 @@
     "shelljs": "^0.2.6"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-watch": "node watch.js"
   },
   "dependencies": {
     "cookie": "^0.3.1",

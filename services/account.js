@@ -12,17 +12,21 @@ const fs = require("fs");
 module.exports = ($scope) => {
   web3 = $scope.web3
 
+
   return {
     balance: function(query, cb){
       if (query.address == null) {
         return cb("Address is required");
       }
-      return web3.eth.getBalance(query.address, function(err, data){
+
+      function datacall(err, data){
         if (err != null) {
           return cb(err);
         }
         return cb(null, data.toString());
-      });
+      }
+
+      return web3.eth.getBalance(query.address, datacall);
     },
 
     create: function(query, cb){
