@@ -11,7 +11,6 @@ module.exports = ($scope) => {
   return {
 
     browse: async function(query, cb){
-
       var limit = query.limit || 20
       if (limit > 100) {
         limit = 100
@@ -26,7 +25,7 @@ module.exports = ($scope) => {
       // console.log(lastblocknumber)
 
       const resultdata = []
-      for (var i = 0; i < limit; i++) {
+      for (var i = 0; i < limit && i < blockNum; i++) {
         var one = await web3.eth.getBlock(blockNum - i);
         // console.log(one)
         if(one){
