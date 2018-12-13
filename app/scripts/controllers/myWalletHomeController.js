@@ -53,10 +53,19 @@ angular.module('unetworkExplorer')
 
       updateShowWallets()
 
-
       // $scope.minetks = [{},{},{}]
       // $scope.wallettks = [{},{},{}]
-      
+
+      web3.freegas.getSurplus(acc.address, function(error, result){
+        console.log(error)
+        console.log(result.toString())
+        $scope.$apply(function(){
+          $scope.useble_free_gas = result.toString() || 0
+        })
+      })
+
+
+
     }
 
     // check login
@@ -422,8 +431,25 @@ angular.module('unetworkExplorer')
     /*************  button onoff 插件  **************/
 
     $('button.onoff').click(function(e){
-      $(this).toggleClass('active')
+      var $b = $(this)
+      $b.toggleClass('active')
     })
+    
+
+    var useFreeGasTipModelShow
+    $('#ufgbtn').click(function(e){
+      var $b = $(this)
+      if (!useFreeGasTipModelShow) {
+        useFreeGasTipModelShow = true
+        setTimeout(()=>{
+          if($b.hasClass('active')){
+            $('#useFreeGasOpenTipModal').modal()
+          }
+        }, 200)
+      }
+    })
+    
+
 
 
 

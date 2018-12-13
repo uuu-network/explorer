@@ -102,10 +102,11 @@
 
       <div class="wlcard" style="margin-top: 15px;">
         <span style="font-size: 14px; color: #999; padding-right: 10px; ">Use free gas:</span>
-        <button ng-click="switchUseFreeGas()" id="ufgbtn" class="onoff"><div class="ofbtn"></div></div>
-      </button>
-
-
+        <button ng-click="switchUseFreeGas()" id="ufgbtn" class="onoff"><div class="ofbtn"></div></button>
+        <span style="color: #999; margin-left: 20px;">You have <span style="color: #419641; margin: 0 4px;">{{useble_free_gas}}</span> useble gas. </span>
+        <div style="color: #ccc; margin-left: 175px;">You might be able to use "free gas" for your transaction(s). Free gas is distributed each 12 hours base on your UUU despoit.</div>
+      </div>
+        
       <div class="row" style="width: 100%; margin: 0; padding-top: 15px;">
         <div class="col-md-4" style="padding: 0 7px 0 0;">
           <div class="wlcard">
@@ -354,4 +355,18 @@
   </div>
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="useFreeGasOpenTipModal" tabindex="1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="padding: 10px 30px;">
+        <h3>Use Free Gas Note</h3>
+        <p>After you activate the "free gas" option, you should check how many times you could transfer token or generate token for free each time. Your token transfer or token generation may fail when gas is not enough.</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
