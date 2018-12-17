@@ -29,6 +29,7 @@
     "formidable": "^1.2.1",
     "mkdirp": "^0.5.1",
     "require-ls": "0.0.8",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.34",
+    "solc": "^0.5.1"
   }
 }
