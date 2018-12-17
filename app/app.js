@@ -40,11 +40,13 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
             var web3 = new Web3();
             $.getJSON( "./config.json" , function( result ){
               web3.setProvider(new web3.providers.HttpProvider(result.rpcUrl));
-                if(!web3.isConnected()) {
-                  var warn = $('#connectwarning')
-                  warn.modal({keyboard:false,backdrop:'static'}) 
-                  warn.modal('show') 
-                }
+            
+              if(!web3.isConnected()) {
+                var warn = $('#connectwarning')
+                warn.modal({keyboard:false,backdrop:'static'}) 
+                warn.modal('show') 
+              }
+
             });
             $rootScope.web3 = web3;
             function sleepFor( sleepDuration ){
