@@ -60,7 +60,9 @@ var web3 = require('./web3.js');
   };
   */
 
-  moduleNames = ['account', 'wallet', 'transaction', 'onekeytoken', 'block']
+
+  // bingding services and scripts.
+  moduleNames = ['account', 'wallet', 'transaction', 'onekeytoken', 'block', 'questionaries', 'rapidDeployment']
   modules = {}
   for (const i in moduleNames) {
     const li = moduleNames[i]
@@ -71,7 +73,7 @@ var web3 = require('./web3.js');
 
   api = function(req, res, query, cb){
     var module;
-    // console.log(JSON.stringify(query));
+     console.log(JSON.stringify(query));
     module = modules[query.module];
     if (module == null) {
       return cb('Module Not Found');

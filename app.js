@@ -4,6 +4,7 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
         function($routeProvider, $locationProvider) {
             $locationProvider.html5Mode(true);
             $routeProvider.
+            // binding views and scripts.
                 when('/', {
                     templateUrl: 'views/main.html',
                     controller: 'mainCtrl',
@@ -28,8 +29,8 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
                     templateUrl: 'views/createNewWalletHome.html',
                     controller: 'createNewWalletCtrl'
                 })
-                .when('/deploy', {
-                    templateUrl: 'views/rapidDeploy.html',
+                .when('/deployment', {
+                    templateUrl: 'views/rapidDeployment.html',
                     controller: 'rapidDeploymentCtrl'
                 })
                 .otherwise({
