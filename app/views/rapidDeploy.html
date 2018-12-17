@@ -1,6 +1,28 @@
 <div class="container" style="padding-top: 50px;">
 
-    <h2 style="text-align:center;">Welcome to the U Network Wallet and Block Explorer!</h2>
-    <button ng-click="rapidDeployment()">Deploy</button>
+  <h3 style="text-align: left">Deploy Your Contract Code</h3>
+
+
+  <div >
+    <form ng-submit="rapidDeployment()">
+
+
+      <div style="display: block; margin-top: 20px;">
+        <input style="" type="text" class="form-control" placeholder="Contract Name ..." ng-model="contract_name" required />
+      </div>
+
+        <div style="display: block; margin-top: 20px;">
+          <textarea style="min-height: 400px;" type="text" class="form-control" placeholder="Your Contract Source Code ..." ng-model="source_code" required >
+          </textarea>
+        </div>
+          
+      <div style="display: block; margin-top: 30px;">
+        <button  class="btn btn-primary" type="submit">Deploy</button>
+      </div>
+
+    </form>
+  </div>
+
+
 
 </div>

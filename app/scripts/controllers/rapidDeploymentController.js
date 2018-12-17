@@ -1,18 +1,4 @@
 angular.module('unetworkExplorer')
-  .directive('file', function () {
-      return {
-          scope: {
-              file: '='
-          },
-          link: function (scope, el, attrs) {
-              el.bind('change', function (event) {
-                  var file = event.target.files;
-                  scope.file = file ? file : undefined;
-                  scope.$apply();
-              });
-          }
-      };
-  })
   .controller('rapidDeploymentCtrl', function ($rootScope, $scope, $http, $location) {
 
     $scope.rapidDeployment = function() {
@@ -25,19 +11,20 @@ angular.module('unetworkExplorer')
           module: 'rapidDeployment',
           action: 'compile',
           fileName: fileName,
-          contractName: contractName,
-          sourceCode: contractCode
+          contractName: $scope.contract_name,
+          sourceCode: $scope.source_code
         }
         // console.log(param)
         // console.log(2321)s
         //alert(112)
         $.post('/papi', param, function (data, status){
  //         console.log(data.result)
-          console.log(333)
+          // console.log(333)
           if(data.result.err){
             return alert('Deploy Contract Error: ' + data.result.msg)
           }
           console.log(data.result)
+          alert(data.content)
  //         confirmGenerate()
         })      
       }

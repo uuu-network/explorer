@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles/bootstrap.min.css">
   <link rel="stylesheet" href="styles/main.css">
-  <script src="styles/web3.min.js"></script>
+  <script src="styles/web3.min.js?_=1"></script>
 
 </head>
 <body>
@@ -24,7 +24,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <form name="search_form" ng-controller="mainCtrl" ng-submit="navSearchProcessRequest()" class="navbar-form navbar-left">
+              <form name="search_form" ng-controller="navbarCtrl" ng-submit="navSearchProcessRequest()" class="navbar-form navbar-left">
               <div class="form-group">
               <input type="text" placeholder="Tx Hash / Address / Block Number" name="requestType" required  ng-model="ethRequest" class="form-control"><br>
               </div>
@@ -52,6 +52,7 @@
   <script src="app.js"></script>
 
 <!--Controllers-->
+  <script src="scripts/controllers/navbarController.js"></script>
   <script src="scripts/controllers/mainController.js"></script>
   <script src="scripts/controllers/addressInfoController.js"></script>
   <script src="scripts/controllers/blockInfosController.js"></script>

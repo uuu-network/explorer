@@ -3,8 +3,8 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
     .config(['$routeProvider', '$locationProvider',
         function($routeProvider, $locationProvider) {
             $locationProvider.html5Mode(true);
-            $routeProvider.
-                when('/', {
+            $routeProvider
+                .when('/', {
                     templateUrl: 'views/main.html',
                     controller: 'mainCtrl',
                 })

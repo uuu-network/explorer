@@ -104,7 +104,13 @@
         <span style="font-size: 14px; color: #999; padding-right: 10px; ">Use free gas:</span>
         <button ng-click="switchUseFreeGas()" id="ufgbtn" class="onoff"><div class="ofbtn"></div></button>
         <span style="color: #999; margin-left: 20px;">You have <span style="color: #419641; margin: 0 4px;">{{useble_free_gas}}</span> useble gas. </span>
-        <div style="color: #ccc; margin-left: 175px;">You might be able to use "free gas" for your transaction(s). Free gas is distributed each 12 hours base on your UUU despoit.</div>
+        <div style="color: #ccc; margin-left: 175px;">
+          You might be able to use "free gas" for your transaction(s).
+          Free gas is distributed each 12 hours base on your UUU balance.
+          UUU transfer costs 21000 gas each time,
+          and custom token transfer costs 53454 gas.
+          Generating custom token costs 1442955 gas each time.
+        </div>
       </div>
         
       <div class="row" style="width: 100%; margin: 0; padding-top: 15px;">
@@ -169,7 +175,7 @@
             <div class="wlcard">
 
               <div class="" style="padding: 20px 10px; border-radius: 10px; background: #f6f6f6;">
-                <h4 style="margin: 0 0 20px 0; text-align: center;">Generate My Token for Free</h4>
+                <h4 style="margin: 0 0 20px 0; text-align: center;">Generate Custom Token</h4>
                 <div style="text-align: center;">
                   <!--ng-click="oneKeyGenerateToken()"-->
                   <button type="submit" class="btn btn-primary" style="" title="" data-toggle="modal" data-target="#generateMyTokenModal">Generate</button>
