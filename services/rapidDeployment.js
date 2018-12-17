@@ -1,5 +1,5 @@
 
-var solc = require('../libraries/solc-js')
+var solc = require('../libraries/solc')
 
 var util = require('util')
 
