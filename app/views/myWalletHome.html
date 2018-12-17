@@ -42,6 +42,45 @@
     padding: 15px 20px; box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
     margin: 0;
   }
+  .onoff{
+    outline: none;
+    transition: all 0.5s;
+    display: inline-block;
+    height: 28px;
+    width: 54px;
+    border-radius: 100px;
+    border: #999 1px solid;
+    padding: 2px;
+    cursor: pointer;
+    vertical-align: middle;
+    background: #fff;
+  }
+  .onoff:hover{
+    background: #f3fff3;
+  }
+  .onoff .ofbtn{
+    transition: all 0.2s;
+    display: block;
+    margin-left: 0px;
+    height: 22px;
+    width: 22px;
+    border-radius: 100px;
+    border: #999 1px solid;
+    color: #999;
+    background: #fff;
+    text-align: left;
+  }
+  .onoff.active{
+    background: #4cae4c;
+    border-color: #4cae4c;
+  }
+  .onoff.active .ofbtn{
+    border-color: #fff;
+    color:#4cae4c;
+    text-align: right;
+    margin-left: 26px;
+    box-shadow: -1px 1px 2px rgba(0,0,0,0.4);
+  }
 
   </style>
 
@@ -59,6 +98,12 @@
         </div>
 
       </div>
+
+
+      <div class="wlcard" style="margin-top: 15px;">
+        <span style="font-size: 14px; color: #999; padding-right: 10px; ">Use free gas:</span>
+        <button ng-click="switchUseFreeGas()" id="ufgbtn" class="onoff"><div class="ofbtn"></div></div>
+      </button>
 
 
       <div class="row" style="width: 100%; margin: 0; padding-top: 15px;">

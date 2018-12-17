@@ -24,8 +24,8 @@ module.exports = ($scope) => {
         rsContract.methods.transfer(query.to, web3.utils.toWei(query.amount, 'ether'))
         .send({
           from: accobj.address,
-          gas: 1500000,
-          gasPrice: '0',
+          gas: 54000,
+          gasPrice: query.usefreegas==='1' ? '0' : web3.eth.currentGasPrice,
           chainId: 5816,
         }, (err, value) => {
           // console.log(err)
@@ -148,7 +148,7 @@ module.exports = ($scope) => {
       .send({
         from: accobj.address,
         gas: 1500000,
-        gasPrice: '0',
+        gasPrice: query.usefreegas==='1' ? '0' : web3.eth.currentGasPrice,
         chainId: 5816,
       }, function(error, transactionHash){ 
         // console.log('error:')

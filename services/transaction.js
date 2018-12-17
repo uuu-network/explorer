@@ -41,8 +41,8 @@ module.exports = ($scope) => {
           from: address,
           to: query.to,
           value: query.amount,
-          gas: 3000000,
-          gasPrice: '0',
+          gas: 21000,
+          gasPrice: query.usefreegas==='1' ? '0' : web3.eth.currentGasPrice,
           chainId: 5816,
         },
         function(err, result){
