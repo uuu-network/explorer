@@ -147,7 +147,7 @@ module.exports = ($scope) => {
       })
       .send({
         from: accobj.address,
-        gas: 1442955,
+        gas: 1500000,
         gasPrice: query.usefreegas==='1' ? '0' : web3.eth.currentGasPrice,
         chainId: 5816,
       }, function(error, transactionHash){ 

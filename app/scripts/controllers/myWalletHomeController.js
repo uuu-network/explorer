@@ -57,8 +57,8 @@ angular.module('unetworkExplorer')
       // $scope.wallettks = [{},{},{}]
 
       web3.freegas.getSurplus(acc.address, function(error, result){
-        console.log(error)
-        console.log(result.toString())
+        // console.log(error)
+        // console.log(result.toString())
         $scope.$apply(function(){
           $scope.useble_free_gas = result.toString() || 0
         })
