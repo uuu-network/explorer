@@ -1,34 +1,96 @@
 angular.module('unetworkExplorer')
   .controller('rapidDeploymentCtrl', function ($rootScope, $scope, $http, $location) {
 
-    $scope.rapidDeployment = function() {
-/*
-        var modal = $('#rapidDeploymentModal')
-        , sourceCode = modal.find('input.sourceCode').val()
-*/
 
-        var param = {
-          module: 'rapidDeployment',
-          action: 'compile',
-          fileName: fileName,
-          contractName: $scope.contract_name,
-          sourceCode: $scope.source_code
-        }
-        // console.log(param)
-        // console.log(2321)s
-        //alert(112)
-        $.post('/papi', param, function (data, status){
- //         console.log(data.result)
-          // console.log(333)
-          if(data.result.err){
-            return alert('Compile Contract Error: ' + data.result.msg)
-          }
-          console.log(data.result)
-          alert(data.content)
- //         confirmGenerate()
-        })      
+    var $wrap_compile = $('#compile')
+    , $wrap_deploy = $('#deploy')
+
+    function updateFreeGasStatus(){
+      var openUseFreeGasStatusCookieKey = 'oufgs'
+      var openUseFreeGasStatus =  $.cookie(openUseFreeGasStatusCookieKey) === '1'
+      $scope.$apply(function(){
+        $scope.use_free_gas_status = openUseFreeGasStatus
+      })
+    }
+    setInterval(updateFreeGasStatus, 999)
+    updateFreeGasStatus()
+
+
+    var wrapShowSwapMark
+    $scope.wrapShowSwap = function(){
+      if (wrapShowSwapMark) {
+        $wrap_compile.show()
+        $wrap_deploy.hide()
+        wrapShowSwapMark = 0
+      }else{
+        $wrap_compile.hide()
+        $wrap_deploy.show()
+        wrapShowSwapMark = 1
       }
+    }
+
+
+    $scope.deployContract = function() {
+
+      var param = {
+        module: 'rapidDeployment',
+        action: 'compile',
+        fileName: deploy,
+        contractAbi: $scope.contract_abi,
+        contractCode: $scope.contract_code
+      }
+
+      alert('deployContract')
+
+
+    }
+
+
+    $scope.compileContract = function() {
+      /*
+      var modal = $('#rapidDeploymentModal')
+      , sourceCode = modal.find('input.sourceCode').val()
+      */
+
+      var param = {
+        module: 'rapidDeployment',
+        action: 'compile',
+        fileName: fileName,
+        contractName: $scope.contract_name,
+        sourceCode: $scope.source_code
+      }
+      // console.log(param)
+      // console.log(2321)s
+      //alert(112)
+      $.post('/papi', param, function (data, status){
+      //         console.log(data.result)
+        // console.log(333)
+        var res = data.result
+        if(res.err){
+          return alert('Compile Contract Error: ' + res.msg)
+        }
+
+        $scope.$apply(function(){
+          $scope.contract_abi = res.abi
+          $scope.contract_bytecode = res.bytecode
+          $scope.wrapShowSwap()
+        })
+        // console.log(data.result)
+        // alert(data.content)
+        //         confirmGenerate()
+      })      
+    }
+
+
+
+
+
+
   })
+
+
+
+
 
 const contractName = 'Ballot'
 

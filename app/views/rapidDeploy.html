@@ -3,10 +3,9 @@
   <h3 style="text-align: left">Deploy Your Contract Code</h3>
 
 
-  <div >
-    <form ng-submit="rapidDeployment()">
+  <div id="compile">
 
-
+    <form ng-submit="compileContract()">
       <div style="display: block; margin-top: 20px;">
         <input style="" type="text" class="form-control" placeholder="Contract Name ..." ng-model="contract_name" required />
       </div>
@@ -21,6 +20,47 @@
       </div>
 
     </form>
+
+  </div>
+
+
+  <div id="deploy" style="display: none;">
+
+      <p class="bg-info" style=" margin: 20px 0; border-radius: 5px; padding: 10px 15px; color: cornflowerblue;">Compile Successfully !</p>
+
+      <form ng-submit="deployContract()">
+          <div style="display: block; margin-top: 20px;">
+            <label>Contract Abi</label>
+            <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="contract_abi" required disabled >
+                {{contract_abi}}
+            </textarea>
+          </div>
+    
+          <div style="display: block; margin-top: 20px;">
+            <label>Contract Bytecode</label>
+            <textarea style="min-height: 200px;" type="text" class="form-control" ng-model="contract_bytecode" required disabled >
+              {{contract_bytecode}}
+            </textarea>
+          </div>
+          
+          <div style="display: block; margin-top: 20px;">
+            <label>Gas Limit Set</label>
+            <input type="text" style="display: inline-block; width: 200px;" class="form-control" ng-model="gas_limit_set" required />
+            <span>{{use_free_gas_status}}</span>
+          </div>
+
+
+
+              
+          <div style="display: block; margin-top: 30px;">
+            <button class="btn btn-primary" type="submit">Rapid Deploy</button>
+            <button class="btn btn-default" type="button" ng-click="wrapShowSwap()" style="margin-left: 40px;"> ﹤ Back to Edit</button>
+          </div>
+    
+        </form>
+
+
+
   </div>
 
 
