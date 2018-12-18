@@ -21,7 +21,7 @@ angular.module('unetworkExplorer')
  //         console.log(data.result)
           // console.log(333)
           if(data.result.err){
-            return alert('Deploy Contract Error: ' + data.result.msg)
+            return alert('Compile Contract Error: ' + data.result.msg)
           }
           console.log(data.result)
           alert(data.content)
