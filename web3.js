@@ -7,14 +7,14 @@
   web3 = new Web3;
   web3.setProvider(new web3.providers.IpcProvider(ipcFile, net));
   // 
-  web3.eth.currentGasPrice = '1000000000'
+  web3.eth.currentGasPrice = '10000000000'
   function updateCurrentGasPrice(){
     web3.eth.getGasPrice().then((price) => {
       web3.eth.currentGasPrice = price
       // console.log(price)
     });
   }
-  setInterval(updateCurrentGasPrice, 15700)
+  setInterval(updateCurrentGasPrice, 5700)
   updateCurrentGasPrice()
   
   module.exports = web3;

@@ -407,7 +407,7 @@ angular.module('unetworkExplorer')
         var confirmationModal = $('#generateConfirmationModal')
         confirmationModal.modal({backdrop: false})
         var progressBar = confirmationModal.find('.progress-bar')
-        , miao = 39, sec = 1
+        , miao = 13, sec = 1
         , itvl = setInterval( ()=>{
           var per = parseInt(sec/miao*100)+'%'
           progressBar.width(per)
