@@ -1,19 +1,25 @@
 angular.module('unetworkExplorer')
-  .controller('rapidDeploymentCtrl', function ($rootScope, $scope, $http, $location) {
+  .controller('rapidDeploymentCtrl', function ($rootScope, $scope, $http, $location, $sce) {
 
 
     var $wrap_compile = $('#compile')
     , $wrap_deploy = $('#deploy')
+    , $show_ufg = $('#showufg')
 
     function updateFreeGasStatus(){
       var openUseFreeGasStatusCookieKey = 'oufgs'
       var openUseFreeGasStatus =  $.cookie(openUseFreeGasStatusCookieKey) === '1'
-      $scope.$apply(function(){
-        $scope.use_free_gas_status = openUseFreeGasStatus
-      })
+      var none1 = 'display: none;', none2 = ''
+      if (openUseFreeGasStatus) {
+        none2 = none1
+        none1 = ''
+      }
+      var html = '<span style="color: #419641; '+none1+'">Use Free Gas</span><span style="'+none2+'">Spend UUU</span>'
+      $show_ufg.html(html)
     }
+    // $scope.use_free_gas_show = '<span style="color: #419641">Use Free Gas</span>'
     setInterval(updateFreeGasStatus, 999)
-    updateFreeGasStatus()
+    setTimeout(updateFreeGasStatus, 1)
 
 
     var wrapShowSwapMark

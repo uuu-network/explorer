@@ -3,7 +3,7 @@
   <h3 style="text-align: left">Deploy Your Contract Code</h3>
 
 
-  <div id="compile">
+  <div id="compile" style="display: none;">
 
     <form ng-submit="compileContract()">
       <div style="display: block; margin-top: 20px;">
@@ -11,8 +11,7 @@
       </div>
 
         <div style="display: block; margin-top: 20px;">
-          <textarea style="min-height: 400px;" type="text" class="form-control" placeholder="Your Solidity Contract Source Code ..." ng-model="source_code" required >
-          </textarea>
+          <textarea style="min-height: 400px;" type="text" class="form-control" placeholder="Your Solidity Contract Source Code ..." ng-model="source_code" required ></textarea>
         </div>
           
       <div style="display: block; margin-top: 30px;">
@@ -24,34 +23,28 @@
   </div>
 
 
-  <div id="deploy" style="display: none;">
+  <div id="deploy" style="display: block;">
 
       <p class="bg-info" style=" margin: 20px 0; border-radius: 5px; padding: 10px 15px; color: cornflowerblue;">Compile Successfully !</p>
 
       <form ng-submit="deployContract()">
           <div style="display: block; margin-top: 20px;">
             <label>Contract Abi</label>
-            <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="contract_abi" required disabled >
-                {{contract_abi}}
-            </textarea>
+            <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="contract_abi" required disabled >{{contract_abi}}</textarea>
           </div>
     
           <div style="display: block; margin-top: 20px;">
             <label>Contract Bytecode</label>
-            <textarea style="min-height: 200px;" type="text" class="form-control" ng-model="contract_bytecode" required disabled >
-              {{contract_bytecode}}
-            </textarea>
+            <textarea style="min-height: 200px;" type="text" class="form-control" ng-model="contract_bytecode" required disabled >{{contract_bytecode}}</textarea>
           </div>
           
           <div style="display: block; margin-top: 20px;">
-            <label>Gas Limit Set</label>
-            <input type="text" style="display: inline-block; width: 200px;" class="form-control" ng-model="gas_limit_set" required />
-            <span>{{use_free_gas_status}}</span>
+            <label>Gas Limit Set: </label>
+            <input type="text" style="display: inline-block; width: 200px !important; margin-left: 20px;" class="form-control" ng-model="gas_limit_set" required />
+            <p style="display: inline-block; margin-left: 20px;" id="showufg"></p>
           </div>
 
 
-
-              
           <div style="display: block; margin-top: 30px;">
             <button class="btn btn-primary" type="submit">Rapid Deploy</button>
             <button class="btn btn-default" type="button" ng-click="wrapShowSwap()" style="margin-left: 40px;"> ﹤ Back to Edit</button>

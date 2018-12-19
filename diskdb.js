@@ -4,6 +4,7 @@ db.connect('./diskdb')
   .loadCollections([
     'onekeytokenmines',
     'onekeytokenwallets',
+    'rapiddeploycontractlogs'
   ]);
 
 
