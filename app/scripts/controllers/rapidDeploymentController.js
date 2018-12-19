@@ -36,20 +36,112 @@ angular.module('unetworkExplorer')
     }
 
 
+    function confirmDeployModal(trshash, callback){
+
+      $scope.$apply(function(){
+        $scope.confirmTrsHash = trshash
+      })
+      // alert('Generate Successfully')
+      var confirmationModal = $('#deploymentConfirmationModal')
+      confirmationModal.modal({backdrop: false})
+      var progressBar = confirmationModal.find('.progress-bar')
+      , miao = 13, sec = 1
+      , itvl = setInterval( ()=>{
+        var per = parseInt(sec/4/miao*100)+'%'
+        progressBar.width(per)
+        progressBar.text(per)
+        if(sec >= miao*4){
+          clearInterval(itvl)
+          confirmationModal.modal('hide')
+          // return location.reload()
+          callback && callback()
+        }
+        sec ++
+      }, 250 )
+    }
+
+
+    // setTimeout(function(){
+    //   confirmDeployModal('0x22dedb29b04d126a115ff7c9293c1b171c362a6da75f25718deeab9bce416416')
+    // })
+
+
     $scope.deployContract = function() {
 
+      // confirmDeployModal('ausdhgu89374687rifuyagsiuy9q384', function(){})
+      // return
+
       var param = {
-        module: 'rapidDeployment',
-        action: 'compile',
-        fileName: deploy,
+        module: 'rapiddeployment',
+        action: 'deploy',
+        contractName: $scope.contract_name,
         contractAbi: $scope.contract_abi,
-        contractCode: $scope.contract_code
+        contractByteCode: '0x' + $scope.contract_bytecode,
+        gasLimit: $scope.gas_limit_set,
       }
 
-      alert('deployContract')
+      $.post('/papi', param, function (data, status){
+        // console.log(data)
+        // console.log(333)
+        var res = data.result
+        if(res.err){
+          return alert('Deploy Contract Error: ' + res.msg)
+        }
+
+        confirmDeployModal(res.transactionHash, function(){
+
+          $scope.contract_name = ''
+          $scope.source_code = ''
+          $scope.wrapShowSwap()
+
+          // update show
+          updateShowDeployments(function(){
+            setTimeout(function(){
+              $('#'+res.transactionHash).css({"background-color":"#ffd"})
+            }, 200)
+          })
+        })
+
+
+
+      })
+  
+
+      // alert('deployContract')
 
 
     }
+
+    function updateShowDeployments(callback) {
+
+      $.get('/api', {
+        module: 'rapiddeployment',
+        action: 'logs',
+      }, function(data, status){
+        var empty = $('ul.deployments').next()
+        $scope.$apply(function(){
+          // console.log(data.result)
+          if(data && data.result && data.result.datas && data.result.datas.length>0){
+            $scope.deployments = data.result.datas;
+            empty.hide()
+          }else{
+            // $scope.minetks = []
+            empty.show()
+          }
+          callback && callback()
+        })
+      })
+    }
+
+    updateShowDeployments()
+
+
+
+    /////////////   TEST CODE   /////////////
+    // $scope.contract_abi = '[]'
+    // $scope.contract_bytecode = '6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820f46b985ea26958a803035f7e1fca64c56f7db5d07c11e9d14a9c897d508120910029'
+    // $scope.wrapShowSwap()
+    /////////////      END      /////////////
 
 
     $scope.compileContract = function() {
@@ -58,8 +150,9 @@ angular.module('unetworkExplorer')
       , sourceCode = modal.find('input.sourceCode').val()
       */
 
+
       var param = {
-        module: 'rapidDeployment',
+        module: 'rapiddeployment',
         action: 'compile',
         fileName: fileName,
         contractName: $scope.contract_name,
@@ -67,7 +160,7 @@ angular.module('unetworkExplorer')
       }
       // console.log(param)
       // console.log(2321)s
-      //alert(112)
+      // alert(112)
       $.post('/papi', param, function (data, status){
       //         console.log(data.result)
         // console.log(333)

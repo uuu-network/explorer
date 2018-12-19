@@ -409,16 +409,16 @@ angular.module('unetworkExplorer')
         var progressBar = confirmationModal.find('.progress-bar')
         , miao = 13, sec = 1
         , itvl = setInterval( ()=>{
-          var per = parseInt(sec/miao*100)+'%'
+          var per = parseInt(sec/4/miao*100)+'%'
           progressBar.width(per)
           progressBar.text(per)
-          if(sec >= miao){
+          if(sec >= miao*4){
             clearInterval(itvl)
             confirmationModal.modal('hide')
             return location.reload()
           }
           sec ++
-        }, 1000 )
+        }, 250 )
       }
 
 

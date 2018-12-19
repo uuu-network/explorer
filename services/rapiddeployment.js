@@ -4,6 +4,12 @@ var solc = require('../libraries/solc')
 var util = require('util')
 
 
+const db = require('../diskdb.js')
+
+const CONST = require('./const.js')
+
+
+
 // 必须要有 固定格式
 module.exports = ($scope) => {
     web3 = $scope.web3
@@ -14,21 +20,51 @@ module.exports = ($scope) => {
       // rapiddeploycontractlogs
 
 
+      logs: function(query, cb, req) {
+
+        var accobj = CONST.checkLoginForApi(web3, req, cb)
+        if( !accobj ) return
+
+        var logs = db.rapiddeploycontractlogs.find({address: accobj.address});
+
+        var datas = []
+        if(logs && logs.length){
+          var one = logs.pop()
+          while(one){
+            datas.push(one)
+            one = logs.pop()
+          }
+        }
+
+        cb(null, {datas})
+
+      },
+
+
       deploy: function(query, cb, req) {
 
         var accobj = CONST.checkLoginForApi(web3, req, cb)
         if( !accobj ) return
 
+        var ABI = []
+        try{
+          ABI = JSON.parse(query.contractAbi)
+        }catch(e){
+          return cb({err: 1, msg: 'deploy error: contractAbi format error'})
+        }
+        // console.log(query)
 
-        var rsContract = new web3.eth.Contract(oneKeyTokenContractAbi)
+        var trsHash = ''
+
+        var rsContract = new web3.eth.Contract(ABI)
 
         rsContract.deploy({
-          data: oneKeyTokenContractData,	//已0x开头
-          arguments:[query.total, query.name, query.symbol, query.description||''],	//传递构造函数的参数
+          data: query.contractByteCode,	//已0x开头
+          arguments:[],	//传递构造函数的参数
         })
         .send({
           from: accobj.address,
-          gas: 1442955,
+          gas: parseInt(query.gasLimit),
           gasPrice: query.usefreegas==='1' ? '0' : web3.eth.currentGasPrice,
           chainId: 5816,
         }, function(error, transactionHash){ 
@@ -36,10 +72,20 @@ module.exports = ($scope) => {
           // console.log(error)
           // console.log('transactionHash:')
           // console.log(transactionHash)
+          if(error){
+            return cb({err: 1, msg: error})
+          }
+          trsHash = transactionHash
+
+          cb(null, {
+            status: 'ok',
+            transactionHash,
+          })
+
         })
         .on('error', function(error){ 
-          console.log('error:')
-          console.log(error)
+          // console.log('error:')
+          // console.log(error)
         })
         .on('transactionHash', function(transactionHash){ 
           // console.log('transactionHash', transactionHash)
@@ -48,10 +94,11 @@ module.exports = ($scope) => {
           // console.log('receipt', receipt.contractAddress) // contains the new contract address
           db.rapiddeploycontractlogs.save({
             address: accobj.address,
-            // symbol: query.symbol,
+            name: query.contractName,
             // blockHash: receipt.blockHash,
             // blockNumber: receipt.blockNumber,
             contractAddress: receipt.contractAddress,
+            transactionHash: trsHash,
           })
         })
         // .on('confirmation', function(confirmationNumber, receipt){ 
@@ -67,11 +114,6 @@ module.exports = ($scope) => {
         
         // console.log(result)
   
-        cb(null, {
-          status: 'ok'
-        })
-  
-        
   
 
       },
