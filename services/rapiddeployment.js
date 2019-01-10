@@ -47,10 +47,12 @@ module.exports = ($scope) => {
         if( !accobj ) return
 
         var ABI = []
+        var argumentary = []
         try{
           ABI = JSON.parse(query.contractAbi)
+          argumentary = JSON.parse(query.contractArguments)
         }catch(e){
-          return cb({err: 1, msg: 'deploy error: contractAbi format error'})
+          return cb({err: 1, msg: 'deploy error: contractAbi or arguments format error'})
         }
         // console.log(query)
 
@@ -60,7 +62,7 @@ module.exports = ($scope) => {
 
         rsContract.deploy({
           data: query.contractByteCode,	//已0x开头
-          arguments:[],	//传递构造函数的参数
+          arguments: argumentary,	//传递构造函数的参数
         })
         .send({
           from: accobj.address,

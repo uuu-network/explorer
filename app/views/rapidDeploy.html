@@ -68,6 +68,11 @@
           </div>
           
           <div style="display: block; margin-top: 20px;">
+            <label>Construction Arguments (format: json array)</label>
+            <textarea style="min-height: 40px;" type="text" class="form-control" ng-model="contract_arguments" placeholder="[]" >{{contract_arguments}}</textarea>
+          </div>
+          
+          <div style="display: block; margin-top: 20px;">
             <label>Gas Limit Set: </label>
             <input type="text" style="display: inline-block; width: 200px !important; margin-left: 20px;" placeholder="gas limit of contract" class="form-control" ng-model="gas_limit_set" required />
             <p style="display: inline-block; margin-left: 20px;" id="showufg"></p>
