@@ -32,6 +32,10 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
                     templateUrl: 'views/rapidDeploy.html',
                     controller: 'rapidDeploymentCtrl'
                 })
+                .when('/tube', {
+                    templateUrl: 'views/tube.html',
+                    controller: 'tubeCtrl'
+                })
                 .otherwise({
                     redirectTo: '/'
                 });
