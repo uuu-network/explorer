@@ -76,6 +76,7 @@ angular.module('unetworkExplorer')
         action: 'deploy',
         contractName: $scope.contract_name,
         contractAbi: $scope.contract_abi,
+        contractArguments: $scope.contract_arguments || [],
         contractByteCode: '0x' + $scope.contract_bytecode,
         gasLimit: $scope.gas_limit_set,
       }
@@ -172,6 +173,7 @@ angular.module('unetworkExplorer')
         $scope.$apply(function(){
           $scope.contract_abi = res.abi
           $scope.contract_bytecode = res.bytecode
+          $scope.contract_arguments = ''
           $scope.wrapShowSwap()
         })
         // console.log(data.result)
