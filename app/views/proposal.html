@@ -1,0 +1,83 @@
+<form ng-submit="propose()">
+  <div style="display: block; margin-top: 20px;">
+    <label>Proposal Hash</label>
+    <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="proposalHash" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 20px;">
+      <label>Start Time</label>
+      <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="proposalStartTime" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 20px;">
+      <label>Duration</label>
+      <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="proposalDuration" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 20px;">
+    <label>Cost</label>
+    <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="proposalCost" required  ></textarea>
+</div>
+
+  <div style="display: block; margin-top: 30px;">
+    <button class="btn btn-primary" type="submit">Propose your issue</button>
+  </div>
+</form>
+
+
+<form ng-submit="vote()">
+  <div style="display: block; margin-top: 20px;">
+    <label>Proposal Hash</label>
+    <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="proposalHash" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 20px;">
+      <label>Vote Option</label>
+      <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="voteOption" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 30px;">
+    <button class="btn btn-primary" type="submit">Vote</button>
+  </div>
+</form>
+
+
+<form ng-submit="deposit()">
+  <div style="display: block; margin-top: 20px;">
+    <label>Deposit</label>
+    <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="value" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 30px;">
+    <button class="btn btn-primary" type="submit">Deposit</button>
+  </div>
+</form>
+
+
+<form ng-submit="withdraw()">
+  <div style="display: block; margin-top: 20px;">
+    <label>Withdraw</label>
+    <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="value" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 30px;">
+    <button class="btn btn-primary" type="submit">Withdraw</button>
+  </div>
+</form>
+
+
+<form ng-submit="voteResults()">
+  <div style="display: block; margin-top: 20px;">
+    <label>Proposal Hash</label>
+    <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="proposalHash" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 20px;">
+    <label>Vote Option</label>
+    <textarea style="min-height: 200px;"  type="text" class="form-control" ng-model="voteOption" required  ></textarea>
+  </div>
+
+  <div style="display: block; margin-top: 30px;">
+    <button class="btn btn-primary" type="submit">Get Vote Results</button>
+  </div>
+</form>
