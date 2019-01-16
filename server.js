@@ -62,7 +62,7 @@ var web3 = require('./web3.js');
 
 
   // bingding services and scripts.
-  moduleNames = ['account', 'wallet', 'transaction', 'onekeytoken', 'block', 'questionaries', 'rapiddeployment']
+  moduleNames = ['account', 'wallet', 'transaction', 'onekeytoken', 'browse', 'questionaries', 'rapiddeployment']
   modules = {}
   for (const i in moduleNames) {
     const li = moduleNames[i]
