@@ -12,11 +12,11 @@ setInterval(function(){
 
 // transactions data load
 var TRS_BROWSE_CACHE = []
-var TRS_LATEST_CACHE = []
 function trsdbfile(name){ return './diskdb/dtrs/'+name+'.json' }
+var TRS_LATEST_CACHE = JSON.parse(fs.readFileSync( trsdbfile('temp') ))
 var dtrsconfig = JSON.parse(fs.readFileSync( trsdbfile('head') ))
 dtrsconfig.page = dtrsconfig.page || 0
-dtrsconfig.limit = dtrsconfig.limit || 2
+dtrsconfig.limit = dtrsconfig.limit || 3
 dtrsconfig.lastbid = dtrsconfig.lastbid || 0
 var ethtrsreading = false
 setInterval(function(){
@@ -52,22 +52,22 @@ function flushTrsFile(name, data){
 // 读取交易数据
 async function readTrsFromEth(){
   ethtrsreading = true
+  flushTrsTemp()
   var num = dtrsconfig.lastbid
   const lastnumber = await web3.eth.getBlockNumber()
   if(num == lastnumber) {
     return ethtrsreading = false
   }
-  var pagestore = []
-  for(;num<=lastnumber;num++){
-    const trscount = await web3.eth.getBlockTransactionCount(num)
+  for(var idx=num+1;idx<=lastnumber;idx++){
+    const trscount = await web3.eth.getBlockTransactionCount(idx)
     if(trscount == 0){
       continue
     }
-    const blockobj = await web3.eth.getBlock(num, true);
+    const blockobj = await web3.eth.getBlock(idx, true);
     for(var i in blockobj.transactions){
       // console.log('transactions count', blockobj.transactions.length)
       var one = blockobj.transactions[i]
-      pagestore.unshift({
+      TRS_LATEST_CACHE.unshift({
         blockNumber: one.blockNumber,
         hash: one.hash,
         from: one.from,
@@ -75,15 +75,23 @@ async function readTrsFromEth(){
         value: one.value,
         timestamp: blockobj.timestamp,
       })
-      // console.log('pagestore count', pagestore.length)
-      if(pagestore.length == dtrsconfig.limit){
-        // console.log('flushTrsFile transactions', pagestore.length)
-        dtrsconfig.page++
-        flushTrsFile(dtrsconfig.page, pagestore)
-        pagestore = []
-      }
+      flushTrsTemp()
     }
   }
+
+  function flushTrsTemp(){
+      // console.log('pagestore count', pagestore.length)
+      if(TRS_LATEST_CACHE.length == dtrsconfig.limit){
+        // console.log('flushTrsFile transactions', pagestore.length)
+        dtrsconfig.page++
+        flushTrsFile(dtrsconfig.page, TRS_LATEST_CACHE)
+        TRS_LATEST_CACHE = []
+      }
+  }
+
+  // console.log(TRS_LATEST_CACHE)
+  // TRS_LATEST_CACHE
+  flushTrsFile('temp', TRS_LATEST_CACHE)
   // flush cnf
   dtrsconfig.lastbid = lastnumber
   flushTrsFile('head', dtrsconfig)
@@ -92,8 +100,9 @@ async function readTrsFromEth(){
   return dtrsconfig
 
 }
-
-readTrsFromEth().then()
+setTimeout(function(){
+  readTrsFromEth().then()
+}, 33)
 
 
 
@@ -110,12 +119,29 @@ module.exports = ($scope) => {
       var page = query.page || 1
       var dataresults = []
       if(page <= dtrsconfig.page){
-        page = dtrsconfig.page - page + 1 // 倒序
+        var dbpage = dtrsconfig.page - page + 1 // 倒序
+        // check cache
+        for(var i in TRS_BROWSE_CACHE){
+          if(TRS_BROWSE_CACHE[i].dbpage == 'p'+dbpage){
+            dataresults = TRS_BROWSE_CACHE[i].datas
+            // 置顶
+            // console.log('TRS_BROWSE_CACHE===================')
+            // console.log(TRS_BROWSE_CACHE)
+            var pop = TRS_BROWSE_CACHE.splice(i, 1)
+            TRS_BROWSE_CACHE.unshift( pop[0] )
+            // console.log(TRS_BROWSE_CACHE)
+            return render()
+          }
+        }
         // load from dist
-        fs.readFile(trsdbfile(page), function(err, data){
+        fs.readFile(trsdbfile(dbpage), function(err, data){
           if(!err && data){
             try {
               dataresults = JSON.parse(data)
+              TRS_BROWSE_CACHE.unshift({
+                dbpage: 'p'+dbpage,
+                datas: dataresults,
+              })
             } catch (e) {}
           }
           render()
@@ -124,7 +150,12 @@ module.exports = ($scope) => {
         render()
       }
       function render() {
-        var datas = TRS_LATEST_CACHE.concat(dataresults)
+        var datas = []
+        if(page==1){
+          datas = TRS_LATEST_CACHE.concat(dataresults)
+        }else{
+          datas = dataresults
+        }
         for(var i in datas){
           var one = datas[i]
           one.timeshow = new Date(1000*one.timestamp).toLocaleString()
