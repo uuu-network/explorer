@@ -1,8 +1,6 @@
 const fs = require('fs')
 
 
-
-
 // blocks data cache
 var BLOCK_BROWSE_CACHE = {}
 setInterval(function(){
@@ -16,7 +14,7 @@ function trsdbfile(name){ return './diskdb/dtrs/'+name+'.json' }
 var TRS_LATEST_CACHE = JSON.parse(fs.readFileSync( trsdbfile('temp') ))
 var dtrsconfig = JSON.parse(fs.readFileSync( trsdbfile('head') ))
 dtrsconfig.page = dtrsconfig.page || 0
-dtrsconfig.limit = dtrsconfig.limit || 3
+dtrsconfig.limit = dtrsconfig.limit || 20
 dtrsconfig.lastbid = dtrsconfig.lastbid || 0
 var ethtrsreading = false
 setInterval(function(){
