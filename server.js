@@ -10,7 +10,7 @@ var web3 = require('./web3.js');
 
 
 (function(){
-  var createModule, balance, txlist, account, contract, transaction, block, logs, proxy, stats, modules, api, responsity, app;
+  var createModule, modules, api, responsity, app;
   
 
   createModule = function(actions){

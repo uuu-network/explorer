@@ -36,7 +36,8 @@ angular.module('unetworkExplorer')
 				                $scope.gasUsed = resultReceipt.gasUsed;
                     		$scope.gasPrice = result.gasPrice.c[0] + ""; // Wei
                     		$scope.hash = result.hash;
-                    		$scope.input = hex2utf8(result.input); // that's a string
+                    		$scope.input = result.input;
+                    		$scope.content = hex2utf8(result.input); // that's a string
                     		$scope.nonce = result.nonce;
                     		$scope.to = result.to;
                     		$scope.transactionIndex = result.transactionIndex;
@@ -100,6 +101,17 @@ angular.module('unetworkExplorer')
         };
         $scope.init();
         // console.log($scope.result);
+
+        
+
+        $('#display_raw_data').click(function(){
+            var $btn = $(this)
+            , $raw = $btn.next()
+            , $con = $raw.next()
+            $btn.hide()
+            $con.hide()
+            $raw.show()
+        })
 
     });
 

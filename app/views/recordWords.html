@@ -1,6 +1,6 @@
 <div class="container" style="padding-top: 50px;">
 
-  <h3 style="text-align: left">Record Your Words</h3>
+  <h3 style="text-align: left">Store Data on Blockchain</h3>
 
   <form ng-submit="doSubmitRecordWords()">
 
@@ -8,7 +8,7 @@
     <textarea style="min-height: 400px;" 
       type="text"
       class="form-control" 
-      placeholder="Your Words or Article ..." 
+      placeholder="Your text ..." 
       ng-model="recordwords" required ></textarea>
   </div>
 
@@ -29,13 +29,13 @@
 
   <div id="success" style="display: none; margin-top: 30px;">
     <div class="bg-success" style="padding: 20px;" >
-      <p>Your Words was recorded, see in the url:</p>
+      <p>Your text was recorded, check the url:</p>
       <a class="bg-primary" target="_blank" 
       style="padding: 5px; cursor: pointer; color: #fff;"
       href="{{trsUrl}}">{{trsUrl}}</a>
     </div>
     <br><br>
-    <button class="btn btn-success">Record More</button>
+    <button class="btn btn-success"> Store Again</button>
   </div>
 
 

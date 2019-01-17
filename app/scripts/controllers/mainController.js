@@ -76,7 +76,7 @@ function initPage(id, cachelimit, changecall) {
   , curp = 1
   , cachetotal = 1
   , cachepagenum = 1
-  , rg = 3
+  , rgs = 7
   , item = function(p, isactive){ return '<li p="'+p+'" '+(isactive?'class="active"':'')+'><a href="#">'+p+'</a></li>' }
   , prev = '<li p="p"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
   , next = '<li p="n"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
@@ -99,14 +99,18 @@ function initPage(id, cachelimit, changecall) {
     cachelimit = limit || cachelimit
     cachepagenum = Math.ceil(total/cachelimit)
     var hhh = ''
-    , rt = 1
-    for(var i=pn-rg; i<pn+rg+1+(pn<rg+1?rg-pn+1:0); i++){
-      if(i>0 && i<=cachepagenum){
-        hhh += item(i, i==pn)
-        rt = i
-      }
+    , start = pn-parseInt((rgs-1)/2);
+    start = start>=1 ? start : 1;
+    var end = start + rgs;
+    if(end + rgs > cachepagenum){
+      end = cachepagenum
+      start = cachepagenum - rgs
     }
-    nav.html( (pn>1?prev:'') + hhh + (rt<cachepagenum?next:'') )
+    start = start>=1 ? start : 1;
+    for(var i=start; i<end; i++){
+      hhh += item(i, i==pn)
+    }
+    nav.html( (pn>1?prev:'') + hhh + (pn<cachepagenum?next:'') )
     if(curp!=pn){
       curp = pn
       changecall(pn)

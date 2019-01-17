@@ -65,11 +65,19 @@
           <td><a href="/#/transaction/{{i.hash}}" style="display:inline-block; width: 270px; word-break: break-all;">{{i.hash}}</a></td>
           <td>
             <b style="display: inline-block; width: 50px; color: darkcyan;">from:</b>{{i.from}}
-            <br>
-            <b style="display: inline-block; width: 50px; color: darkgoldenrod;">to:</b>{{i.to}}
+            <div ng-show="i.to.length>0">
+                <b style="display: inline-block; width: 50px; color: darkgoldenrod;">to:</b>{{i.to}}
+            </div>            
+            <div ng-show="i.uuu==0">
+                <b style="display: inline-block; font-size: 12px; line-height: 12px; padding: 2px 4px; border-radius: 4px; color: #fff; background:lightblue">contract</b>
+            </div>
+          
           </td>
-          <td>{{i.uuu}} <b style="color:darkolivegreen; font-size: 12px;">UUU</b></td>
-          <td title="{{i.timestamp}}">{{i.timeshow}}</td>
+          <td>
+            <div ng-show="i.uuu>0">
+                {{i.uuu}} <b style="color:darkolivegreen; font-size: 12px;">UUU</b></td>
+            </div>
+            <td title="{{i.timestamp}}">{{i.timeshow}}</td>
         </tr>
       </tbody>
     </table>
