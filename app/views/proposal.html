@@ -1,0 +1,279 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title style="margin-top: 30px; ">tab栏</title>
+    <style>
+        .active {
+            background-color: orange;
+        }
+        #paper .detail{
+          z-index: 999;
+          border: #666 1px solid; padding: 20px;
+          background-color: #fff; 
+          width: 700px;
+          
+          position: fixed;
+          top:40%; left: 40%;
+          margin-top: -200px;margin-left: -250px;
+          box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+          display: none;
+        }
+        #paper .ppsli{
+          border: #666 1px solid; padding: 20px;
+          background-color: #fff;
+          width: 800px;
+          position: fixed;
+          left: 200px;
+        }
+        #paper .detail .close{
+          position: absolute;top: 0px;right: 0px;font-size: 40px;
+          padding: 10px;
+        }
+        #paper .form-control{
+          height: 25px; width: 200px; word-break: break-all;
+        }
+        #paper .p3{
+          margin-left: 200px;
+        }  
+
+        #paper .balance{
+          z-index: 999;
+          border: #666 1px solid; padding: 20px;
+          background-color: #fff; 
+          width: 400px;
+          
+          position: fixed;
+          top:40%; left: 40%;
+          margin-top: -200px;margin-left: -250px;
+          box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+          display: none;
+        }
+        
+        #paper .balance .close{
+          position: absolute;top: 0px;right: 0px;font-size: 20px;
+          padding: 10px;
+        }
+
+    </style>
+    <script src="http://sandbox.runjs.cn/uploads/rs/376/pbcx3e1z/angular.min.js"></script>
+</head>
+<body ng-app="s1.app">
+<div style="margin-top: 50px; margin-left: 200px;" id="nav">
+    <button v="1" ng-click="activeProposal()">Active Proposal</button>
+    <button v="2" ng-click="endProposal()" style= "margin-left: 20px;">LeaderBoard</button>
+    <button v="3" style= "margin-left: 20px;">Create Proposal</button>
+    <button ng-click="ShowBalance()" style="margin-left: 20px;">Balance</button>
+
+    <!-- <p >
+      Your votes: {{deposisOf}} 
+    </p> -->
+    <!-- <form ng-submit="deposit(value)" style="margin-top: 30px;">        
+        <textarea placeholder="How much UUU" style="width: 200px; height: 25px;" type="text" class="form-control" ng-model="value" required ></textarea>          
+      <button class="btn btn-primary"  style="margin-top: 10px;">Deposit</button>
+    </form>
+    <form ng-submit="withdraw"></form> -->
+</div>
+
+<div id="paper">
+  <div class="p1" style="padding-top: 0px;">
+    <ul class="tksproposals" style="list-style: none; padding-left: 0px;">
+      <li data-ng-repeat="i in proposalstks" class="ppsli"  style="position: relative; margin: 15px 0px; padding-top: 10px; border-top: solid 1px #ddd;">
+        <div class="detail" id="h{{i._id}}" style="border: #999">
+            <p>
+              <h3 style="text-align: center;">{{i.proposalTitle}}</h3>
+            </p>
+            <div style="margin-left: 15px;">
+              <p style="margin-bottom: 15px; ">
+                <p style="font-size: 16px; font-weight: 900;">Proposal Summary:</p>
+                <p style="font-size: 15px; word-break: break-all">{{i.proposalSummary}}</p>
+              </p>
+              <p style="margin-bottom: 15px; ">
+                <p style="font-size: 16px; font-weight: 900;">Proposal Detail:</p>
+                <p style="font-size: 15px; word-break: break-all">{{i.proposalDetail}}</p>
+              </p>
+            </div>
+          <div style="margin: 10px;border: #666 1px solid; padding: 10px;position: relative" >
+            <table >
+                <tr>
+                    <td>
+                        <span style="color: #999; margin-left: 20px; margin-right: 10px;width: 49%">Created at: </span>
+                        <b style="color: palevioletred">{{i.proposalStartTime}}</b>
+                    </td>
+                    <td>
+                        <span style="color: #999; margin-left: 20px; margin-right: 10px;">End: </span>
+                        <b style="color: palevioletred">{{i.proposalEndTime}}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="color: #999; margin-left: 20px; margin-right: 10px;width: 49%">Creator: </span>
+                        <b style="color: palevioletred">{{i.userName}}</b>
+                    </td>
+                    <td>
+                        <span style="color: #999; margin-left: 20px; margin-right: 10px;">Profile: </span>
+                        <b style="color: palevioletred">{{i.userProfile}}</b>   
+                    </td>
+                </tr>
+            </table>
+              </div>
+              <div style="text-align: center; margin-top: 5px; ">
+                <button class="btn btn-success btn-xs" ng-click="vote(0, i)" style="padding-left: 15px; padding-right: 15px;">Agree</button>
+                <button class="btn btn-success btn-xs" ng-click="vote(1, i)" style="padding-left: 15px; padding-right: 15px;">Disagree</button>
+              </div>
+          <div class="close">
+            ×
+          </div>
+        </div>
+        <p style="margin: 0">
+          <h3 style="color: black; text-align: center" >{{i.proposalTitle}}</h3>
+        </p>
+        <p style="margin: 0">
+          <p style="margin-left:50px; color: #666; word-break: break-all; font-size: 16px;">{{i.proposalSummary}}</p>
+        </p>
+        <p style="margin: 0">
+        </p>
+        <p style="margin-top: 5px; text-align: center;">
+          <button class="btn btn-success btn-xs" ng-click="ShowDetail(i)" >Detail</button>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="p2" style="display: none;">
+      <ul class="endproposals" style="list-style: none; padding-left: 0px;">
+          <li data-ng-repeat="i in proposalsend" class="ppsli"  style="position: relative; margin: 15px 0px; padding-top: 10px; border-top: solid 1px #ddd;">
+            <div class="detail" id="h{{i._id}}" style="border: #999">
+              <p>
+                <h3 style="text-align: center;">{{i.proposalTitle}}</h3>
+              </p>
+              <div style="margin-left: 15px;">
+                <p style="margin-bottom: 15px; ">
+                  <p style="font-size: 16px; font-weight: 900;">Proposal Summary:</p>
+                  <p style="font-size: 15px; word-break: break-all">{{i.proposalSummary}}</p>
+                </p>
+                <p style="margin-bottom: 15px; ">
+                  <p style="font-size: 16px; font-weight: 900;">Proposal Detail:</p>
+                  <p style="font-size: 15px; word-break: break-all">{{i.proposalDetail}}</p>
+                </p>
+              </div>
+              <div style="margin-top: 20px; margin: 10px;border: #666 1px solid; padding: 10px;position: relative" >
+                <table >
+                    <tr>
+                        <td>
+                            <span style="color: #999; margin-left: 20px; margin-right: 10px;width: 49%">Created at: </span>
+                            <b style="color: palevioletred">{{i.proposalStartTime}}</b>
+                        </td>
+                        <td>
+                            <span style="color: #999; margin-left: 20px; margin-right: 10px;">End: </span>
+                            <b style="color: palevioletred">{{i.proposalEndTime}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="color: #999; margin-left: 20px; margin-right: 10px;width: 49%">Creator: </span>
+                            <b style="color: palevioletred">{{i.userName}}</b>
+                        </td>
+                        <td>
+                            <span style="color: #999; margin-left: 20px; margin-right: 10px;">Profile: </span>
+                            <b style="color: palevioletred">{{i.userProfile}}</b>   
+                        </td>
+                    </tr>
+                </table>
+              </div>
+                  
+              <div class="close">
+                ×
+              </div>
+            </div>
+            <table>
+              <th style="width: 500px;">
+                <p style="margin: 0">
+                  <h3 style="color: black; text-align: center" >{{i.proposalTitle}}</h3>
+                </p>
+                <p style="margin: 0">
+                  <p style="margin-left: 20px; color: #666; word-break: break-all; font-size: 13px;">{{i.proposalSummary}}</p>
+                </p>
+                <p style="margin-top: 5px; text-align: center;">
+                  <button class="btn btn-success btn-xs" ng-click="ShowDetail(i)" >Detail</button>
+                </p>
+              </th>
+              <th style="margin-left: 70px;">
+                <table id="t{{i.proposalHash}}" style=" margin-left: 40px; border-collapse: separate; border-spacing: 20px;" >
+                  <tr>
+                    <th>AGREE:</th>
+                    <th class="agree"></th>
+                  </tr>
+                  <tr style="margin-top: 20px;">
+                      <th>DISAGREE:</th>
+                      <th class="disagree"></th>
+                  </tr>  
+                </table>   
+<!-- 
+                <p>YES:</p>
+                <p>NO: </p>             
+                  -->
+              </th>
+            </table>
+          </li>
+      </ul>
+  
+  </div>
+
+  <div class="p3" style="display: none; margin-left: 200px;">
+    <form  ng-submit="propose()" style="margin-top: 30px; ">
+      <div>
+        <label >Proposal Creator: </label>
+        <textarea  type="text" class="form-control" ng-model="userName" required></textarea>
+      </div>
+      <div>
+        <label>Creator Profile: </label>      
+        <textarea type="text" class="form-control" ng-model="userProfile" required></textarea>    
+      </div>
+      <div>
+        <label>Proposal Title: </label>
+        <textarea type="text" class="form-control" ng-model="proposalTitle" required></textarea>    
+      </div>
+      <div>
+        <label>Proposal Summary: </label>
+        <textarea style="height: 50px; width:400px;" type="text"  class="form-control" ng-model="proposalSummary" required></textarea>    
+      </div>
+      <div>
+        <label>Proposal Detail: </label>
+        <textarea style="height: 100px; width:400px;" type="text" class="form-control" ng-model="proposalDetail" required></textarea>    
+      </div>
+      <div>
+        <label>Vote Start Time(UTC): </label>
+        <textarea style="min-height: 10px;" type="text" class="form-control" ng-model="voteStartTime" placeholder="2019-4-20 19:00:00" required></textarea>    
+      </div>
+      <div>
+        <label>Vote End Time(UTC): </label>
+        <textarea style="min-height: 10px;" type="text" class="form-control" ng-model="voteEndTime" placeholder="2019-5-30 19:00:00" required></textarea>    
+      </div>
+      <div style="width: 500px;">
+      A proposal will be approved if get a net total of yes votes equal to or greater than 10% of the total possible votes.
+      You also need to pay enough gas to submit a proposal.
+      </div>
+      <div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="balance" id="voteBalance" style="text-align: center; border: #999">
+    <p >
+      Your votes: {{deposisOf}} 
+    </p>
+    <form style="margin-top: 0px; ">   
+      <div>     
+        <textarea placeholder="How much UUU" style="text-align: center; margin-left: auto; margin-right: auto; width: 150px; height: 23px;" type="text" class="form-control" ng-model="value" required ></textarea>          
+      </div>
+      <button class="btn btn-success btn-xs"  ng-click="deposit(value)" style="margin-top: 10px;">Deposit</button>
+      <button class="btn btn-success btn-xs"  ng-click="withdraw(value)" style="margin-top: 10px;">Withdraw</button>
+    </form>
+    
+    <div class="close">
+      ×
+    </div>
+  </div>

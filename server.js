@@ -62,7 +62,7 @@ var web3 = require('./web3.js');
 
 
   // bingding services and scripts.
-  moduleNames = ['account', 'wallet', 'transaction', 'onekeytoken', 'browse', 'questionaries', 'rapiddeployment']
+  moduleNames = ['account', 'wallet', 'transaction', 'onekeytoken', 'browse', 'questionaries', 'rapiddeployment', 'tube', 'proposal']
   modules = {}
   for (const i in moduleNames) {
     const li = moduleNames[i]
@@ -73,7 +73,7 @@ var web3 = require('./web3.js');
 
   api = function(req, res, query, cb){
     var module;
-    // console.log(JSON.stringify(query));
+     console.log(JSON.stringify(query));
     module = modules[query.module];
     if (module == null) {
       return cb('Module Not Found');

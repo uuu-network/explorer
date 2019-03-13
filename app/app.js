@@ -36,9 +36,17 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
                     templateUrl: 'views/recordWords.html',
                     controller: 'recordwordsCtrl'
                 })
+                .when('/tube', {
+                    templateUrl: 'views/tube.html',
+                    controller: 'tubeCtrl'
+                })
+                .when('/proposal', {
+                    templateUrl: 'views/proposal.html',
+                    controller: 'proposalCtrl'
+                })
                 .otherwise({
                     redirectTo: '/'
-                });
+                })
         }])
         .run(function($rootScope) {
             var web3 = new Web3();
