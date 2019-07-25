@@ -44,6 +44,10 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
                     templateUrl: 'views/proposal.html',
                     controller: 'proposalCtrl'
                 })
+                .when('/articlebuy', {
+                    templateUrl: 'views/articleBuy.html',
+                    controller: 'articlebuyCtrl'
+                })
                 .otherwise({
                     redirectTo: '/'
                 })

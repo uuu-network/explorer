@@ -73,7 +73,7 @@ var web3 = require('./web3.js');
 
   api = function(req, res, query, cb){
     var module;
-     console.log(JSON.stringify(query));
+    // console.log(JSON.stringify(query));
     module = modules[query.module];
     if (module == null) {
       return cb('Module Not Found');
