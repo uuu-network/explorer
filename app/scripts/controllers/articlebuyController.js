@@ -17,8 +17,8 @@ angular.module('unetworkExplorer')
     $lockbox.click(function(){
 
         // 0x22a0b3688dd46ab1a37d6237871913037681d57f628862336bc9c3c468c4a449
-        var pass = prompt("Please enter the payment password.", "")
-        if( !pass || pass.length == 0 ){
+        var pass = confirm("Confirm the transaction?")
+        if( !pass ){
             return
         }
 
@@ -51,8 +51,6 @@ angular.module('unetworkExplorer')
                     }, 600)
 
                 }, 2000)
-
-
 
             })
             
