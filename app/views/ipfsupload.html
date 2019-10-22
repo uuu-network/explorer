@@ -1,0 +1,15 @@
+<div class="container" style="padding-top: 50px;">
+
+    <h2 style="text-align:center;">Upload, store and read file from IPFS node.</h2>
+    
+    <form style="padding-top: 20px;" ng-submit="submitUpload()" >
+        <div>
+            <label for="upipfsfile" class="btn btn-success" style="padding-left: 30px; padding-right: 30px;">Upload</label>
+            <input class="form-control" type="file" id="upipfsfile" file="upload_file" ng-model="file" style=" display: none; width: 240px !important; height: 50px; background: #ddd; border: none; padding: 10px 20px; cursor: pointer;" />
+            <input type="text" id="fileshow"  autocomplete="off" style="background: none; border: none; width: 200px !important; font-size: 14px;" value="" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" style=" display: block; width: 40%; margin-left: 30%; padding-left: 30px; padding-right: 30px;">Upload</button>
+    </form>
+
+</div>

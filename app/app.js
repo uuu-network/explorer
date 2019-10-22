@@ -48,6 +48,10 @@ angular.module('unetworkExplorer', ['ngRoute','ui.bootstrap'])
                     templateUrl: 'views/articleBuy.html',
                     controller: 'articlebuyCtrl'
                 })
+                .when('/ipfsupload', {
+                    templateUrl: 'views/ipfsupload.html',
+                    controller: 'ipfsuploadCtrl'
+                })
                 .otherwise({
                     redirectTo: '/'
                 })
