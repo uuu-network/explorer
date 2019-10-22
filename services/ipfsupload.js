@@ -83,7 +83,12 @@ function addFileToIPFS(file) {
     let cmdretstr = exec('ipfs add '+file.path);
     let fileref = cmdretstr.toString("utf8").trim().split(' ')[1]
     // console.log(fileref);
-    return fileref+'/'+file.name
+    let filename = Math.ceil(Math.random()*10000*10000*10000) + ''
+    let ffs = file.name.split('.')
+    if(ffs.length > 1){
+        filename += '.' + ffs[ffs.length-1]
+    }
+    return fileref+'/'+filename
 }
 
 
