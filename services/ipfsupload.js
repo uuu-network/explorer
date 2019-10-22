@@ -26,8 +26,36 @@ module.exports = ($scope) => {
     },
 
 
-    catfile: function(query, cb){
+    catfile: function(query, cb, req, res){
+        if( !query.refpath ){
+            return cb("refpath must.")
+        }
 
+        try {
+
+            let filename = query.refpath.split('/')[1]
+            let tyarys = filename.split('.')
+            let ty = tyarys[tyarys.length-1].toLowerCase()
+            let filebuf = readFileFromIPFS(query.refpath) 
+            let types = {
+                'jpg': 'image/jpeg',
+                'jpeg': 'image/jpeg',
+                'png': 'image/png',
+                'gif': 'image/gif',
+            }
+            let headers = {
+                'Content-Type': types[ty] ? types[ty] : 'application/octet-stream',
+                'Content-Length': filebuf.length,
+            }
+            if(query.download){
+                headers['Content-Disposition'] = 'attachment; filename='+filename;
+            }
+            res.set(headers);
+            res.end(filebuf)
+
+        } catch (error) {
+            return cb(error.toString());
+        }
 
     },
 
@@ -51,8 +79,9 @@ function addFileToIPFS(file) {
 
 
 // 从 ipfs 节点读取文件
-function readFileFromIPFS(ref) {
-    return exec('ipfs cat '+ref);
+// QmdSsQpZSAXXCaK4rNRTnr3NDZiDteNjdnR1YgVBbHM4Lc/59c488531093d.jpg
+function readFileFromIPFS(refpath) {
+    return exec('ipfs cat '+refpath.split('/')[0]);
 }
 
 
