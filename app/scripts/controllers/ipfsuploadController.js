@@ -88,12 +88,12 @@ angular.module('unetworkExplorer')
                 // QmdSsQpZSAXXCaK4rNRTnr3NDZiDteNjdnR1YgVBbHM4Lc/59c488531093d.jpg
                 let url = "/api?module=ipfsupload&action=catfile&refpath="+data.result.ref_name
                 if({'jpg':1,'jpeg':1,'png':1,'gif':1}[ty.toLowerCase()]){
-                    $show.find('a').attr('src', url);
+                    $show.find('img').attr('src', url);
                     $show.show();
                 }else{
                     $show.hide();
                 }
-                $down.find('a').attr('src', url+'&download=1');
+                $down.find('a').attr('href', url+'&download=1');
                 // 询问是否上链
                 ipfs_ref_name = data.result.ref_name
                 setTimeout(function(){
