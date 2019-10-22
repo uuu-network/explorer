@@ -36,22 +36,27 @@ module.exports = ($scope) => {
             let filename = query.refpath.split('/')[1]
             let tyarys = filename.split('.')
             let ty = tyarys[tyarys.length-1].toLowerCase()
-            let filebuf = readFileFromIPFS(query.refpath) 
+            let filetmp = readFileFromIPFS(query.refpath) 
             let types = {
                 'jpg': 'image/jpeg',
                 'jpeg': 'image/jpeg',
                 'png': 'image/png',
                 'gif': 'image/gif',
             }
-            let headers = {
-                'Content-Type': types[ty] ? types[ty] : 'application/octet-stream',
-                'Content-Length': filebuf.length,
+            var stats = fs.statSync(filetmp); 
+            if(stats.isFile()){
+                let headers = {
+                    'Content-Type': types[ty] ? types[ty] : 'application/octet-stream',
+                    'Content-Length': stats.size
+                }
+                if(query.download){
+                    headers['Content-Disposition'] = 'attachment; filename='+filename;
+                }
+                res.set(headers);
+                fs.createReadStream(filetmp).pipe(res);
+            }else{
+                return cb("not find.")
             }
-            if(query.download){
-                headers['Content-Disposition'] = 'attachment; filename='+filename;
-            }
-            res.set(headers);
-            res.end(filebuf)
 
         } catch (error) {
             return cb(error.toString());
@@ -81,7 +86,14 @@ function addFileToIPFS(file) {
 // 从 ipfs 节点读取文件
 // QmdSsQpZSAXXCaK4rNRTnr3NDZiDteNjdnR1YgVBbHM4Lc/59c488531093d.jpg
 function readFileFromIPFS(refpath) {
-    return exec('ipfs cat '+refpath.split('/')[0]);
+    let arys = refpath.split('/')
+    let tmpfile = '/tmp/' + arys[1]
+    exec('ipfs get ' + arys[0] + ' -o ' + tmpfile );
+    // 定时删除文件
+    setTimeout(function(){
+        fs.unlink(tmpfile)
+    }, 1000 * 60 * 5)
+    return tmpfile;
 }
 
 
