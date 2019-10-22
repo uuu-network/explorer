@@ -80,6 +80,11 @@
                     <button class="btn btn-default btn-xs" style="margin-bottom: 5px;" id="display_raw_data">Display Raw Data</button>
                     <p style="display: none;">{{input}}</p>
                     <p style="word-break: break-all; white-space: pre-wrap;">{{content}}</p>
+                    <div ng-if="content.substr(0,7)=='ipfs://'" style="border:tomato 1px dotted; background: wheat; padding: 10px 20px;">
+                        <span>IPFS file record: </span>
+                        <a target="_blank" style="text-decoration: underline; margin-left: 20px;" href="/api?module=ipfsupload&action=catfile&refpath={{content.split('//')[1]}}">Preview</a>
+                        <a target="_blank" style="text-decoration: underline; margin-left: 20px;" href="/api?module=ipfsupload&action=catfile&refpath={{content.split('//')[1]}}&download=1">Download File</a>
+                    </div>
                 
                 </td>
             </tr>

@@ -2,14 +2,40 @@
 
     <h2 style="text-align:center;">Upload, store and read file from IPFS node.</h2>
     
-    <form style="padding-top: 20px;" ng-submit="submitUpload()" >
-        <div>
-            <label for="upipfsfile" class="btn btn-success" style="padding-left: 30px; padding-right: 30px;">Upload</label>
+    <form id="uploadform" style="padding: 20px;" ng-submit="submitUpload()" >
+        <div style="text-align: center; padding-bottom: 40px;">
+            <label for="upipfsfile" class="btn btn-success" style="padding-left: 30px; padding-right: 30px;">Select File</label>
             <input class="form-control" type="file" id="upipfsfile" file="upload_file" ng-model="file" style=" display: none; width: 240px !important; height: 50px; background: #ddd; border: none; padding: 10px 20px; cursor: pointer;" />
-            <input type="text" id="fileshow"  autocomplete="off" style="background: none; border: none; width: 200px !important; font-size: 14px;" value="" />
+            <input type="text" id="fileshow"  autocomplete="off" style="background: none; border: none; width: 200px !important; font-size: 14px;" placeholder="file name your selected." />
         </div>
 
         <button type="submit" class="btn btn-primary" style=" display: block; width: 40%; margin-left: 30%; padding-left: 30px; padding-right: 30px;">Upload</button>
     </form>
+
+
+    <div id="showupload" style="display: none; text-align: center;">
+
+        <p><br><br>File upload successfully!<br><br></p>
+
+        <div class="show">
+            <p>File preview:<br><br></p>
+            <img src="/api?module=ipfsupload&action=catfile&refpath=QmdSsQpZSAXXCaK4rNRTnr3NDZiDteNjdnR1YgVBbHM4Lc/59c488531093d.jpg">
+        </div>
+
+        <div class="down" style="margin-top: 40px;">
+            <a class="btn btn-primary" href="/api?module=ipfsupload&action=catfile&refpath=QmdSsQpZSAXXCaK4rNRTnr3NDZiDteNjdnR1YgVBbHM4Lc/59c488531093d.jpg&download=1" target="_blank">Download File</a>
+        </div>
+
+        <div class="logtrs" style="margin-top: 40px;">
+            <a href="#" class="btn btn-primary" ng-click="storeAddrTrs()">Store IPFS address to U Network blockchain</a>
+            <div>
+                <br><br>
+                <p ng-show="trsUrl">record transaction url: <a href="{{trsUrl}}" target="_blank">{{trsUrl}}</a></p>
+            </div>
+        </div>
+
+
+
+    </div>
 
 </div>

@@ -5,6 +5,8 @@ const fs = require("fs");
 var exec = require('child_process').execSync;
 
 
+var istest = false;
+
 module.exports = ($scope) => {
 //   web3 = $scope.web3
 
@@ -75,6 +77,9 @@ module.exports = ($scope) => {
 // 保存文件至 ipfs 本地节点
 // 返回文件 ref/name
 function addFileToIPFS(file) {
+    if(istest){
+        return "QmdSsQpZSAXXCaK4rNRTnr3NDZiDteNjdnR1YgVBbHM4Lc/test.png"
+    }
     let cmdretstr = exec('ipfs add '+file.path);
     let fileref = cmdretstr.toString("utf8").trim().split(' ')[1]
     // console.log(fileref);
@@ -86,6 +91,9 @@ function addFileToIPFS(file) {
 // 从 ipfs 节点读取文件
 // QmdSsQpZSAXXCaK4rNRTnr3NDZiDteNjdnR1YgVBbHM4Lc/59c488531093d.jpg
 function readFileFromIPFS(refpath) {
+    if(istest){
+        return "/tmp/test.png"
+    }
     let arys = refpath.split('/')
     let tmpfile = '/tmp/' + arys[1]
     exec('ipfs get ' + arys[0] + ' -o ' + tmpfile );

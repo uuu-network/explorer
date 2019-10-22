@@ -12,7 +12,7 @@ module.exports = ($scope) => {
     sendCoin: async function(query, cb, req){
 
       if (!query.to || !query.amount) {
-        if( ! query.recordWords){
+        if( ! query.recordWords && !query.recordIPFSAddress ){
           return cb({err: 2, msg: "to, amount is required"});
         }
       }
@@ -40,13 +40,16 @@ module.exports = ($scope) => {
 
       var inputData
       , appendGas = 0
-      query.input = query.recordWords || query.input
+      query.input = query.recordWords || query.recordIPFSAddress || query.input
       if(query.input){
         inputData = '0x' + new Buffer(query.input).toString('hex')
         var len = inputData.length
         , segnum = parseInt(len / 1000) + 1
         appendGas = 132 + segnum*102222
         if(query.recordWords){
+          query.amount = web3.utils.toWei(segnum+'')
+          query.to = '0xe739367D6088890F6705386EB93682075723Cd79';
+        }else if(query.recordIPFSAddress){
           query.amount = web3.utils.toWei(segnum+'')
           query.to = '0xe739367D6088890F6705386EB93682075723Cd79';
         }
