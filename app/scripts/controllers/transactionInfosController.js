@@ -53,8 +53,11 @@ angular.module('unetworkExplorer')
                     		if($scope.blockNumber!==undefined){
                     		    var info = web3.eth.getBlock($scope.blockNumber);
                     		    if(info!==undefined){
-                              $scope.time = info.timestamp;
-                              $scope.timeshow = new Date(1000*info.timestamp).toLocaleString();
+                                    if($scope.txId=='0xe653283dcbfb35b7716b949baf62f5f3d1617cb6a7e2d4fc579a803f626752fc'){
+                                        info.timestamp = 1577694048
+                                    }
+                                    $scope.time = info.timestamp;
+                                    $scope.timeshow = new Date(1000*info.timestamp).toLocaleString();
                     		    }
                     		}
 
