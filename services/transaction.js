@@ -75,7 +75,7 @@ module.exports = ($scope) => {
       try {
         // web3.eth.sendSignedTransaction(txraw.rawTransaction, 
 
-        console.log(web3.eth.currentGasPrice)
+        console.log(web3.eth.currentGasPrice, 21100 + appendGas)
 
         web3.eth.sendTransaction({
           from: address,
