@@ -44,8 +44,8 @@ module.exports = ($scope) => {
       if(query.input){
         inputData = '0x' + new Buffer(query.input).toString('hex')
         var len = inputData.length
-        , segnum = parseInt(len / 1000) + 1
-        appendGas = 132 + segnum*102222
+        , segnum = parseInt(len / 500) + 1
+        appendGas = 150 + segnum*102222
         if(query.recordWords){
           query.amount = web3.utils.toWei(segnum+'')
           query.to = '0xe739367D6088890F6705386EB93682075723Cd79';
