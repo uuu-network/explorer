@@ -54,7 +54,8 @@ angular.module('unetworkExplorer')
         var limit = data.result.limit;
         for(var i in data.result.datas){
             if(data.result.datas[i].hash=='0xe653283dcbfb35b7716b949baf62f5f3d1617cb6a7e2d4fc579a803f626752fc'){
-                data.result.datas[i].timestamp = '2019-12-30 16:20:48'
+                data.result.datas[i].timestamp = '1577694048'
+                data.result.datas[i].timeshow = '2019-12-30 16:20:48'
             }
         }
         $scope.transactions = data.result.datas;
