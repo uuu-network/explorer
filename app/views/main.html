@@ -1,91 +1,98 @@
 <div class="container" style="padding-top: 50px;">
 
-    <h2 style="text-align:center;">Welcome to the U Network Wallet and Block Explorer!</h2>
+  <h2 style="text-align:center;">Welcome to the U Network Wallet and Block Explorer!</h2>
 
-    <div style="text-align:center; margin-top: 30px;">
-      <a href="/#/newwallet" id="walogwrap" style="text-decoration: none">
-        <button class="btn btn-primary walogbtn" style="padding-left: 30px; padding-right: 30px;" title="create a new wallet">Create New Wallet</button>
-      </a>
-      <a href="/#/mywallet" id="walogwrap" style="margin-left: 20px; text-decoration: none">
-        <button class="btn btn-default walogbtn" style="padding-left: 30px; padding-right: 30px;" title="go to my wallet"> ➤ Login My Wallet</button>
-      </a>
-    </div>
-
-
-    <h3 style="text-align:left; margin-top: 30px;">
-      Blocks <a href="/#/block/{{blockNum}}" style="font-size: 14px;">(latest: {{blockNum}})</a>
-    </h3>
-
-    <table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:0px;width:100%">
-      <tbody>
-        <tr>
-          <th>Block #</th>
-          <th>hash</th>
-          <th>Txs</th>
-          <th>Size</th>
-          <th>Guse</th>
-          <th>Time</th>
-        </tr>
-        <tr data-ng-repeat="i in blocks">
-          <td><a href="/#/block/{{i.number}}">{{i.number}}</a></td>
-          <td>{{i.hash}}</td>
-          <td>{{i.transaction_count}}</td>
-          <td>{{i.size}}</td>
-          <td>{{i.gasUsed}}</td>
-          <td title="{{i.timestamp}}">{{i.timeshow}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <nav aria-label="Page navigation" style="text-align: right">
-      <ul style="display:inline-block;" class="pagination" id="pgblock">
-        <!--
-        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-        -->
-      </ul>
-    </nav>
+  <div style="text-align:center; margin-top: 30px;">
+    <a href="/#/newwallet" id="walogwrap" style="text-decoration: none">
+      <button class="btn btn-primary walogbtn" style="padding-left: 30px; padding-right: 30px;"
+              title="create a new wallet">Create New Wallet
+      </button>
+    </a>
+    <a href="/#/mywallet" id="walogwrap" style="margin-left: 20px; text-decoration: none">
+      <button class="btn btn-default walogbtn" style="padding-left: 30px; padding-right: 30px;" title="go to my wallet">
+        ➤ Login My Wallet
+      </button>
+    </a>
+  </div>
 
 
+  <h3 style="text-align:left; margin-top: 30px;">
+    Blocks <a href="/#/block/{{blockNum}}" style="font-size: 14px;">(latest: {{blockNum}})</a>
+  </h3>
 
-    <h3 style="text-align:left; margin-top: 30px;">Transactions</h3>
+  <table cellpadding="0" cellspacing="0" class="table table-striped"
+         style="padding:0px;float:left;margin:0px;width:100%">
+    <tbody>
+    <tr>
+      <th>Block #</th>
+      <th>hash</th>
+      <th>Txs</th>
+      <th>Size</th>
+      <th>Guse</th>
+      <th>Time</th>
+    </tr>
+    <tr data-ng-repeat="i in blocks">
+      <td><a href="/#/block/{{i.number}}">{{i.number}}</a></td>
+      <td>{{i.hash}}</td>
+      <td>{{i.transaction_count}}</td>
+      <td>{{i.size}}</td>
+      <td>{{i.gasUsed}}</td>
+      <td title="{{i.timestamp}}">{{i.timeshow}}</td>
+    </tr>
+    </tbody>
+  </table>
 
-    <table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:0px;width:100%">
-      <tbody>
-        <tr>
-          <th>Block #</th>
-          <th>Hash</th>
-          <th>From => To</th>
-          <th>Amount</th>
-          <th>Time</th>
-        </tr>
-        <tr data-ng-repeat="i in transactions">
-          <td><a href="/#/block/{{i.blockNumber}}">{{i.blockNumber}}</a></td>
-          <td><a href="/#/transaction/{{i.hash}}" style="display:inline-block; width: 270px; word-break: break-all;">{{i.hash}}</a></td>
-          <td>
-            <b style="display: inline-block; width: 50px; color: darkcyan;">from:</b>{{i.from}}
-            <div ng-show="i.to.length>0">
-                <b style="display: inline-block; width: 50px; color: darkgoldenrod;">to:</b>{{i.to}}
-            </div>            
-            <div ng-show="i.uuu==0">
-                <b style="display: inline-block; font-size: 12px; line-height: 12px; padding: 2px 4px; border-radius: 4px; color: #fff; background:lightblue">contract</b>
-            </div>
-          
-          </td>
-          <td>
-            <div ng-show="i.uuu>0">
-                {{i.uuu}} <b style="color:darkolivegreen; font-size: 12px;">UUU</b></td>
-            </div>
-            <td title="{{i.timestamp}}">{{i.timeshow}}</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <nav aria-label="Page navigation" style="text-align: right">
-      <ul style="display:inline-block;" class="pagination" id="pgtrs">
-      </ul>
-    </nav>
+  <nav aria-label="Page navigation" style="text-align: right">
+    <ul class="pagination" id="pgblock" style="display:inline-block;">
+      <!--
+      <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+      -->
+    </ul>
+  </nav>
+
+
+  <h3 style="text-align:left; margin-top: 30px;">Transactions</h3>
+
+  <table cellpadding="0" cellspacing="0" class="table table-striped"
+         style="padding:0px;float:left;margin:0px;width:100%">
+    <tbody>
+    <tr>
+      <th>Block #</th>
+      <th>Hash</th>
+      <th>From => To</th>
+      <th>Amount</th>
+      <th>Time</th>
+    </tr>
+    <tr data-ng-repeat="i in transactions">
+      <td><a href="/#/block/{{i.blockNumber}}">{{i.blockNumber}}</a></td>
+      <td><a href="/#/transaction/{{i.hash}}"
+             style="display:inline-block; width: 270px; word-break: break-all;">{{i.hash}}</a></td>
+      <td>
+        <b style="display: inline-block; width: 50px; color: darkcyan;">from:</b>{{i.from}}
+        <div ng-show="i.to.length>0">
+          <b style="display: inline-block; width: 50px; color: darkgoldenrod;">to:</b>{{i.to}}
+        </div>
+        <div ng-show="i.uuu==0">
+          <b style="display: inline-block; font-size: 12px; line-height: 12px; padding: 2px 4px; border-radius: 4px; color: #fff; background:lightblue">contract</b>
+        </div>
+
+      </td>
+      <td>
+        <div ng-show="i.uuu>0">
+          {{i.uuu}} <b style="color:darkolivegreen; font-size: 12px;">UUU</b>
+      </td>
+</div>
+<td title="{{i.timestamp}}">{{i.timeshow}}</td>
+</tr>
+</tbody>
+</table>
+
+<nav aria-label="Page navigation" style="text-align: right">
+  <ul class="pagination" id="pgtrs" style="display:inline-block;">
+  </ul>
+</nav>
 
 
 </div>

@@ -1,4 +1,3 @@
-
 const CONST = require('./const.js')
 
 
@@ -9,19 +8,19 @@ module.exports = ($scope) => {
   return {
 
     // recordWords 内容上链
-    sendCoin: async function(query, cb, req){
+    sendCoin: async function (query, cb, req) {
 
       if (!query.to || !query.amount) {
-        if( ! query.recordWords && !query.recordIPFSAddress ){
+        if (!query.recordWords && !query.recordIPFSAddress) {
           return cb({err: 2, msg: "to, amount is required"});
         }
       }
       var address = CONST.checkLogin(req)
-      if(!address){
+      if (!address) {
         return cb({err: 1, msg: 'you must login first'});
       }
       var accobj = web3.eth.accounts.wallet[address]
-      if(!accobj){
+      if (!accobj) {
         return cb({err: 1, msg: 'you must login first'});
       }
       // sand
@@ -39,18 +38,18 @@ module.exports = ($scope) => {
       console.log(txraw)*/
 
       var inputData
-      , appendGas = 0
+        , appendGas = 0
       query.input = query.recordWords || query.recordIPFSAddress || query.input
-      if(query.input){
+      if (query.input) {
         inputData = '0x' + new Buffer(query.input).toString('hex')
         var len = inputData.length
-        , segnum = parseInt(len / 1000) + 1
-        appendGas = 150 + segnum*102222
-        if(query.recordWords){
-          query.amount = web3.utils.toWei(segnum+'')
+          , segnum = parseInt(len / 1000) + 1
+        appendGas = 150 + segnum * 102222
+        if (query.recordWords) {
+          query.amount = web3.utils.toWei(segnum + '')
           query.to = '0xe739367D6088890F6705386EB93682075723Cd79';
-        }else if(query.recordIPFSAddress){
-          query.amount = web3.utils.toWei(segnum+'')
+        } else if (query.recordIPFSAddress) {
+          query.amount = web3.utils.toWei(segnum + '')
           query.to = '0xe739367D6088890F6705386EB93682075723Cd79';
         }
       }
@@ -73,21 +72,21 @@ module.exports = ($scope) => {
       // console.log(bytes)
 
       try {
-        // web3.eth.sendSignedTransaction(txraw.rawTransaction, 
+        // web3.eth.sendSignedTransaction(txraw.rawTransaction,
 
         console.log(web3.eth.currentGasPrice, 21100 + appendGas)
 
         web3.eth.sendTransaction({
-          from: address,
-          to: query.to,
-          value: query.amount,
-          gas: 21100 + appendGas,
-          gasPrice: query.usefreegas==='1' ? '0' : web3.eth.currentGasPrice,
-          chainId: 5816,
-          input: inputData,
-        },
-        function(err, result){
-            if(err) {
+            from: address,
+            to: query.to,
+            value: query.amount,
+            gas: 21100 + appendGas,
+            gasPrice: query.usefreegas === '1' ? '0' : web3.eth.currentGasPrice,
+            chainId: 5816,
+            input: inputData,
+          },
+          function (err, result) {
+            if (err) {
               // console.log(err)
               return cb({err: 2, msg: err.toString()})
             }
@@ -96,13 +95,13 @@ module.exports = ($scope) => {
             cb(null, {
               trshash: result
             })
-        })
-        
+          })
+
       } catch (error) {
         return cb({err: 2, msg: error.toString()})
       }
 
-    
+
     }
 
   }

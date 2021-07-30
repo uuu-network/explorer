@@ -3,32 +3,33 @@ angular.module('unetworkExplorer')
 
 
     var $wrap_compile = $('#compile')
-    , $wrap_deploy = $('#deploy')
-    , $show_ufg = $('#showufg')
+      , $wrap_deploy = $('#deploy')
+      , $show_ufg = $('#showufg')
 
-    function updateFreeGasStatus(){
+    function updateFreeGasStatus() {
       var openUseFreeGasStatusCookieKey = 'oufgs'
-      var openUseFreeGasStatus =  $.cookie(openUseFreeGasStatusCookieKey) === '1'
+      var openUseFreeGasStatus = $.cookie(openUseFreeGasStatusCookieKey) === '1'
       var none1 = 'display: none;', none2 = ''
       if (openUseFreeGasStatus) {
         none2 = none1
         none1 = ''
       }
-      var html = '<span style="color: #419641; '+none1+'">Use Free Gas</span><span style="'+none2+'">Spend UUU</span>'
+      var html = '<span style="color: #419641; ' + none1 + '">Use Free Gas</span><span style="' + none2 + '">Spend UUU</span>'
       $show_ufg.html(html)
     }
+
     // $scope.use_free_gas_show = '<span style="color: #419641">Use Free Gas</span>'
     setInterval(updateFreeGasStatus, 999)
     setTimeout(updateFreeGasStatus, 1)
 
 
     var wrapShowSwapMark
-    $scope.wrapShowSwap = function(){
+    $scope.wrapShowSwap = function () {
       if (wrapShowSwapMark) {
         $wrap_compile.show()
         $wrap_deploy.hide()
         wrapShowSwapMark = 0
-      }else{
+      } else {
         $wrap_compile.hide()
         $wrap_deploy.show()
         wrapShowSwapMark = 1
@@ -36,28 +37,28 @@ angular.module('unetworkExplorer')
     }
 
 
-    function confirmDeployModal(trshash, callback){
+    function confirmDeployModal(trshash, callback) {
 
-      $scope.$apply(function(){
+      $scope.$apply(function () {
         $scope.confirmTrsHash = trshash
       })
       // alert('Generate Successfully')
       var confirmationModal = $('#deploymentConfirmationModal')
       confirmationModal.modal({backdrop: false})
       var progressBar = confirmationModal.find('.progress-bar')
-      , miao = 13, sec = 1
-      , itvl = setInterval( ()=>{
-        var per = parseInt(sec/4/miao*100)+'%'
+        , miao = 13, sec = 1
+        , itvl = setInterval(() => {
+        var per = parseInt(sec / 4 / miao * 100) + '%'
         progressBar.width(per)
         progressBar.text(per)
-        if(sec >= miao*4){
+        if (sec >= miao * 4) {
           clearInterval(itvl)
           confirmationModal.modal('hide')
           // return location.reload()
           callback && callback()
         }
-        sec ++
-      }, 250 )
+        sec++
+      }, 250)
     }
 
 
@@ -66,7 +67,7 @@ angular.module('unetworkExplorer')
     // })
 
 
-    $scope.deployContract = function() {
+    $scope.deployContract = function () {
 
       // confirmDeployModal('ausdhgu89374687rifuyagsiuy9q384', function(){})
       // return
@@ -81,32 +82,31 @@ angular.module('unetworkExplorer')
         gasLimit: $scope.gas_limit_set,
       }
 
-      $.post('/papi', param, function (data, status){
+      $.post('/papi', param, function (data, status) {
         // console.log(data)
         // console.log(333)
         var res = data.result
-        if(res.err){
+        if (res.err) {
           return alert('Deploy Contract Error: ' + res.msg)
         }
 
-        confirmDeployModal(res.transactionHash, function(){
+        confirmDeployModal(res.transactionHash, function () {
 
           $scope.contract_name = ''
           $scope.source_code = ''
           $scope.wrapShowSwap()
 
           // update show
-          updateShowDeployments(function(){
-            setTimeout(function(){
-              $('#'+res.transactionHash).css({"background-color":"#ffd"})
+          updateShowDeployments(function () {
+            setTimeout(function () {
+              $('#' + res.transactionHash).css({"background-color": "#ffd"})
             }, 200)
           })
         })
 
 
-
       })
-  
+
 
       // alert('deployContract')
 
@@ -118,14 +118,14 @@ angular.module('unetworkExplorer')
       $.get('/api', {
         module: 'rapiddeployment',
         action: 'logs',
-      }, function(data, status){
+      }, function (data, status) {
         var empty = $('ul.deployments').next()
-        $scope.$apply(function(){
+        $scope.$apply(function () {
           // console.log(data.result)
-          if(data && data.result && data.result.datas && data.result.datas.length>0){
+          if (data && data.result && data.result.datas && data.result.datas.length > 0) {
             $scope.deployments = data.result.datas;
             empty.hide()
-          }else{
+          } else {
             // $scope.minetks = []
             empty.show()
           }
@@ -137,7 +137,6 @@ angular.module('unetworkExplorer')
     updateShowDeployments()
 
 
-
     /////////////   TEST CODE   /////////////
     // $scope.contract_abi = '[]'
     // $scope.contract_bytecode = '6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820f46b985ea26958a803035f7e1fca64c56f7db5d07c11e9d14a9c897d508120910029'
@@ -145,7 +144,7 @@ angular.module('unetworkExplorer')
     /////////////      END      /////////////
 
 
-    $scope.compileContract = function() {
+    $scope.compileContract = function () {
       /*
       var modal = $('#rapidDeploymentModal')
       , sourceCode = modal.find('input.sourceCode').val()
@@ -162,15 +161,15 @@ angular.module('unetworkExplorer')
       // console.log(param)
       // console.log(2321)s
       // alert(112)
-      $.post('/papi', param, function (data, status){
-      //         console.log(data.result)
+      $.post('/papi', param, function (data, status) {
+        //         console.log(data.result)
         // console.log(333)
         var res = data.result
-        if(res.err){
+        if (res.err) {
           return alert('Compile Contract Error: ' + res.msg)
         }
 
-        $scope.$apply(function(){
+        $scope.$apply(function () {
           $scope.contract_abi = res.abi
           $scope.contract_bytecode = res.bytecode
           $scope.contract_arguments = ''
@@ -179,18 +178,11 @@ angular.module('unetworkExplorer')
         // console.log(data.result)
         // alert(data.content)
         //         confirmGenerate()
-      })      
+      })
     }
 
 
-
-
-
-
   })
-
-
-
 
 
 const contractName = 'Ballot'

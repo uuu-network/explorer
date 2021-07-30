@@ -14,7 +14,7 @@ angular.module('unetworkExplorer')
     }
 
 
-    $scope.submitCreateWallet = function() {
+    $scope.submitCreateWallet = function () {
       var passwd = $scope.passwd;
       if (!passwd || passwd.length < 8) {
         return alert('input at least 8 characters')
@@ -23,10 +23,10 @@ angular.module('unetworkExplorer')
         module: 'account',
         action: 'create',
         password: passwd,
-      }, function(data, status){
-        if (data && data.result && data.result.address ) {
+      }, function (data, status) {
+        if (data && data.result && data.result.address) {
           showSaveWalletKeyStoreFile(data.result)
-        }else{
+        } else {
           alert('Create Error !')
         }
         // console.log(data)
@@ -36,7 +36,7 @@ angular.module('unetworkExplorer')
 
 
     isshowpass = false
-    $scope.showPass = function() {
+    $scope.showPass = function () {
       passinput.attr('type', isshowpass ? 'password' : 'text')
       str1 = 'eye-closed.svg'
       str2 = 'eye.svg'
@@ -47,9 +47,9 @@ angular.module('unetworkExplorer')
       }
       showbt = passinput.next().children()
       oldsty = showbt.attr('style')
-      newsty = oldsty.replace( str1, str2)
+      newsty = oldsty.replace(str1, str2)
       showbt.attr('style', newsty)
       isshowpass = !isshowpass
     }
-    
+
   })

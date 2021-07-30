@@ -1,97 +1,105 @@
 <div class="container" style="padding-top: 50px;">
 
-    <h1>Transaction
-        <small>View information about a U Network transaction</small>
-    </h1>
+  <h1>Transaction
+    <small>View information about a U Network transaction</small>
+  </h1>
 
-    <div id="tx-97785883" class="txdiv">
-        <table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:0px;width:100%">
-            <tbody>
-            <tr>
-                <th colspan="3" align="left"><a class="hash-link" href="./#/transaction/{{txId}}">{{txId}}</a> <span class="pull-right"></span></th>
-            </tr>
-            <tr>
-                <td width="500px" class="">
-                    <a href="./#/address/{{from}}">{{from}}</a>
-                    <br>
-                </td>
-                <td width="48px" class="" style="padding:4px;text-align:center;vertical-align:middle;">
-                    <img src="https://blockchain.info/Resources/arrow_right_green.png">  <!--TODO upload the image on the server-->
-                </td>
-                <td class="">
-                    <a href="./#/address/{{to}}">{{to}}</a>
-                    <span class="pull-right">
+  <div class="txdiv" id="tx-97785883">
+    <table cellpadding="0" cellspacing="0" class="table table-striped"
+           style="padding:0px;float:left;margin:0px;width:100%">
+      <tbody>
+      <tr>
+        <th align="left" colspan="3"><a class="hash-link" href="./#/transaction/{{txId}}">{{txId}}</a> <span
+            class="pull-right"></span></th>
+      </tr>
+      <tr>
+        <td class="" width="500px">
+          <a href="./#/address/{{from}}">{{from}}</a>
+          <br>
+        </td>
+        <td class="" style="padding:4px;text-align:center;vertical-align:middle;" width="48px">
+          <img src="https://blockchain.info/Resources/arrow_right_green.png"><!--TODO upload the image on the server-->
+        </td>
+        <td class="">
+          <a href="./#/address/{{to}}">{{to}}</a>
+          <span class="pull-right">
                         <span>{{ethValue}} UUU</span>
                     </span>
-                    <br>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div style="padding-bottom:30px;width:100%;text-align:right;clear:both">   <!--TODO no style tags...-->
-            <button class="btn btn-primary">{{conf}} Confirmations</button>
-            <button class="btn btn-success cb"><span>{{ethValue}} UUU</span></button>
-        </div>
-        <table class="table table-striped">
-            <tbody><tr>
-                <th colspan="2" style="text-align:left">Summary</th>
-            </tr>
-            <tr>
-                <td>Block Hash</td>
-                <td><a href="./#/block/{{blockHash}}">{{blockHash}}</a></td>
-            </tr>
-            <tr>
-                <td>Received Time</td>
-                <td>
-                  {{timeshow}} <span style="color: #bbb">({{time}})</span>
-                </td>
-            </tr>
-            <tr>
-                <td>Included In Block</td>
-                <td>
-                    <a href="./#/block/{{blockNumber}}">{{blockNumber}}</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Gas Used</td>
-                <td>{{gasUsed}}</td>
-            </tr>
-            <tr>
-                <td>Gas Limit</td>
-                <td>{{gas}}</td>
-            </tr>
-            <tr>
-                <td>Gas Price</td>
-                <td>{{gasPrice}}</td>
-            </tr>
-            <!--<tr>
-                <td>Number of transactions made by the sender prior to this one</td>
-                <td>{{nonce}}</td>
-            </tr>-->
-            <tr>
-                <td>Transaction Price</td>
-                <td>{{txprice}}</td>
-            </tr>
-            <tr>
-                <td>
-                    Data
-                </td>
-                <td>
-                    <button class="btn btn-default btn-xs" style="margin-bottom: 5px;" id="display_raw_data">Display Raw Data</button>
-                    <p style="display: none;">{{input}}</p>
-                    <p style="word-break: break-all; white-space: pre-wrap;">{{content}}</p>
-                    <div ng-if="content.substr(0,7)=='ipfs://'" style="border:tomato 1px dotted; background: wheat; padding: 10px 20px;">
-                        <span>IPFS file record: </span>
-                        <a target="_blank" style="text-decoration: underline; margin-left: 20px;" href="/api?module=ipfsupload&action=catfile&refpath={{content.split('//')[1]}}">Preview</a>
-                        <a target="_blank" style="text-decoration: underline; margin-left: 20px;" href="/api?module=ipfsupload&action=catfile&refpath={{content.split('//')[1]}}&download=1">Download File</a>
-                    </div>
-                
-                </td>
-            </tr>
-
-
-            </tbody>
-        </table>
+          <br>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div style="padding-bottom:30px;width:100%;text-align:right;clear:both">   <!--TODO no style tags...-->
+      <button class="btn btn-primary">{{conf}} Confirmations</button>
+      <button class="btn btn-success cb"><span>{{ethValue}} UUU</span></button>
     </div>
+    <table class="table table-striped">
+      <tbody>
+      <tr>
+        <th colspan="2" style="text-align:left">Summary</th>
+      </tr>
+      <tr>
+        <td>Block Hash</td>
+        <td><a href="./#/block/{{blockHash}}">{{blockHash}}</a></td>
+      </tr>
+      <tr>
+        <td>Received Time</td>
+        <td>
+          {{timeshow}} <span style="color: #bbb">({{time}})</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Included In Block</td>
+        <td>
+          <a href="./#/block/{{blockNumber}}">{{blockNumber}}</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Gas Used</td>
+        <td>{{gasUsed}}</td>
+      </tr>
+      <tr>
+        <td>Gas Limit</td>
+        <td>{{gas}}</td>
+      </tr>
+      <tr>
+        <td>Gas Price</td>
+        <td>{{gasPrice}}</td>
+      </tr>
+      <!--<tr>
+          <td>Number of transactions made by the sender prior to this one</td>
+          <td>{{nonce}}</td>
+      </tr>-->
+      <tr>
+        <td>Transaction Price</td>
+        <td>{{txprice}}</td>
+      </tr>
+      <tr>
+        <td>
+          Data
+        </td>
+        <td>
+          <button class="btn btn-default btn-xs" id="display_raw_data" style="margin-bottom: 5px;">Display Raw Data
+          </button>
+          <p style="display: none;">{{input}}</p>
+          <p style="word-break: break-all; white-space: pre-wrap;">{{content}}</p>
+          <div ng-if="content.substr(0,7)=='ipfs://'"
+               style="border:tomato 1px dotted; background: wheat; padding: 10px 20px;">
+            <span>IPFS file record: </span>
+            <a href="/api?module=ipfsupload&action=catfile&refpath={{content.split('//')[1]}}" style="text-decoration: underline; margin-left: 20px;"
+               target="_blank">Preview</a>
+            <a href="/api?module=ipfsupload&action=catfile&refpath={{content.split('//')[1]}}&download=1" style="text-decoration: underline; margin-left: 20px;"
+               target="_blank">Download
+              File</a>
+          </div>
+
+        </td>
+      </tr>
+
+
+      </tbody>
+    </table>
+  </div>
 
 </div>

@@ -1,4 +1,4 @@
 {
-  "rpcUrl" : "http://127.0.0.1:9147",
-  "ipcFile" : "/Users/admin/.unetwork/unetwork.ipc"
+  "rpcUrl": "http://127.0.0.1:9147",
+  "ipcFile": "/Users/admin/.unetwork/unetwork.ipc"
 }

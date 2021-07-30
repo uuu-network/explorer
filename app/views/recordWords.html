@@ -4,35 +4,36 @@
 
   <form ng-submit="doSubmitRecordWords()">
 
-  <div id="input" style="display: block; margin-top: 20px;">
-    <textarea style="min-height: 400px;" 
-      type="text"
-      class="form-control" 
-      placeholder="Your text ..." 
-      ng-model="recordwords" required ></textarea>
-  </div>
+    <div id="input" style="display: block; margin-top: 20px;">
+    <textarea class="form-control"
+              ng-model="recordwords"
+              placeholder="Your text ..."
+              required
+              style="min-height: 400px;" type="text"></textarea>
+    </div>
 
-  <div id="submit" style="display: block; margin-top: 30px;">
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </div>
-    
+    <div id="submit" style="display: block; margin-top: 30px;">
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+
   </form>
 
 
   <div id="loading" style="display: none; margin-top: 30px;">
-    <p>The transaction need  to be confirmed on the U Network, please wait a moment.</p>
+    <p>The transaction need to be confirmed on the U Network, please wait a moment.</p>
     <div class="progress" style="width: 490px;">
-      <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="1"
+           class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width: 100%">
       </div>
     </div>
   </div>
 
   <div id="success" style="display: none; margin-top: 30px;">
-    <div class="bg-success" style="padding: 20px;" >
+    <div class="bg-success" style="padding: 20px;">
       <p>Your text was recorded, check the url:</p>
-      <a class="bg-primary" target="_blank" 
-      style="padding: 5px; cursor: pointer; color: #fff;"
-      href="{{trsUrl}}">{{trsUrl}}</a>
+      <a class="bg-primary" href="{{trsUrl}}"
+         style="padding: 5px; cursor: pointer; color: #fff;"
+         target="_blank">{{trsUrl}}</a>
     </div>
     <br><br>
     <button class="btn btn-success"> Store Again</button>

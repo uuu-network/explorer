@@ -1,98 +1,106 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="unetworkExplorer" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="unetworkExplorer" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="unetworkExplorer" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="unetworkExplorer" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html lang="en" ng-app="unetworkExplorer" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="unetworkExplorer" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="unetworkExplorer" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" ng-app="unetworkExplorer"> <!--<![endif]-->
 <head>
   <base href="/">
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <title>U Network Block Explorer</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles/bootstrap.min.css">
-  <link rel="stylesheet" href="styles/main.css">
+  <meta content="" name="description">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="styles/bootstrap.min.css" rel="stylesheet">
+  <link href="styles/main.css" rel="stylesheet">
   <script src="styles/web3.min.js?_=2"></script>
 
 </head>
 <body>
-  
-<nav class="navbar navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <span class="icon-bar"></span><a href="/#/" class="navbar-brand">U Network</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <form name="search_form" ng-controller="navbarCtrl" ng-submit="navSearchProcessRequest()" class="navbar-form navbar-left">
-              <div class="form-group">
-              <input type="text" placeholder="Tx Hash / Address / Block Number" name="requestType" required  ng-model="ethRequest" class="form-control"><br>
-              </div>
-              <button type="submit" class="btn btn-success">Search</button></form>
-            </ul>
 
-	    </div>
+<nav class="navbar navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <span class="icon-bar"></span><a class="navbar-brand" href="/#/">U Network</a>
     </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav">
+        <form class="navbar-form navbar-left" name="search_form" ng-controller="navbarCtrl"
+              ng-submit="navSearchProcessRequest()">
+          <div class="form-group">
+            <input class="form-control" name="requestType" ng-model="ethRequest" placeholder="Tx Hash / Address / Block Number"
+                   required type="text"><br>
+          </div>
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </ul>
+
+    </div>
+  </div>
 </nav>
 
 
-
-  <div ng-view></div>
+<div ng-view></div>
 
 <!--Libs-->
-  <script src="styles/angular1.4.5.min.js"></script>
-  <script src="styles/angular-cookies1.4.5.min.js"></script>
-  <script src="styles/ui-bootstrap.min.js"></script>
-  <script src="styles/angular-route.min.js"></script>
-  <script src="styles/jquery.min.js"></script>
-  <script src="styles/jquery.cookie.min.js"></script>
-  <script src="styles/bootstrap.min.js"></script>
+<script src="styles/angular1.4.5.min.js"></script>
+<script src="styles/angular-cookies1.4.5.min.js"></script>
+<script src="styles/ui-bootstrap.min.js"></script>
+<script src="styles/angular-route.min.js"></script>
+<script src="styles/jquery.min.js"></script>
+<script src="styles/jquery.cookie.min.js"></script>
+<script src="styles/bootstrap.min.js"></script>
 
 <!--Core-->
-  <script src="app.js"></script>
+<script src="app.js"></script>
 
 <!--Controllers-->
-  <script src="scripts/controllers/navbarController.js"></script>
-  <script src="scripts/controllers/mainController.js"></script>
-  <script src="scripts/controllers/addressInfoController.js"></script>
-  <script src="scripts/controllers/blockInfosController.js"></script>
-  <script src="scripts/controllers/transactionInfosController.js"></script>
-  <script src="scripts/controllers/myWalletHomeController.js"></script>
-  <script src="scripts/controllers/createNewWalletController.js"></script>
-  <script src="scripts/controllers/rapidDeploymentController.js"></script>
-  <script src="scripts/controllers/recordwordsController.js"></script>
-  <script src="scripts/controllers/tubeController.js"></script>
-  <script src="scripts/controllers/proposalController.js"></script>
-  <script src="scripts/controllers/articlebuyController.js"></script>
-  <script src="scripts/controllers/ipfsuploadController.js"></script>
+<script src="scripts/controllers/navbarController.js"></script>
+<script src="scripts/controllers/mainController.js"></script>
+<script src="scripts/controllers/addressInfoController.js"></script>
+<script src="scripts/controllers/blockInfosController.js"></script>
+<script src="scripts/controllers/transactionInfosController.js"></script>
+<script src="scripts/controllers/myWalletHomeController.js"></script>
+<script src="scripts/controllers/createNewWalletController.js"></script>
+<script src="scripts/controllers/rapidDeploymentController.js"></script>
+<script src="scripts/controllers/recordwordsController.js"></script>
+<script src="scripts/controllers/tubeController.js"></script>
+<script src="scripts/controllers/proposalController.js"></script>
+<script src="scripts/controllers/articlebuyController.js"></script>
+<script src="scripts/controllers/ipfsuploadController.js"></script>
 
 <!--Services-->
-  <div id="connectwarning" class="modal fade" role="dialog">
-      <div class="modal-dialog">
+<div class="modal fade" id="connectwarning" role="dialog">
+  <div class="modal-dialog">
 
-          <!-- Modal content-->
-          <div class="modal-content">
-              <center><div class="modal-header">
-                  <h4 class="modal-title">Allow Access to UNetwork and Refresh the Page</h4>
-              </div>
-              <div class="modal-body">
-                  <code><p id="modaltext"></p></code>
-              </div></center>
-          </div>
-      </div>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <center>
+        <div class="modal-header">
+          <h4 class="modal-title">Allow Access to UNetwork and Refresh the Page</h4>
+        </div>
+        <div class="modal-body">
+          <code><p id="modaltext"></p></code>
+        </div>
+      </center>
+    </div>
   </div>
+</div>
 
 
-  <div class="footer">
-      <footer>
-          <hr>
-          <p>
-              © U Network 2018 - 2019
-          </p>
-      </footer>
-  </div>
-  <script>
-    $("#modaltext").text( 'unetwork node start --ethparam "--rpc --rpccorsdomain '+ window.location.protocol + '//' + window.location.host + '"' );
-  </script>
+<div class="footer">
+  <footer>
+    <hr>
+    <p>
+      © U Network 2018 - 2019
+    </p>
+  </footer>
+</div>
+<script>
+  $("#modaltext").text('unetwork node start --ethparam "--rpc --rpccorsdomain ' + window.location.protocol + '//' + window.location.host + '"');
+</script>
 </body>
 </html>
