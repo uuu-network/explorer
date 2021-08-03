@@ -2,25 +2,25 @@ const fs = require('fs')
 
 
 // blocks data cache
-var BLOCK_BROWSE_CACHE = {}
+let BLOCK_BROWSE_CACHE = {};
 setInterval(function () {
   BLOCK_BROWSE_CACHE = {}
 }, 6000)
 
 
 // transactions data load
-var TRS_BROWSE_CACHE = []
+const TRS_BROWSE_CACHE = [];
 
 function trsdbfile(name) {
   return './diskdb/dtrs/' + name + '.json'
 }
 
-var TRS_LATEST_CACHE = JSON.parse(fs.readFileSync(trsdbfile('temp')))
-var dtrsconfig = JSON.parse(fs.readFileSync(trsdbfile('head')))
+let TRS_LATEST_CACHE = JSON.parse(fs.readFileSync(trsdbfile('temp')));
+const dtrsconfig = JSON.parse(fs.readFileSync(trsdbfile('head')));
 dtrsconfig.page = dtrsconfig.page || 0
 dtrsconfig.limit = dtrsconfig.limit || 20
 dtrsconfig.lastbid = dtrsconfig.lastbid || 0
-var ethtrsreading = false
+let ethtrsreading = false;
 setInterval(function () {
   // read trs
   readTrsFromEth().then()
@@ -28,11 +28,11 @@ setInterval(function () {
     return // wait
   }
   // store
-  var len = TRS_LATEST_CACHE.length
+  const len = TRS_LATEST_CACHE.length
     , lmt = dtrsconfig.limit
-    , pg = dtrsconfig.page + 1
+    , pg = dtrsconfig.page + 1;
   if (len >= lmt) {
-    var stores = TRS_LATEST_CACHE.splice(len - lmt, lmt)
+    const stores = TRS_LATEST_CACHE.splice(len - lmt, lmt);
     fs.writeFile(trsdbfile(pg), JSON.stringify(stores), function (err) {
       if (err) { // reset
         TRS_LATEST_CACHE = TRS_LATEST_CACHE.concat(stores)
@@ -58,20 +58,20 @@ function flushTrsFile(name, data) {
 async function readTrsFromEth() {
   ethtrsreading = true
   flushTrsTemp()
-  var num = dtrsconfig.lastbid
+  const num = dtrsconfig.lastbid;
   const lastnumber = await web3.eth.getBlockNumber()
-  if (num == lastnumber) {
+  if (num === lastnumber) {
     return ethtrsreading = false
   }
-  for (var idx = num + 1; idx <= lastnumber; idx++) {
+  for (let idx = num + 1; idx <= lastnumber; idx++) {
     const trscount = await web3.eth.getBlockTransactionCount(idx)
-    if (trscount == 0) {
+    if (trscount === 0) {
       continue
     }
     const blockobj = await web3.eth.getBlock(idx, true);
-    for (var i in blockobj.transactions) {
+    for (const i in blockobj.transactions) {
       // console.log('transactions count', blockobj.transactions.length)
-      var one = blockobj.transactions[i]
+      const one = blockobj.transactions[i];
       TRS_LATEST_CACHE.unshift({
         blockNumber: one.blockNumber,
         hash: one.hash,
@@ -86,7 +86,7 @@ async function readTrsFromEth() {
 
   function flushTrsTemp() {
     // console.log('pagestore count', pagestore.length)
-    if (TRS_LATEST_CACHE.length == dtrsconfig.limit) {
+    if (TRS_LATEST_CACHE.length === dtrsconfig.limit) {
       // console.log('flushTrsFile transactions', pagestore.length)
       dtrsconfig.page++
       flushTrsFile(dtrsconfig.page, TRS_LATEST_CACHE)
@@ -120,18 +120,18 @@ module.exports = ($scope) => {
   return {
 
     transactions: async function (query, cb) {
-      var page = query.page || 1
-      var dataresults = []
+      const page = query.page || 1;
+      let dataresults = [];
       if (page <= dtrsconfig.page) {
-        var dbpage = dtrsconfig.page - page + 1 // 倒序
+        const dbpage = dtrsconfig.page - page + 1; // 倒序
         // check cache
-        for (var i in TRS_BROWSE_CACHE) {
-          if (TRS_BROWSE_CACHE[i].dbpage == 'p' + dbpage) {
+        for (const i in TRS_BROWSE_CACHE) {
+          if (TRS_BROWSE_CACHE[i].dbpage === 'p' + dbpage) {
             dataresults = TRS_BROWSE_CACHE[i].datas
             // 置顶
             // console.log('TRS_BROWSE_CACHE===================')
             // console.log(TRS_BROWSE_CACHE)
-            var pop = TRS_BROWSE_CACHE.splice(i, 1)
+            const pop = TRS_BROWSE_CACHE.splice(i, 1);
             TRS_BROWSE_CACHE.unshift(pop[0])
             // console.log(TRS_BROWSE_CACHE)
             return render()
@@ -156,14 +156,14 @@ module.exports = ($scope) => {
       }
 
       function render() {
-        var datas = []
-        if (page == 1) {
+        let datas;
+        if (page === 1) {
           datas = TRS_LATEST_CACHE.concat(dataresults)
         } else {
           datas = dataresults
         }
-        for (var i in datas) {
-          var one = datas[i]
+        for (const i in datas) {
+          const one = datas[i];
           one.timeshow = new Date(1000 * one.timestamp).toLocaleString()
           one.uuu = web3.utils.fromWei(one.value, 'ether')
         }
@@ -176,12 +176,12 @@ module.exports = ($scope) => {
     },
 
     blocks: async function (query, cb) {
-      var limit = query.limit || 20
+      let limit = query.limit || 20;
       if (limit > 100) {
         limit = 100
       }
-      var page = query.page || 1
-      var cachekey = page + '_' + limit
+      const page = query.page || 1;
+      const cachekey = page + '_' + limit;
       if (BLOCK_BROWSE_CACHE[cachekey]) {
         return cb(null, BLOCK_BROWSE_CACHE[cachekey]);
       }
@@ -190,8 +190,8 @@ module.exports = ($scope) => {
       // console.log(lastblocknumber)
 
       const resultdata = []
-      for (var i = 0; i < limit && i < blockNum; i++) {
-        var one = await web3.eth.getBlock(blockNum - i);
+      for (let i = 0; i < limit && i < blockNum; i++) {
+        const one = await web3.eth.getBlock(blockNum - i);
         // console.log(one)
         if (one) {
           resultdata.push({
@@ -204,10 +204,10 @@ module.exports = ($scope) => {
           });
         }
       }
-      var result = BLOCK_BROWSE_CACHE[cachekey] = {
+      const result = BLOCK_BROWSE_CACHE[cachekey] = {
         lastblocknumber: lastblocknumber,
         datas: resultdata,
-      }
+      };
       return cb(null, result);
 
     }
