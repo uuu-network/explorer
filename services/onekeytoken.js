@@ -14,11 +14,11 @@ module.exports = ($scope) => {
         return cb({err: 3, msg: 'query "contractAddress", "to" and "amount" is must'})
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
       if (!accobj) return
 
       try {
-        var rsContract = new web3.eth.Contract(oneKeyTokenContractAbi, query.contractAddress)
+        const rsContract = new web3.eth.Contract(oneKeyTokenContractAbi, query.contractAddress);
         // console.log(rsContract)
         rsContract.methods.transfer(query.to, web3.utils.toWei(query.amount, 'ether'))
           .send({
@@ -47,19 +47,19 @@ module.exports = ($scope) => {
         return cb({err: 3, msg: 'query "contractAddress" is must'})
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
       if (!accobj) return
 
       async function promise() {
         try {
-          var balance = await getTokenBalanceOf(web3, accobj.address, query.contractAddress)
-          var tkobj = db.onekeytokenmines.findOne({contractAddress: query.contractAddress})
-          var isminetk = tkobj.address === accobj.address
+          const balance = await getTokenBalanceOf(web3, accobj.address, query.contractAddress);
+          const tkobj = db.onekeytokenmines.findOne({contractAddress: query.contractAddress});
+          const isminetk = tkobj.address === accobj.address;
           if (!isminetk) {
-            var mywlt = db.onekeytokenwallets.findOne({
+            const mywlt = db.onekeytokenwallets.findOne({
               address: accobj.address,
               contractAddress: query.contractAddress,
-            })
+            });
             if (!mywlt) {
               db.onekeytokenwallets.save({
                 address: accobj.address,
@@ -83,14 +83,14 @@ module.exports = ($scope) => {
 
     wallets: async function (query, cb, req) {
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
       if (!accobj) return
 
       async function promise() {
-        var wallets = db.onekeytokenwallets.find({address: accobj.address});
-        var results = await getTokensBalances(web3, wallets, accobj.address, (one) => {
+        const wallets = db.onekeytokenwallets.find({address: accobj.address});
+        const results = await getTokensBalances(web3, wallets, accobj.address, (one) => {
           db.onekeytokenwallets.remove({address: accobj.address, contractAddress: one.contractAddress,});
-        })
+        });
         cb(null, {datas: results})
       }
 
@@ -100,15 +100,15 @@ module.exports = ($scope) => {
 
     mines: function (query, cb, req) {
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
       if (!accobj) return
 
       async function promise() {
-        var mines = db.onekeytokenmines.find({address: accobj.address});
-        var results = await getTokensBalances(web3, mines, accobj.address, (one) => {
+        const mines = db.onekeytokenmines.find({address: accobj.address});
+        const results = await getTokensBalances(web3, mines, accobj.address, (one) => {
           // db.onekeytokenmines.remove({address: accobj.address, contractAddress: one.contractAddress, });
           db.onekeytokenwallets.remove({address: accobj.address, contractAddress: one.contractAddress,});
-        })
+        });
 
         if (mines) {
           cb(null, {datas: results})
@@ -123,7 +123,7 @@ module.exports = ($scope) => {
 
     generate: async function (query, cb, req) {
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
       if (!accobj) return
 
       if (!query.symbol || !query.name || !query.total) {
@@ -142,7 +142,7 @@ module.exports = ($scope) => {
         return cb({err: 3, msg: 'name is too long'})
       }
 
-      var rsContract = new web3.eth.Contract(oneKeyTokenContractAbi)
+      const rsContract = new web3.eth.Contract(oneKeyTokenContractAbi);
 
       rsContract.deploy({
         data: oneKeyTokenContractData,	//已0x开头
@@ -211,9 +211,9 @@ function getTokensBalances(web3, rows, address, errcb) {
     }
     const balances = []
     for (const i in rows) {
-      var one = rows[i]
+      const one = rows[i];
       try {
-        var balance = await getTokenBalanceOf(web3, address, one.contractAddress)
+        const balance = await getTokenBalanceOf(web3, address, one.contractAddress);
         balances.push({'balance': balance, 'symbol': one.symbol, 'contractAddress': one.contractAddress,})
       } catch (e) {
         errcb(one, e)
@@ -230,7 +230,7 @@ function getTokenBalanceOf(web3, address, contractAddress) {
   return new Promise((success, error) => {
 
     try {
-      var rsContract = new web3.eth.Contract(oneKeyTokenContractAbi, contractAddress)
+      const rsContract = new web3.eth.Contract(oneKeyTokenContractAbi, contractAddress);
       rsContract.methods.balanceOf(address).call({
         gas: 1500000,
         gasPrice: '0',

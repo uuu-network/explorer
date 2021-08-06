@@ -1,10 +1,10 @@
 const mkdirp = require("mkdirp");
 const fs = require("fs");
 
-var exec = require('child_process').execSync;
+const exec = require('child_process').execSync;
 
 
-var istest = false;
+const istest = false;
 
 module.exports = ($scope) => {
 //   web3 = $scope.web3

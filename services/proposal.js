@@ -2,8 +2,8 @@ const CONST = require('./const.js')
 const db = require('../diskdb.js')
 const crypto = require('crypto')
 
-var sd = require('silly-datetime');
-var time = sd.format(new Date())
+const sd = require('silly-datetime');
+const time = sd.format(new Date());
 
 
 module.exports = ($scope) => {
@@ -14,15 +14,13 @@ module.exports = ($scope) => {
     propose: function (query, cb, req) {
 
       function propose() {
-        var rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress)
-        // console.log(rsContract)
+        const rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress);
+        const startTimeDate = new Date(query.proposalStartTime);
+        const startTime = startTimeDate.getTime() / 1000 + 60 * 60 * 7;
 
-        var startTimeDate = new Date(query.proposalStartTime)
-        var startTime = startTimeDate.getTime() / 1000 + 60 * 60 * 7
-
-        var endTimeDate = new Date(query.proposalEndTime)
-        var endTime = endTimeDate.getTime() / 1000 + 60 * 60 * 7
-        var duration = endTime - startTime
+        const endTimeDate = new Date(query.proposalEndTime);
+        const endTime = endTimeDate.getTime() / 1000 + 60 * 60 * 7;
+        const duration = endTime - startTime;
 
         if (startTime < Date.now() / 1000 + 10) {
           return cb({err: 6, msg: "The start time of this proposal has passed."})
@@ -31,20 +29,12 @@ module.exports = ($scope) => {
           return cb({err: 7, msg: "The duration of this proposal is too long."})
         }
 
-        var md5 = crypto.createHash('md5')
-        var _proposalHash = '0x' + md5.update(query.proposalDetail, 'utf8').digest('hex')
-        var proposalobjs = db.proposals.find({proposalHash: _proposalHash})
-        console.log(_proposalHash)
-//        console.log(proposalobjs)
-//        var proposalobj = new Array();
+        const md5 = crypto.createHash('md5');
+        const _proposalHash = '0x' + md5.update(query.proposalDetail, 'utf8').digest('hex');
+        const proposalobjs = db.proposals.find({proposalHash: _proposalHash});
         if (proposalobjs.length) {
           return cb({err: 8, msg: "This proposal has already been proposed."})
         }
-        //        console.log(proposalHash)
-        // console.log(_proposalHash)
-        //        var proposalHash = web3.utils.fromDecimal(query.proposalHash)
-//        var hex = stringtohex
-//        console.log(_proposalHash)
         rsContract.methods.propose(_proposalHash, startTime, duration)
           .send({
             from: accobj.address,
@@ -68,12 +58,11 @@ module.exports = ($scope) => {
               proposalDuration: duration,
               proposalHash: _proposalHash,
             })
-            //console.log()
             cb(null, {status: 'ok', trshash: value})
           })
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb)
       if (!accobj) return
       try {
         propose();
@@ -85,10 +74,8 @@ module.exports = ($scope) => {
     vote: function (query, cb, req) {
 
       function vote() {
-        var rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress)
-        // console.log(rsContract)
-        var voteOption = parseInt(query.voteOption)
-        console.log(query.proposalHash)
+        const rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress);
+        const voteOption = parseInt(query.voteOption);
         rsContract.methods.vote(query.proposalHash, voteOption)
           .send({
             from: accobj.address,
@@ -103,7 +90,7 @@ module.exports = ($scope) => {
           })
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb)
       if (!accobj) return
       try {
         vote();
@@ -114,8 +101,6 @@ module.exports = ($scope) => {
 
     deposit: function (query, cb, req) {
       function deposit() {
-//        var rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress)
-//        var _value = parseInt(query.value)
         web3.eth.sendTransaction({
           from: accobj.address,
           to: contractAddress,
@@ -131,7 +116,7 @@ module.exports = ($scope) => {
         })
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb)
       if (!accobj) return
       try {
         deposit();
@@ -142,10 +127,7 @@ module.exports = ($scope) => {
 
     withdraw: function (query, cb, req) {
       function withdraw() {
-        var rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress)
-//        var _value = parseInt(query.value)
-        console.log(query.value)
-        console.log(web3.utils.toWei(query.value, 'ether'))
+        const rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress);
         rsContract.methods.withdraw(web3.utils.toWei(query.value, 'ether'))
           .send({
             from: accobj.address,
@@ -160,7 +142,7 @@ module.exports = ($scope) => {
           })
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb)
       if (!accobj) return
       try {
         withdraw();
@@ -171,10 +153,8 @@ module.exports = ($scope) => {
 
     voteResults: function (query, cb, req) {
       function voteResults() {
-        var rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress)
+        const rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress);
 //        var proposalHash = web3.utils.fromDecimal(query.proposalHash)
-        console.log(123213123)
-        console.log()
         rsContract.methods.results(query.proposalHash, query.voteOption)
           .call({
             chainId: 5816,
@@ -186,7 +166,7 @@ module.exports = ($scope) => {
           })
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb)
       if (!accobj) return
       try {
         voteResults();
@@ -197,24 +177,19 @@ module.exports = ($scope) => {
 
     depositsOf: function (query, cb, req) {
       function depositsOf(userobj) {
-
-        console.log(userobj.address)
-        var rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress)
-//        var proposalHash = web3.utils.fromDecimal(query.proposalHash)
+        const rsContract = new web3.eth.Contract(proposalContractAbi, contractAddress)
         rsContract.methods.depositsOf(userobj.address)
           .call({
             chainId: 5816,
           }, (err, value) => {
-            console.log(value, userobj.address)
             if (err) {
               return cb({err: 5, msg: err})
             }
-            console.log(value)
             cb(null, {status: 'ok', votes: web3.utils.fromWei(value, 'ether')})
           })
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb)
       if (!accobj) return
       try {
         depositsOf(accobj);
@@ -225,15 +200,14 @@ module.exports = ($scope) => {
 
     getActiveProposal: function (query, cb, req) {
       function getActiveProposal() {
-        var proposalobjs = db.proposals.find()
-        var proposalobj = [];
-        for (var _i in proposalobjs) {
-          var proposal = proposalobjs[_i]
-          console.log(proposal)
-          console.log(Date.now())
-          var startTime = new Date(proposal.proposalStartTime)
+        let startTime;
+        const proposalobjs = db.proposals.find();
+        const proposalobj = [];
+        for (const _i in proposalobjs) {
+          const proposal = proposalobjs[_i];
+          startTime = new Date(proposal.proposalStartTime);
           startTime = startTime.getTime() / 1000 + 60 * 60 * 7
-          var endTime = new Date(proposal.proposalEndTime)
+          let endTime = new Date(proposal.proposalEndTime);
           endTime = endTime.getTime() / 1000 + 60 * 60 * 7
 
           if (startTime <= Date.now() / 1000
@@ -241,9 +215,6 @@ module.exports = ($scope) => {
             proposalobj.push(proposal)
           }
         }
-        console.log(startTime)
-        console.log(proposalobjs)
-        console.log(proposalobj)
         cb(null, {datas: proposalobj})
       }
 
@@ -256,23 +227,17 @@ module.exports = ($scope) => {
 
     getLeaderBoard: function (query, cb, req) {
       function getLeaderBoard() {
-        var proposalobjs = db.proposals.find()
-        var proposalobj = [];
-//        console.log(proposalobjs)
-        for (var _i in proposalobjs) {
-          var proposal = proposalobjs[_i]
+        const proposalobjs = db.proposals.find();
+        const proposalobj = [];
+        for (const _i in proposalobjs) {
+          const proposal = proposalobjs[_i];
 
-          var endTime = new Date(proposal.proposalEndTime)
+          let endTime = new Date(proposal.proposalEndTime);
           endTime = endTime.getTime() / 1000 + 60 * 60 * 7
-//          console.log(proposal.proposalEndTime, endTime)
           if (endTime <= Date.now() / 1000) {
-            // console.log(proposal)
-            // console.log(_i, endTime, Date.now()/1000)
             proposalobj.push(proposal)
           }
         }
-//        console.log(proposalobjs)
-//        console.log(proposalobj)
         cb(null, {datas: proposalobj})
       }
 
