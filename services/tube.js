@@ -11,7 +11,7 @@ module.exports = ($scope) => {
     obtain: function (query, cb, req) {
 
       function getCoin(address) {
-        var rsContract = new web3.eth.Contract(tubeContractAbi, contractAddress)
+        const rsContract = new web3.eth.Contract(tubeContractAbi, contractAddress);
         // console.log(rsContract)
         rsContract.methods.getCoin(address)
           .send({
@@ -29,7 +29,7 @@ module.exports = ($scope) => {
           })
       }
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb)
       if (!accobj) return
       try {
         getCoin(accobj.address);

@@ -15,11 +15,11 @@ module.exports = ($scope) => {
           return cb({err: 2, msg: "to, amount is required"});
         }
       }
-      var address = CONST.checkLogin(req)
+      const address = CONST.checkLogin(req);
       if (!address) {
         return cb({err: 1, msg: 'you must login first'});
       }
-      var accobj = web3.eth.accounts.wallet[address]
+      const accobj = web3.eth.accounts.wallet[address];
       if (!accobj) {
         return cb({err: 1, msg: 'you must login first'});
       }
@@ -37,13 +37,13 @@ module.exports = ($scope) => {
       // web3.eth.net.getId().then(console.log);
       console.log(txraw)*/
 
-      var inputData
-        , appendGas = 0
+      let inputData
+        , appendGas = 0;
       query.input = query.recordWords || query.recordIPFSAddress || query.input
       if (query.input) {
         inputData = '0x' + new Buffer(query.input).toString('hex')
-        var len = inputData.length
-          , segnum = parseInt(len / 1000) + 1
+        const len = inputData.length
+          , segnum = parseInt(len / 1000) + 1;
         appendGas = 150 + segnum * 102222
         if (query.recordWords) {
           query.amount = web3.utils.toWei(segnum + '')

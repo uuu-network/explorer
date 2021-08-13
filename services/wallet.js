@@ -49,7 +49,7 @@ module.exports = ($scope) => {
   return {
 
     logout: function (query, cb, req, res) {
-      var address = CONST.checkLogin(req)
+      const address = CONST.checkLogin(req);
       if (!address) {
         return cb();
       }
@@ -59,7 +59,7 @@ module.exports = ($scope) => {
     },
 
     checkLogin: function (query, cb, req, res) {
-      var address = CONST.checkLogin(req)
+      const address = CONST.checkLogin(req);
       if (!address || !web3.eth.accounts.wallet[address]) {
         return cb({err: 1, msg: 'you must login first'});
       }
@@ -88,7 +88,7 @@ module.exports = ($scope) => {
       if (!query.files) {
         return cb({err: 2, msg: 'Keystore file upload fail'})
       }
-      var fileobj = query.files.keystore
+      const fileobj = query.files.keystore;
       if (!fileobj) {
         return cb({err: 2, msg: 'Keystore file upload fail'})
       }
@@ -97,13 +97,13 @@ module.exports = ($scope) => {
         if (err) {
           return cb({err: 2, msg: 'Keystore file upload fail'})
         }
-        var keyobj
+        let keyobj;
         try {
           keyobj = JSON.parse(con)
         } catch (e) {
           return cb({err: 2, msg: 'Keystore file format error'})
         }
-        var accobj
+        let accobj;
         try {
           accobj = web3.eth.accounts.decrypt(keyobj, query.password)
         } catch (e) {

@@ -1,6 +1,6 @@
-var solc = require('../libraries/solc')
+const solc = require('../libraries/solc');
 
-var util = require('util')
+const util = require('util');
 
 
 const db = require('../diskdb.js')
@@ -20,14 +20,14 @@ module.exports = ($scope) => {
 
     logs: function (query, cb, req) {
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
       if (!accobj) return
 
-      var logs = db.rapiddeploycontractlogs.find({address: accobj.address});
+      const logs = db.rapiddeploycontractlogs.find({address: accobj.address});
 
-      var datas = []
+      const datas = [];
       if (logs && logs.length) {
-        var one = logs.pop()
+        let one = logs.pop();
         while (one) {
           datas.push(one)
           one = logs.pop()
@@ -41,11 +41,11 @@ module.exports = ($scope) => {
 
     deploy: function (query, cb, req) {
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
       if (!accobj) return
 
-      var ABI = []
-      var argumentary = []
+      let ABI = [];
+      let argumentary = [];
       try {
         ABI = JSON.parse(query.contractAbi)
         argumentary = JSON.parse(query.contractArguments)
@@ -54,9 +54,9 @@ module.exports = ($scope) => {
       }
       // console.log(query)
 
-      var trsHash = ''
+      let trsHash = '';
 
-      var rsContract = new web3.eth.Contract(ABI)
+      const rsContract = new web3.eth.Contract(ABI);
 
       rsContract.deploy({
         data: query.contractByteCode,	//已0x开头
@@ -119,13 +119,13 @@ module.exports = ($scope) => {
 
 
     compile: function (query, cb, req) {
-      var fileName = query.fileName
-      var contractName = query.contractName
-      var sources = {}
+      const fileName = query.fileName;
+      const contractName = query.contractName;
+      const sources = {};
       sources[fileName] = {
         content: query.sourceCode
       }
-      var input = {
+      const input = {
         'language': 'Solidity',
         sources,
         settings: {
@@ -135,7 +135,7 @@ module.exports = ($scope) => {
             }
           }
         }
-      }
+      };
       /*
               var output = JSON.parse(solc.compile(JSON.stringify(input)))
 
@@ -147,10 +147,10 @@ module.exports = ($scope) => {
       */
 
       try {
-        var output = JSON.parse(solc.compile(JSON.stringify(input)))
+        const output = JSON.parse(solc.compile(JSON.stringify(input)));
 
         // `output` here contains the JSON output as specified in the documentation
-        for (var _contractName in output.contracts[fileName]) {
+        for (const _contractName in output.contracts[fileName]) {
           // console.log(_contractName + ': ' + output.contracts[fileName][_contractName].evm.bytecode.object)
           // console.log(output.contracts[fileName][_contractName].abi)
         }

@@ -9,13 +9,13 @@ module.exports = ($scope) => {
 
     generate: function (query, cb, req) {
 
-      var accobj = CONST.checkLoginForApi(web3, req, cb)
+      const accobj = CONST.checkLoginForApi(web3, req, cb);
 
-      var rsContrat = new web3.eth.Contract(questionariesContractAbi)
+      const rsContrat = new web3.eth.Contract(questionariesContractAbi);
 
 
-      var _attributes = [3, 0, 9, 2, 3, 4]
-      var _certification = 'test'
+      const _attributes = [3, 0, 9, 2, 3, 4];
+      const _certification = 'test';
 //      _attributes = makeArray(query)
 
       console.log('the accobj is : ', accobj)
