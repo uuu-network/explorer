@@ -1,13 +1,13 @@
 angular.module('unetworkExplorer')
   .controller('articlebuyCtrl', function ($rootScope, $scope, $http, $location, $sce) {
 
-    var web3 = $rootScope.web3
+    const web3 = $rootScope.web3;
 
-    var $list = $('#list')
+    const $list = $('#list');
 
-    var $post = $('#post')
-    var $lockcv = $('.lockcv')
-    var $lockbox = $('.box')
+    const $post = $('#post');
+    const $lockcv = $('.lockcv');
+    const $lockbox = $('.box');
 
     $list.find('.i1').click(function () {
       $post.show()
@@ -17,7 +17,7 @@ angular.module('unetworkExplorer')
     $lockbox.click(function () {
 
       // 0x22a0b3688dd46ab1a37d6237871913037681d57f628862336bc9c3c468c4a449
-      var pass = confirm("Confirm the transaction?")
+      const pass = confirm("Confirm the transaction?");
       if (!pass) {
         return
       }
