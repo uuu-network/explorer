@@ -11,7 +11,7 @@ angular.module('unetworkExplorer')
 
         getBlockInfos()
           .then(function (result) {
-            var number = web3.eth.blockNumber;
+            const number = web3.eth.blockNumber;
 
             $scope.result = result;
 
@@ -45,9 +45,9 @@ angular.module('unetworkExplorer')
               }
             }
             if ($scope.blockNumber !== undefined) {
-              var info = web3.eth.getBlock($scope.blockNumber);
+              const info = web3.eth.getBlock($scope.blockNumber);
               if (info !== undefined) {
-                var newDate = new Date();
+                const newDate = new Date();
                 newDate.setTime(info.timestamp * 1000);
                 $scope.time = newDate.toUTCString();
               }
@@ -62,7 +62,7 @@ angular.module('unetworkExplorer')
 
 
       function getBlockInfos() {
-        var deferred = $q.defer();
+        const deferred = $q.defer();
 
         web3.eth.getBlock($scope.blockId, function (error, result) {
           if (!error) {
@@ -82,12 +82,10 @@ angular.module('unetworkExplorer')
     // parse transactions
     $scope.transactions = []
     web3.eth.getBlockTransactionCount($scope.blockId, function (error, result) {
-      var txCount = result
-
-      for (var blockIdx = 0; blockIdx < txCount; blockIdx++) {
+      for (let blockIdx = 0; blockIdx < result; blockIdx++) {
         web3.eth.getTransactionFromBlock($scope.blockId, blockIdx, function (error, result) {
 
-          var transaction = {
+          const transaction = {
             id: result.hash,
             hash: result.hash,
             from: result.from,
@@ -95,7 +93,7 @@ angular.module('unetworkExplorer')
             gas: result.gas,
             input: result.input,
             value: result.value
-          }
+          };
           $scope.$apply(
             $scope.transactions.push(transaction)
           )
@@ -105,9 +103,9 @@ angular.module('unetworkExplorer')
 
 
     function hex2a(hexx) {
-      var hex = hexx.toString();//force conversion
-      var str = '';
-      for (var i = 0; i < hex.length; i += 2)
+      const hex = hexx.toString();//force conversion
+      let str = '';
+      for (let i = 0; i < hex.length; i += 2)
         str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
       return str;
     }

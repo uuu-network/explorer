@@ -15,7 +15,7 @@ angular.module('unetworkExplorer')
 
 
     $scope.submitCreateWallet = function () {
-      var passwd = $scope.passwd;
+      const passwd = $scope.passwd;
       if (!passwd || passwd.length < 8) {
         return alert('input at least 8 characters')
       }
