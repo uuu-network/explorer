@@ -15,12 +15,12 @@ angular.module('unetworkExplorer')
   //   })
   .controller('ipfsuploadCtrl', function ($rootScope, $scope, $http, $location) {
 
-    var ipfs_ref_name = ""
+    let ipfs_ref_name = "";
 
     // Upload Keystore File
-    var keystorefileinput = $('#upipfsfile').get(0)
+    const keystorefileinput = $('#upipfsfile').get(0);
     keystorefileinput.onchange = () => {
-      var v = keystorefileinput.files[0]
+      const v = keystorefileinput.files[0];
       // console.log(v)
       $('#fileshow').val(v.name)
     }
@@ -35,14 +35,14 @@ angular.module('unetworkExplorer')
 
     $scope.submitUpload = function () {
 
-      var fileobj = $scope.upload_file
+      const fileobj = $scope.upload_file;
       if (!fileobj) {
         return alert('must select target file.')
       }
       tmp_file = document.getElementById("upipfsfile").files[0];
       // console.log(fileobj)
       // console.log(tmp_file)
-      var fd = new FormData();
+      const fd = new FormData();
       fd.append('module', 'ipfsupload');
       fd.append('action', 'uploadfile');
       fd.append('file', tmp_file);
@@ -55,11 +55,11 @@ angular.module('unetworkExplorer')
         data: fd,
         //transformRequest: angular.identity,
         transformRequest: function (data, headersGetter) {
-          var formData = new FormData();
+          const formData = new FormData();
           angular.forEach(data, function (value, key) {
             formData.append(key, value);
           });
-          var headers = headersGetter();
+          const headers = headersGetter();
           delete headers['Content-Type'];
           return formData;
         },
@@ -123,7 +123,7 @@ angular.module('unetworkExplorer')
         recordIPFSAddress: 'ipfs://' + ref_name, // 记录 ipfs 地址
       }, function (data, status) {
         if (data && data.result) {
-          var d = data.result
+          const d = data.result;
           if (d.err) {
             alert('Record IPFS Error: ' + d.msg)
             return
@@ -135,8 +135,7 @@ angular.module('unetworkExplorer')
           // /transaction/xxx
           $scope.$apply(function () {
             //   var url = location.protocol+'//'+location.host+'/transaction/'+d.trshash
-            var url = '/transaction/' + d.trshash
-            $scope.trsUrl = url
+            $scope.trsUrl = '/transaction/' + d.trshash
           })
         }
       })
