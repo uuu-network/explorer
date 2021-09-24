@@ -1,4 +1,4 @@
-var keccak = require('keccak');
+const keccak = require('keccak');
 
 function keccak256 (input) {
   return keccak('keccak256').update(input).digest();
@@ -8,19 +8,20 @@ function libraryHashPlaceholder (input) {
   return '$' + keccak256(input).toString('hex').slice(0, 34) + '$';
 }
 
-var linkBytecode = function (bytecode, libraries) {
-  // NOTE: for backwards compatibility support old compiler which didn't use file names
-  var librariesComplete = {};
-  for (var libraryName in libraries) {
+const linkBytecode = function (bytecode, libraries) {
+  let libraryName;
+// NOTE: for backwards compatibility support old compiler which didn't use file names
+  const librariesComplete = {};
+  for (libraryName in libraries) {
     if (typeof libraries[libraryName] === 'object') {
       // API compatible with the standard JSON i/o
-      for (var lib in libraries[libraryName]) {
+      for (const lib in libraries[libraryName]) {
         librariesComplete[lib] = libraries[libraryName][lib];
         librariesComplete[libraryName + ':' + lib] = libraries[libraryName][lib];
       }
     } else {
       // backwards compatible API for early solc-js versions
-      var parsed = libraryName.match(/^([^:]+):(.+)$/);
+      const parsed = libraryName.match(/^([^:]+):(.+)$/);
       if (parsed) {
         librariesComplete[parsed[2]] = libraries[libraryName];
       }
@@ -29,7 +30,7 @@ var linkBytecode = function (bytecode, libraries) {
   }
 
   for (libraryName in librariesComplete) {
-    var hexAddress = librariesComplete[libraryName];
+    let hexAddress = librariesComplete[libraryName];
     if (hexAddress.slice(0, 2) !== '0x' || hexAddress.length > 42) {
       throw new Error('Invalid address specified for ' + libraryName);
     }
@@ -39,10 +40,10 @@ var linkBytecode = function (bytecode, libraries) {
 
     // Support old (library name) and new (hash of library name)
     // placeholders.
-    var replace = function (name) {
+    const replace = function (name) {
       // truncate to 37 characters
-      var truncatedName = name.slice(0, 36);
-      var libLabel = '__' + truncatedName + Array(37 - truncatedName.length).join('_') + '__';
+      const truncatedName = name.slice(0, 36);
+      const libLabel = '__' + truncatedName + Array(37 - truncatedName.length).join('_') + '__';
       while (bytecode.indexOf(libLabel) >= 0) {
         bytecode = bytecode.replace(libLabel, hexAddress);
       }
@@ -55,21 +56,21 @@ var linkBytecode = function (bytecode, libraries) {
   return bytecode;
 };
 
-var findLinkReferences = function (bytecode) {
+const findLinkReferences = function (bytecode) {
   // find 40 bytes in the pattern of __...<36 digits>...__
   // e.g. __Lib.sol:L_____________________________
-  var linkReferences = {};
-  var offset = 0;
+  const linkReferences = {};
+  let offset = 0;
   while (true) {
-    var found = bytecode.match(/__(.{36})__/);
+    const found = bytecode.match(/__(.{36})__/);
     if (!found) {
       break;
     }
 
-    var start = found.index;
+    const start = found.index;
     // trim trailing underscores
     // NOTE: this has no way of knowing if the trailing underscore was part of the name
-    var libraryName = found[1].replace(/_+$/gm, '');
+    const libraryName = found[1].replace(/_+$/gm, '');
 
     if (!linkReferences[libraryName]) {
       linkReferences[libraryName] = [];
