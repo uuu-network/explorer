@@ -1,9 +1,9 @@
-var commandExistsSync = require('command-exists').sync;
-var execSync = require('child_process').execSync;
-var fs = require('fs-extra');
-var tmp = require('tmp');
+const commandExistsSync = require('command-exists').sync;
+const execSync = require('child_process').execSync;
+const fs = require('fs-extra');
+const tmp = require('tmp');
 
-var potentialSolvers = [
+const potentialSolvers = [
   {
     name: 'z3',
     params: ''
@@ -13,17 +13,17 @@ var potentialSolvers = [
     params: '--lang=smt2'
   }
 ];
-var solvers = potentialSolvers.filter(solver => commandExistsSync(solver.name));
+const solvers = potentialSolvers.filter(solver => commandExistsSync(solver.name));
 
 function solve (query) {
-  var tmpFile = tmp.fileSync();
+  const tmpFile = tmp.fileSync();
   fs.writeFileSync(tmpFile.name, query);
   // TODO For now only the first SMT solver found is used.
   // At some point a computation similar to the one done in
   // SMTPortfolio::check should be performed, where the results
   // given by different solvers are compared and an error is
   // reported if solvers disagree (i.e. SAT vs UNSAT).
-  var solverOutput = execSync(solvers[0].name + ' ' + solvers[0].params + ' ' + tmpFile.name);
+  const solverOutput = execSync(solvers[0].name + ' ' + solvers[0].params + ' ' + tmpFile.name);
   // Trigger early manual cleanup
   tmpFile.removeCallback();
   return solverOutput.toString();
@@ -35,12 +35,12 @@ function solve (query) {
 // another run.
 // Returns null if no solving is requested.
 function handleSMTQueries (inputJSON, outputJSON) {
-  var auxInputReq = outputJSON.auxiliaryInputRequested;
+  const auxInputReq = outputJSON.auxiliaryInputRequested;
   if (!auxInputReq) {
     return null;
   }
 
-  var queries = auxInputReq.smtlib2queries;
+  const queries = auxInputReq.smtlib2queries;
   if (!queries || Object.keys(queries) === 0) {
     return null;
   }
@@ -49,8 +49,8 @@ function handleSMTQueries (inputJSON, outputJSON) {
     throw new Error('No SMT solver available. Assertion checking will not be performed.');
   }
 
-  var responses = {};
-  for (var query in queries) {
+  const responses = {};
+  for (const query in queries) {
     responses[query] = solve(queries[query]);
   }
 
