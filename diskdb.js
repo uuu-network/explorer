@@ -1,4 +1,4 @@
-var db = require('diskdb');
+const db = require('diskdb');
 
 db.connect('./diskdb')
   .loadCollections([
