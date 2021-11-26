@@ -12,7 +12,6 @@ web3.eth.currentGasPrice = '10000000000'
 function updateCurrentGasPrice() {
   web3.eth.getGasPrice().then((price) => {
     web3.eth.currentGasPrice = price
-    // console.log(price)
   });
 }
 
@@ -22,4 +21,3 @@ updateCurrentGasPrice()
 module.exports = web3;
 
 
-//}).call(this);

@@ -16,7 +16,7 @@ angular.module('unetworkExplorer').controller('addressInfoCtrl', function ($root
           return cb(err);
         }
         return web3.eth.getTransactionCount($scope.addressId, function (err, transactions) {
-          var balanceInEther;
+          let balanceInEther;
           balanceInEther = web3.fromWei(balance, 'ether');
           return cb(null, {
             balance: balance,
@@ -30,7 +30,8 @@ angular.module('unetworkExplorer').controller('addressInfoCtrl', function ($root
   };
   return getAddressInfos(function (err, res) {
     if (err != null) {
-      return alert(err);
+      alert(err);
+      return;
     }
     console.log(res);
     return $scope.$apply(function () {
@@ -39,7 +40,9 @@ angular.module('unetworkExplorer').controller('addressInfoCtrl', function ($root
   });
 
   function importAll$(obj, src) {
-    for (const key in src) obj[key] = src[key];
+    for (const key in src) {
+      obj[key] = src[key];
+    }
     return obj;
   }
 
