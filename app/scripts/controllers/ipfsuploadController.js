@@ -13,7 +13,7 @@ angular.module('unetworkExplorer')
   //           }
   //       };
   //   })
-  .controller('ipfsuploadCtrl', function ($rootScope, $scope, $http, $location) {
+  .controller('ipfsuploadCtrl', function ($rootScope, $scope, $http) {
 
     let ipfs_ref_name = "";
 
@@ -121,7 +121,7 @@ angular.module('unetworkExplorer')
         module: 'transaction',
         action: 'sendCoin',
         recordIPFSAddress: 'ipfs://' + ref_name, // 记录 ipfs 地址
-      }, function (data, status) {
+      }, function (data) {
         if (data && data.result) {
           const d = data.result;
           if (d.err) {

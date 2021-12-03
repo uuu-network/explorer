@@ -1,7 +1,7 @@
 angular.module('unetworkExplorer')
   .controller('blockInfosCtrl', function ($rootScope, $scope, $location, $routeParams, $q) {
 
-    var web3 = $rootScope.web3;
+    const web3 = $rootScope.web3;
 
     $scope.init = function () {
 
