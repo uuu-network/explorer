@@ -30,7 +30,7 @@ angular.module('unetworkExplorer')
         page: pn,
       }, function (data, status) {
         $scope.$apply(function () {
-          var total = $scope.blockNum = data.result.lastblocknumber;
+          const total = $scope.blockNum = data.result.lastblocknumber;
           $scope.blocks = data.result.datas;
           pgblockset(pn, total)
         })
@@ -51,10 +51,10 @@ angular.module('unetworkExplorer')
         page: pn,
       }, function (data, status) {
         $scope.$apply(function () {
-          var total = data.result.total;
-          var limit = data.result.limit;
-          for (var i in data.result.datas) {
-            if (data.result.datas[i].hash == '0xe653283dcbfb35b7716b949baf62f5f3d1617cb6a7e2d4fc579a803f626752fc') {
+          const total = data.result.total;
+          const limit = data.result.limit;
+          for (const i in data.result.datas) {
+            if (data.result.datas[i].hash === '0xe653283dcbfb35b7716b949baf62f5f3d1617cb6a7e2d4fc579a803f626752fc') {
               data.result.datas[i].timestamp = '1577694048'
               data.result.datas[i].timeshow = '2019-12-30 16:20:48'
             }
@@ -75,7 +75,7 @@ angular.module('unetworkExplorer')
 
 // pgblock pgtrs
 function initPage(id, cachelimit, changecall) {
-  var nav = $('#' + id)
+  let nav = $('#' + id)
     , curp = 1
     , cachetotal = 1
     , cachepagenum = 1
@@ -84,18 +84,18 @@ function initPage(id, cachelimit, changecall) {
     return '<li p="' + p + '" ' + (isactive ? 'class="active"' : '') + '><a href="#">' + p + '</a></li>'
   }
     , prev = '<li p="p"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
-    , next = '<li p="n"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
+    , next = '<li p="n"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
   nav.html(item(1, true) + next)
   nav.on('click', 'li', function (e) {
-    var p = $(this).attr('p')
-      , pn = parseInt(p)
-    if (p == 'p' && curp > 1) {
+    let p = $(this).attr('p')
+      , pn = parseInt(p);
+    if (p === 'p' && curp > 1) {
       pn = curp - 1
     }
-    if (p == 'n' && curp < cachepagenum) {
+    if (p === 'n' && curp < cachepagenum) {
       pn = curp + 1
     }
-    if (pn != curp) {
+    if (pn !== curp) {
       reset(pn, cachetotal)
     }
   })
@@ -104,20 +104,19 @@ function initPage(id, cachelimit, changecall) {
     cachetotal = total
     cachelimit = limit || cachelimit
     cachepagenum = Math.ceil(total / cachelimit)
-    var hhh = ''
-      , start = pn - parseInt((rgs - 1) / 2);
+    let hhh = '', start = pn - parseInt((rgs - 1) / 2);
     start = start >= 1 ? start : 1;
-    var end = start + rgs;
+    let end = start + rgs;
     if (end + rgs > cachepagenum) {
       end = cachepagenum
       start = cachepagenum - rgs
     }
     start = start >= 1 ? start : 1;
-    for (var i = start; i < end; i++) {
-      hhh += item(i, i == pn)
+    for (let i = start; i < end; i++) {
+      hhh += item(i, i === pn)
     }
     nav.html((pn > 1 ? prev : '') + hhh + (pn < cachepagenum ? next : ''))
-    if (curp != pn) {
+    if (curp !== pn) {
       curp = pn
       changecall(pn)
     }
